@@ -1,0 +1,10 @@
+# grpc
+grpcio==1.14.1
+grpcio-tools==1.14.1
+
+# testing and documentation
+pytest>=3.4.0
+coverage>=4.5.1
+Sphinx>=1.7.0
+sphinxcontrib-napoleon>=0.6.1
+

@@ -1,0 +1,184 @@
+/**
+*   Definition of WPE's messages
+*
+*   Copyright:
+*       Copyright 2018 Wirepas Ltd. All Rights Reserved.
+*       See file LICENSE.txt for full license details.
+*/
+
+syntax = "proto2";
+
+import "wirepas_messaging/nanopb/nanopb.proto";
+import "wirepas_messaging/wpe/public.proto";
+
+option java_package = "com.wirepas.proto.wpe.private";
+option optimize_for = SPEED;
+option cc_enable_arenas = true;
+
+package wirepas.wpe.private;
+
+
+/**
+*   Core manager's service definition.
+*
+*   This service handles the location requests coming in from the network. It
+*   has a similar interface as the flow manager.
+*
+*
+*/
+service core_manager
+{
+
+    /// used to stop the service
+    rpc stop(wirepas.wpe.Query) returns (wirepas.wpe.Status);
+
+    /// used to query the status of the service
+    rpc status(wirepas.wpe.Query) returns (wirepas.wpe.Status);
+
+    /// receives an infrastructure message and caches the information
+    rpc locate(PositionReport) returns (PositionReport);
+
+    /// talks with the core to request a new positioning for the reporter
+    rpc configure(stream wirepas.wpe.ConfigurationData) returns (wirepas.wpe.Status);
+}
+
+
+
+/**
+*   Data manager's service definition.
+*
+*   This is a reference service able to read from one or multiple sources of
+*   data, such as databases and files.
+*
+*   You should consider extending this service if you want to build your own
+*   API wrapper and provide data into the flow manager.
+*/
+service data_manager
+{
+
+    /// used to stop the service
+    rpc stop(wirepas.wpe.Query) returns (wirepas.wpe.Status);
+
+    /// used to query the status of the service
+    rpc status(wirepas.wpe.Query) returns (wirepas.wpe.Status);
+
+    /// updates internal state
+    rpc configure(stream wirepas.wpe.ConfigurationData) returns (wirepas.wpe.Status);
+
+    /// retrieves infrasctructure data
+    rpc fetch(wirepas.wpe.Query) returns (wirepas.wpe.ConfigurationData);
+
+    // retrieves information for one or multiple nodes
+    rpc nodes(wirepas.wpe.Query) returns (stream wirepas.wpe.Node);
+
+    // retrieves information for one or multiple nodes
+    rpc areas(wirepas.wpe.Query) returns (stream wirepas.wpe.Area);
+
+    /// stores the data provided
+    rpc insert(stream PositionReport) returns (wirepas.wpe.Status);
+
+    /// cleans out any information regarding a specific node
+    rpc purge(stream wirepas.wpe.Query) returns (wirepas.wpe.Status);
+}
+
+
+
+/**
+*   PositionReport contains one or many measurements seen by
+*   the given address at a particular point in time.
+*   It will get translated into a Node instance.
+*/
+message PositionReport
+{
+    enum SERVICE{
+           STANDARD = 0;
+    }
+
+    optional uint32 sequence = 1; // report sequence number to help with temporal coherence
+
+    optional uint64 timestamp = 2; // on arrival timestamp
+
+    optional Node target = 3; // whom is being located
+    repeated Measurement measurements = 4; // measurement set
+    repeated Node nodes = 5; // known nodes relevant to this set
+    repeated Area areas = 6; // collection of geographic areas
+
+    optional SERVICE service_class = 7; // define what type of positioning to do
+
+    optional uint32 use_strongest_neighbors = 20; // number of strongest neighbors to use.
+}
+
+
+/**
+*   Measurement represents a measurement produced by a node at a given moment
+*   in time.
+*/
+message Measurement
+{
+    optional uint64 timestamp = 1; // observation time
+
+    optional float travel_time = 2; // network travel time
+
+    optional uint64 source = 3; // who makes the measurement
+    optional uint64 target = 4; // to whom the measurement is done
+
+    optional Power power = 5;  // power domain measurement - rss
+    optional Time time = 6; // time domain measurement - toa
+    optional Space space = 7; // space domain measurement - aoa
+}
+
+
+/**
+*   Representation of a Power domain measurement.
+*
+*   Measurement information carrying Received Signal Strength (RSS) information,
+*   such as transmission power, RSSi (RSS indicator) and other quality indicators.
+*
+*/
+message Power
+{
+    optional float rss = 1; // In dBm
+    optional uint32 rssi = 2; // Integer number [0 255]
+    optional float tx_power = 3; // Transmission power - as advertised [dB]
+    optional uint32 channel = 4; // Channel frequency where it was measured [Hz]
+    optional float accuracy = 10;
+    optional float reliability = 11;
+}
+
+
+/**
+*   Representation of a Time domain measurement.
+*
+*   Measurement information carrying directional information based on Time of
+*   Arrival (ToA) and other similar techniques.
+*
+*   _Note:_ Not in use
+*/
+message Time
+{
+    optional float toa = 1; // In seconds
+    optional float dtoa = 2; // Difference of seconds
+    optional float vtdoa = 3; // Packet difference of arrival
+    optional float accuracy = 10;
+    optional float reliability = 11;
+}
+
+
+/**
+*   Representation of a Space domain measurement.
+*
+*   Measurement information carrying directional information based on Angle of
+*   Arrival (AoA) and other similar techniques.
+*
+*   _Note:_ Not in use
+*
+*/
+message Space
+{
+    optional float aoa = 1; // In degrees
+    optional float doa = 2; // Difference of degrees
+    optional float accuracy = 10;
+    optional float reliability = 11;
+}
+
+

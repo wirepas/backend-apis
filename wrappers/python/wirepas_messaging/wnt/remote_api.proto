@@ -1,0 +1,80 @@
+/**
+*   Definition of WNT messages
+*
+*   Copyright:
+*       Copyright 2018 Wirepas Ltd. All Rights Reserved.
+*/
+
+syntax="proto2";
+
+import "wirepas_messaging/nanopb/nanopb.proto";
+import "wirepas_messaging/wnt/commons.proto";
+
+package com.wirepas.proto.wnt;
+
+message RemoteApiRequest {
+    // To which devices this stands for
+    repeated uint32 addresses = 1 [(nanopb).max_count = 1024];
+
+    // Sink address to use when sendind data via unicast
+    optional uint32 sink_address = 2;
+
+    // Changing the role
+    optional BaseRole role = 10;
+    optional bool cb_mac = 11; // True = low latency, false = low energy
+    optional bool is_autorole = 12;
+
+    optional uint32 network_address = 13;
+    optional uint32 network_channel = 14;
+    optional bytes cipher_key = 15 [(nanopb).max_size = 32];
+    optional bytes authentication_key = 16 [(nanopb).max_size = 32];
+    optional uint32 channel_map = 17;
+    optional uint32 node_address = 18;
+
+    // If the list is empty, there is only this field
+    optional bool is_empty = 20;
+}
+
+enum RemoteApiRequestType {
+    REMOTE_API_TYPE_BROADCAST = 0;
+    REMOTE_API_TYPE_UNICAST = 1;
+}
+
+// This is a collection of remote messages currently undergoing
+message RemoteApiRequestCollection {
+    optional string id = 1 [(nanopb).max_size = 64]; // UUID
+    optional RemoteApiRequestType type = 2;
+    repeated RemoteApiRequest messages = 3 [(nanopb).max_count = 32];
+    optional uint32 retry_interval = 4; // Interval to resend the requests
+    optional bool cancel = 5;
+
+    optional uint32 start_time = 6; // Epoch
+    optional uint32 activation_time = 7; // Epoch
+    optional uint32 cancellation_time = 8; // Epoch
+}
+
+// This is a response for remote api responses
+enum RemoteApiResponseId {
+    OK = 0;
+    ACCESS_DENIED = 1;
+    WRITE_ONLY_ATTRIBUTE = 2;
+    INVALID_BC_REQUEST = 3;
+    INVALID_BEGIN = 4;
+    NO_SPACE_FOR_RESPONSE = 5;
+    INVALID_VALUE = 6;
+    INVALID_LENGTH = 7;
+    UNKNOWN_REQUEST = 8;
+    UNKNOWN_ERROR = 255;
+}
+
+message RemoteApiResponse {
+    optional uint32 request_start_time = 1; // Epoch
+    optional uint32 request_activation_time = 2; // Epoch
+    optional uint32 request_cancellation_time = 3; // Epoch
+    optional uint32 request_metadata_update_time = 11; // Epoch
+
+    optional RemoteApiResponseId configure_result = 21;
+    optional RemoteApiResponseId activate_result = 22;
+    optional RemoteApiResponseId cancel_result = 23;
+    optional RemoteApiResponseId metadata_update_result = 31;
+}

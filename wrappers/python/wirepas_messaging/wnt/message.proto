@@ -1,0 +1,353 @@
+/**
+*   Definition of WNT messages
+*
+*   Copyright:
+*       Copyright 2018 Wirepas Ltd. All Rights Reserved.
+*/
+
+syntax="proto2";
+
+import "wirepas_messaging/nanopb/nanopb.proto";
+import "wirepas_messaging/wnt/commons.proto";
+import "wirepas_messaging/wnt/remote_api.proto";
+import "wirepas_messaging/wnt/internal.proto";
+import "wirepas_messaging/wnt/positioning.proto";
+
+package com.wirepas.proto.wnt;
+
+message Neighbor {
+    // This equals neighbor diagnostics
+    optional uint32 address = 1;
+    optional float cluster_channel_MHz = 2; 
+    optional float radio_power_dB = 3;
+    enum NeighborType {
+        MEMBER = 1;
+        SYNC_CLUSTER = 2;
+        ASSOCIATED_CLUSTER = 3;
+        NEIGHBOR_TYPE_UNKNOWN = 255;
+    }
+    optional NeighborType neighbor_type = 4;
+    optional float rssi_dBm = 5;
+    optional bool no_neighbors = 6; // This is special value to create 1-size list when no neighbors exist
+}
+
+message CostInfo {
+    // Cost info structure, used in node diagnostics
+    optional uint32 next_hop_address = 2;
+    optional uint32 cost = 3;
+    optional float quality = 4; // Percentage
+}
+
+enum StackProfile {
+    // Stack profile definition
+    PROFILE_24 = 1;
+    PROFILE_868 = 2;
+    PROFILE_915 = 3;
+    PROFILE_870 = 4;
+    PROFILE_917 = 5;
+    PROFILE_RESERVED_1 = 6;
+    PROFILE_RESERVED_2 = 7;
+    PROFILE_865 = 8;
+    PROFILE_EFR32_24 = 9;
+    PROFILE_RESERVED_3 = 10;
+    PROFILE_EFR32_915_AUSTRALIA = 11;
+    PROFILE_EFR32_24_19DBM = 12;
+    PROFILE_NRF52_24_4DBM = 13;
+    PROFILE_NRF52_24_8DBM = 14;
+    PROFILE_UNKNOWN = 255;
+}
+
+message DiagnosticsData {
+    // This message is general purpose container.
+    // This does NOT distinguish different types of diagnostics packets!
+    // Info currently sent in neighbor diagnostics
+    repeated Neighbor neighbors = 1 [(nanopb).max_count = 30];
+    
+    // Info currently sent in node diagnostics
+    optional float access_cycle_ms = 2;
+    optional BaseRole role = 3;
+    optional bool cb_mac = 4; // True = low latency, false = low energy
+    optional bool is_relay = 5;
+    optional bool is_autorole = 6;
+    optional float voltage = 7; // Volts
+    optional float max_buffer_usage = 8; // Percentage
+    optional float average_buffer_usage = 9; // Percentage
+    optional uint32 mem_alloc_fails = 10;
+    repeated float buf_delay_ms = 11 [packed=true, (nanopb).max_count = 16]; // By qos
+    optional uint32 scans = 12;
+    repeated float dl_average_ms = 13 [packed=true, (nanopb).max_count = 16]; // By qos
+    repeated float dl_minimum_ms = 14 [packed=true, (nanopb).max_count = 16]; // By qos
+    repeated float dl_maximum_ms = 15 [packed=true, (nanopb).max_count = 16]; // By qos
+    repeated uint32 dl_samples = 16 [packed=true, (nanopb).max_count = 16]; // By qos
+    repeated uint32 dropped = 17 [packed=true, (nanopb).max_count = 16]; // By qos
+    optional uint32 sink_address = 49;
+    repeated CostInfo cost = 18 [(nanopb).max_count = 16]; // By qos
+    // If WM version >= 4.0 values below are not valid
+    // float buf_delay_ms = 11
+    // float dl_average_ms = 13;
+    // float dl_minimum_ms = 14;
+    // float dl_maximum_ms = 15;
+    // uint32 dl_samples = 16;
+
+    enum Events {
+        ROLE_NO_EVENTS = 0; // This is special value to create 1-size list when no events occurred
+        ROLE_CHANGE_TO_SUBNODE = 8;
+        ROLE_CHANGE_TO_HEADNODE = 9;
+        ROUTE_CHANGE = 16;
+        SCANNING_REQ_BY_APPLICATION = 23;
+        SCANNING_NO_CHANNEL_SELECTED = 24;
+        SCANNING_FTDMA_CONF_WITH_NEIGHBOR = 25;
+        SCANNING_FTDMA_CONF_WITH_NB_NEIGHBOR = 26;
+        SCANNING_TIMING_CONF_WITH_NEIGHBOR = 27;
+        SCANNING_TIMING_CONF_WITH_MULTIPLE_NEIGHBORS = 28;
+        SCANNING_NEED_MORE_NEIGHBORS = 29;
+        SCANNING_PERIODIC = 30;
+        SCANNING_ROLE_CHANGE = 31;
+        BOOT_POWERON = 32;
+        BOOT_INTENTIONAL = 33;
+        BOOT_SW_FAILURE = 34;
+        BOOT_PROCESSOR_FAILURE = 35;
+        BOOT_WATCHDOG_EXPIRE = 36;
+        BOOT_UNINDENTIFIED_REASON = 37;
+        SYNCLOST_ALTERNATIVE_ROUTE = 40;
+        SYNCLOST_PRIMARY_ROUTE = 41;
+        FTDMA_ADJ_MINOR_BOUNDARY = 48;
+        FTDMA_ADJ_NOT_IN_SLOT_BOUNDARY = 49;
+        FTDMA_ADJ_CONFLICT_WITH_PRIMARY_ROUTE = 50;
+        FTDMA_ADJ_CONFLICT_WITH_ALTERNATIVE_ROUTE = 51;
+        FTDMA_ADJ_CONFLICT_WITH_NEIGHBOR = 52;
+        FTDMA_ADJ_NO_CHANNEL_SELECTED = 53;
+        FTDMA_ADJ_CHANNEL_BLACKLISTED = 54;
+        FTDMA_ADJ_OTHER_REASON = 55;
+        SINK_CHANGED = 56;
+        ROUTING_LOOP = 64;
+        DENSE_REMOVE_SUBNODE = 72;
+        DOWNLINK_TX_FAIL_COULD_NOT_SEND = 73;
+        DOWNLINK_TX_FAIL_NEXT_HOP_COULD_NOT_SEND = 74;
+        UPLINK_TX_FAIL_COULD_NOT_SEND = 75;
+        TOO_MANY_ROUTERS_DURING_SCAN = 76;
+        TIMING_LATE_FOR_SCHEDULING_MAC_OPERATION = 77;
+        EVENT_UNKNOWN = 255;
+    }
+
+    repeated Events events = 19 [packed=true, (nanopb).max_count = 15];
+    optional float duty_cycle = 20; // Percentage
+    optional uint32 antenna = 21;
+
+    // Info currently in traffic diagnostics, not sent by subnodes
+    optional uint32 access_cycles = 22;
+    optional float cluster_channel_MHz = 23;
+    optional float channel_reliability = 24; // Percentage
+    optional uint32 rx_amount = 25;
+    optional uint32 tx_amount = 26;
+    optional float aloha_rx_ratio = 27; // Percentage
+    optional float reserved_rx_success_ratio = 28; // Percentage
+    optional float data_rx_ratio = 47; // Percentage
+    optional float rx_duplicate_ratio = 29; // Percentage
+    optional float cca_success_ratio = 30; // Percentage
+    optional float broadcast_ratio = 31; // Percentage
+    optional float failed_unicast_ratio = 32; // Percentage
+    optional float max_reserved_slot_usage = 33; // Percentage
+    optional float avg_reserved_slot_usage = 48; // Percentage
+    optional float max_aloha_slot_usage = 34; // Percentage
+    // If WM version >= 4.0 values below are not valid
+    // uint32 access_cycles = 22;
+    // uint32 rx_amount = 25;
+    // uint32 tx_amount = 26;
+    // float aloha_rx_ratio = 27;
+    // float reserved_rx_success_ratio = 28;
+    // float data_rx_ratio = 47;
+    // float rx_duplicate_ratio = 29;
+    // float cca_success_ratio = 30;
+    // float failed_unicast_ratio = 32;
+
+    // Info currently in boot diagnostics
+    optional uint32 boot_count = 35;
+    optional uint32 sw_version_devel = 36;
+    optional uint32 sw_version_maintenance = 37;
+    optional uint32 sw_version_minor = 38;
+    optional uint32 sw_version_major = 39;
+    optional uint32 scratchpad_sequence = 40;
+    enum HWMagic {
+        NRF51 = 1;
+        EZR32 = 2;
+        NRF52 = 3;
+        CC2650 = 4;
+        EFR32XG12_1024KB_128KB = 5;
+        NRF52840_1024KB_256KB = 6;
+        EFR32XG12_512KB_64KB = 7;
+        HWMAGIC_UNKNOWN = 255;
+    }
+    optional HWMagic hw_magic = 41;
+    optional StackProfile stack_profile = 42;
+    optional bool otap_enabled = 43;
+    optional uint32 boot_line_number = 44;
+    optional uint32 file_hash = 45;
+    repeated uint32 stack_trace = 46 [packed=true, (nanopb).max_count = 3];
+    // Added in WM version 4.0
+    optional uint32 scratchpad_firmware_sequence = 59;
+
+    // If WM version >= 3.4 Buffering Delay QoS1 is replaced by Routers in Neighborhood
+    optional uint32 routers_in_neighborhood = 50;
+
+    // If WM version >= 3.4 Broadcast Ratio is replaced by CB-MAC load
+    optional float cb_mac_load = 51;
+
+    // If WM version >= 4.0 Access cycles from traffic diagnostics
+    // is replaced by cluster node amounts
+    optional uint32 cluster_member_amount = 52;
+    optional uint32 cluster_router_node_amount = 53;
+
+    // If WM version >= 4.0 cost array in node diagnostics will only contain one cost info
+    // The freed area is filled with blacklisting information
+    optional uint32 blacklisted_radio_channels_1_8 = 54;
+    optional uint32 blacklisted_radio_channels_9_16 = 55;
+    optional uint32 blacklisted_radio_channels_17_24 = 56;
+    optional uint32 blacklisted_radio_channels_25_32 = 57;
+    optional uint32 blacklisted_radio_channels_33_40 = 58;
+}
+
+message RxData {
+    optional uint32 source_endpoint = 2;
+    optional uint32 destination_endpoint = 4;
+    optional uint32 qos = 5 [default = 0];
+    optional bytes payload = 7 [(nanopb).max_size = 1024];
+
+    // If WM version >= 4.0 QoS is divided to QoS and Hop count
+    optional uint32 hop_count = 10;
+}
+
+message AppConfigResponse {
+    enum AppConfigResult {
+        OK = 0;
+        INTERNAL_ERROR = 1;
+        INVALID_SINK_ID = 2;
+        INVALID_ROLE = 3;
+        INVALID_NETWORK_ADDRESS = 4;
+        INVALID_NETWORK_CHANNEL = 5;
+        INVALID_CHANNEL_MAP = 6;
+        INVALID_NETWORK_KEYS = 7;
+        INVALID_AC_RANGE = 8;
+        INVALID_SINK_STATE = 9;
+        INVALID_DEST_ADDRESS = 10;
+        INVALID_DEST_ENDPOINT = 11;
+        INVALID_SRC_ENDPOINT = 12;
+        INVALID_QOS = 13;
+        INVALID_DATA_PAYLOAD = 14;
+        INVALID_SCRATCHPAD = 15;
+        INVALID_SCRATCHPAD_SIZE = 16;
+        INVLAID_SEQUENCE_NUMBER = 17;
+        INVALID_REBOOT_DELAY = 18;
+        INVALID_DIAG_INTERVAL = 19;
+        INVALID_APP_CONFIG = 20;
+        NO_SCRATCHPAD_PRESENT = 21;
+        ACCESS_DENIED = 22;
+        REQUEST_NEEDS_SINK_ID = 23;
+        FIRST_INVALID_ENUM_VALUE = 24;
+        ERROR_UNKNOWN = 255;
+    }
+    optional AppConfigResult result = 1;
+}
+
+// This is a device measurement result
+message Measurement {
+    optional uint32 sensor_id = 1; // Id of the sensor, used to distinguish different measurements in device
+    optional float value = 2; // Actual measurement value
+    optional string unit = 4; // Unit of the measurement
+    optional bool no_measurements = 5; // This is special value to create 1-size list when no measurements exist
+}
+
+message GatewayHeartbeat {
+    optional string mac_address = 1; // MAC address of the gateway
+    optional string hostname = 3; // Hostname of the gateway
+}
+
+// Mapping of channel id to frequency
+message ChannelIdToFreqMap {
+    optional uint32 id = 1;
+    optional float freq_MHz = 2;
+}
+
+message AccessCycleLimits {
+    optional uint32 min_ms = 1;
+    optional uint32 max_ms = 2;
+}
+
+enum SinkStateChange
+{
+     RESTART = 1;
+}
+
+// Message from sink to sink
+message SinkToSink {
+    optional SinkStateChange sink_state_change = 1;
+}
+
+message NodeMessage {
+    optional uint32 address = 1;
+    optional uint32 endpoint = 2;
+    optional bytes payload = 3 [(nanopb).max_size = 1024];
+}
+
+// This is the main message that base of every Protocol Buffer message
+message Message {
+    // Message overhead
+    repeated uint32 id = 1 [packed=true]; // Message ID. Not kept as uint64!
+    optional uint32 network_id = 2;
+    optional string gateway_id = 3; // MAC Address of the gateway
+    optional uint64 tx_time = 4; // Generation time of the message: epoch ms
+    optional uint64 rx_time = 5; // Reception time of the message; epoch ms
+
+    optional uint32 source_address = 7; // Node ID
+    optional uint32 destination_address = 8;
+    optional float travel_time_ms = 9;
+    
+    // Messages, uni- or bidirectional
+    optional DiagnosticsData diagnostics = 50;
+    optional RxData rx_data = 51;
+    optional AppConfigData app_config = 52;
+    optional StackProfile stack_profile = 53;
+    repeated Measurement measurement = 54;
+    optional GatewayHeartbeat gw_heartbeat = 55;
+    optional RxData tx_data = 56; // Request to send the packet
+    optional uint32 channel_map = 57;
+    optional uint32 network_channel = 58;
+    optional bool security_enabled = 59;
+    repeated ChannelIdToFreqMap channel_info = 60 [(nanopb).max_count = 256];
+    optional AppConfigResponse app_config_response = 61;
+    optional AccessCycleLimits access_cycle_limits = 62;
+    
+    // Backend internal and backend -> client
+    optional BackendMessage backend_message = 70;
+    optional OnlineStatus online_status = 71;
+    optional TraveltimeKPI traveltime_kpi = 72;
+    optional NodeMetadata node_metadata = 73;
+    optional RTSituationMetadata rtsituation_metadata = 74;
+    optional BackendHeartbeat backend_heartbeat = 75;
+    optional MetadataUpdateMessage metadata_update_message = 76;
+    repeated SinkPseudoIdMap sink_pseudo_id_map = 77 [(nanopb).max_count = 4096];
+    optional BackendComponentStatus backend_component_status = 78;
+
+    // Remote API procedures
+    optional RemoteApiRequestCollection remoteapi_requests = 80;
+    optional RemoteApiResponse remoteapi_response = 81;
+
+    // Node message
+    repeated NodeMessage node_messages = 90;
+
+    // Queries backend -> gateway
+    optional bool query_app_config = 100;
+    optional bool query_stack_profile = 101;
+    optional bool query_gateway_info = 102;
+
+    // Gateway internal messages
+    optional SinkToSink sink_to_sink = 110;
+
+    // Positioning
+    optional com.wirepas.proto.wpe.MeshData positioning_mesh_data = 130;
+}
+
+// This is container of multiple messages at the same time ( Not used at the moment )
+message MessageCollection {
+    repeated Message message = 1 [(nanopb).max_count = 256];
+}
