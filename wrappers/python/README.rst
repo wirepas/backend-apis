@@ -1,3 +1,6 @@
+.. image:: https://badge.fury.io/py/wirepas-messaging.svg
+    :target: https://badge.fury.io/py/wirepas-messaging
+
 About
 -----
 
