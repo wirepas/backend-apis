@@ -1,7 +1,6 @@
 
-
-Wirepas Messaging
-=================
+Backend APIs
+============
 
 This repository contains the linux gateway protocol buffer definitions and
 language specific wrappers.
@@ -10,12 +9,10 @@ language specific wrappers.
 
 Language wrappers:
 
-- `Python <./wrappers/python>`_
-
+- `Python: wirepas_messaging <./wrappers/python>`_
 
 .. image:: https://badge.fury.io/py/wirepas-messaging.svg
     :target: https://badge.fury.io/py/wirepas-messaging
-
 
 
 License
