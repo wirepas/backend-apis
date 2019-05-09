@@ -46,7 +46,7 @@ message UploadScratchpadReq {
 
     required uint32 seq = 2;
     // If scratchpad is not set, it clears the stored scratchpad
-    optional bytes scratchpad = 3;
+    optional bytes scratchpad = 3 [(nanopb).max_size = 1048576];
 }
 
 message UploadScratchpadResp {
