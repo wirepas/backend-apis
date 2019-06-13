@@ -7,10 +7,8 @@ try:
     from . import wpe
 except ImportError:
     print("Could not import WPE handles")
-    pass
 
 try:
     from . import wnt
 except ImportError:
     print("Could not import WPE handles")
-    pass
