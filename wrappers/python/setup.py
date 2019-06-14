@@ -13,15 +13,17 @@ import re
 import glob
 
 from setuptools import setup, find_packages
+from wirepas_messaging import __title__
+from wirepas_messaging import __version__
 
-with open('README.rst') as f:
+with open("README.rst") as f:
     long_description = f.read()
 
-with open('LICENSE') as f:
+with open("LICENSE") as f:
     license = f.read()
 
 
-def filter(flist, rules=['private', '.out']):
+def filter(flist, rules=["private", ".out"]):
     for f in flist:
         for rule in rules:
             if rule in f:
@@ -51,36 +53,36 @@ def get_requirements(*args):
     with open(get_absolute_path(*args)) as handle:
         for line in handle:
             # Strip comments.
-            line = re.sub(r'^#.*|\s#.*', '', line)
+            line = re.sub(r"^#.*|\s#.*", "", line)
             # Ignore empty lines
             if line and not line.isspace():
-                requirements.add(re.sub(r'\s+', '', line))
+                requirements.add(re.sub(r"\s+", "", line))
     return sorted(requirements)
 
+
 setup(
-    name='wirepas_messaging',
-    version='1.1.0',
-    description='Wirepas messaging utilities',
+    name=__title__,
+    version=__version__,
+    description="Wirepas messaging utilities",
     long_description=long_description,
-    author='Wirepas Oy',
-    author_email='techsupport@wirepas.com',
-    url='https://github.com/wirepas/backend-apis/tree/master/wrappers/python',
-    license='Apache-2',
-    license_file='license',
+    author="Wirepas Oy",
+    author_email="opensource@wirepas.com",
+    url="https://github.com/wirepas/backend-apis/tree/master/wrappers/python",
+    license="Apache-2",
     classifiers=[
-        'Development Status :: 5 - Production/Stable',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: Apache Software License',
-        'Topic :: Software Development :: Libraries',
-        'Programming Language :: Python :: 3',
+        "Development Status :: 5 - Production/Stable",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: Apache Software License",
+        "Topic :: Software Development :: Libraries",
+        "Programming Language :: Python :: 3",
     ],
-    keywords='wirepas connectivity iot mesh',
-    packages=find_packages(exclude=['contrib', 'docs', 'tests', 'examples']),
-    install_requires=get_requirements('requirements.txt'),
+    keywords="wirepas connectivity iot mesh",
+    packages=find_packages(exclude=["contrib", "docs", "tests", "examples"]),
+    install_requires=get_requirements("requirements.txt"),
     data_files=[
-        ('./wirepas_messaging-extras/package',
-         ['LICENSE',
-          'README.rst',
-          'requirements.txt',
-          'setup.py'])],
+        (
+            "./wirepas_messaging-extras/package",
+            ["LICENSE", "README.rst", "requirements.txt", "setup.py"],
+        )
+    ],
 )

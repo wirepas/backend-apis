@@ -1,41 +1,59 @@
 language: python
 python:
-  - '3.7'
-
+- '3.7'
 dist: xenial
+cache: pip
 jobs:
-before_install:
-  - sudo apt-get install build-essential libsystemd-dev dbus
+
 install:
-  - "./.ci/install-devtools.sh"
-  - pip3 install -r dev-requirements.txt
-  - pip3 install -r wrappers/python/requirements.txt
+  - "./.ci/install-requirements.sh"
+  - sudo gem install github_changelog_generator
+
 script:
   - "./.ci/build.sh"
-  - pip3 install wrappers/python/dist/*.whl
+  - "./.ci/install.sh"
+  - ./.ci/releases.sh
+  - source releases.env
+  - cd wrappers/python
+  - github_changelog_generator -t "${GH_TOKEN}"
 
 before_deploy:
-  - cd wrappers/python
+  - git config --local user.name "wirepas-bot"
+  - git config --local user.email "opensource@wirepas.com"
+  - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)-${GH_RELEASE_PYTHON_VERSION}}
+  - git tag $TRAVIS_TAG
 
 deploy:
-  - provider: pypi
-    user: Wirepas
-    server: https://test.pypi.org/legacy/
-    password:
-      secure: CsK0xLOtoXiAgstX4XSsQmwCVjxcocTzIyIFc+0SisHAhkHDMdas66Cwcycsa9tB8vFhQSFS1XxJHVsW/iI5Qf9xoSjRZryGB+fPSMqmlO/If6ZbxNLSXwuvXI/punT+oayWBy7WZKpqeis2Z4t0snBR12w2AjNe30zKOxG+QQCQyuDh8CzxamOQ93i4ebd2YozYQnHfFni6RcTgNpeN0hYY+CZzQClTGZVsALme2YhGF/TvLbzgx4leG2sFevOYEEoOdvGUJZ6B5HcigEe/N26K5VFJj4OIkxDZpW/gffUurQuYzZy1ME65Uisq0B6fSgK9kFSzM76O7ShfczscCE3dr5QcQHjMf6jeGho4tEGGhd87GU0Wxw+kfHBe0cc2soqZ8VXHsud6BAPA80Hmq2EJMno5FGcuhvaDLVFXLdHTcQGufPEjEsgHlUNr/7pmmoZ8xTm4iVhQ/mBAc2kEwYfoQi+8kyHeq//h0gzkdWx1mKANyxP22sv0amXW2SDBTb0r9SiOwWR3BmakGp8e8C6cGj36wV/Ma/7W8r9CdzVqIcaCNPStMrI/1f30uVlcPBAk7p7Jm7JHbXoZgugQRvmL1zQnO3s4jd6r3vu5yaCN8EHYEVV7CPxdqZoMls/ppvIRzoO7UmvXO1HHGH+n5W5VAuhZrn9LqXlDoRtQHIk=
-    skip_existing: true
-    skip_cleanup: true
-    on:
-      tags: true
-      branch: master
+- provider: releases
+  api_key: ${GH_TOKEN}
+  file_glob: true
+  file:
+    - "${TRAVIS_BUILD_DIR}/wrappers/python/dist/*"
+    - "${TRAVIS_BUILD_DIR}/wrappers/python/CHANGELOG.md"
+  skip_cleanup: true
+  draft: ${GH_RELEASE_DRAFT} = true
+  on:
+    all_branches: true
+#    tags: true
+#    branch: master
 
-  - provider: releases
-    api_key:
-      secure: raSLK4E2IhWVsVj0RQ2VM1Fw/xPxFR4xiPRY+2DtU/4Pu7accMMVlO8eBjPH0GekVb0aTERfnh4fPTUG6T5fpQxLbawAnNJFkhvepZxH1EeClKvNvgthazEjlAdRMu1SfOpn/1+qKwyUx6tLbINPSwfM9Ait1uOZWJXJLnraQwubsF0lmW9LHoevwSV841grQG2wUI/oCi4bFSyQhXw6e/sU2alXigQ47YAXdgRyr3uAmj59F4AzTDVdFMLX8S6i5k+6xKRriqkHadmiGNEJHTK1qkR9bHDDIQR6nBFDXiV5UNNveS3q59xolPoAu9moljMODtR8t8CeIQ5dSlxjVZgMXE/qnuOmwMlXwQpTbYUux5m2XK5QWtz+PUFEFjdKMOdPkWHyUaBYWjdhk2z6aEHaKZjtzXhxbMyOds1U3vIeMhSnOvrH6OPFfgRL/KJuitY2gqyp4cRrH8lQr7PmcTCB+wjFhHBaEErHOp5y8775DW41ptFzYI1aavdnM4+2JGptRCDW6EMSt+pqVKdIZjpjmPK24VZPpTwo/mjBdYLEiR3HT+Ko5tzNDWdlHFFwK6JCgHIgCn5NWI13eVPq5mxCG+Ct6H4YJCpLTkwMT9U35r2UB1u8xBp5qNK7UInbjI6Vtt7PQqhPLDMZtYBlcOxjlpyZ4oOxu3dqj4QY3gc=
-    file: .dist/*
-    skip_cleanup: true
-    draft: tag ~= /^v([0-9.]+)$rc([0-9.]+)/
-    on:
-      tags: true
-      branch: master
+- provider: pypi
+  user: Wirepas
+  server: https://test.pypi.org/legacy/
+  password: ${PYPI_TEST_PWD}
+  skip_existing: true
+  skip_cleanup: true
+  on:
+    tags: true
+    branch: master
+
+- provider: pypi
+  user: Wirepas
+  server: https://test.pypi.org/legacy/
+  password: ${PYPI_PWD}
+  skip_existing: true
+  skip_cleanup: true
+  on:
+    tags: true
+    branch: master
 
