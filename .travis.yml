@@ -13,6 +13,8 @@ script:
   - ./.ci/releases.sh
   - source releases.env
   - cd wrappers/python
+
+before_deploy:
   - github_changelog_generator -t "${GH_TOKEN}"
 
 deploy:
