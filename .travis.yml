@@ -3,7 +3,7 @@ python:
 - '3.7'
 dist: xenial
 cache: pip
-if: branch ~= /^build-(.*?)/
+if: branch ~= /^build-(.*?)/ IS false
 jobs:
 install:
   - "./.ci/install-requirements.sh"
