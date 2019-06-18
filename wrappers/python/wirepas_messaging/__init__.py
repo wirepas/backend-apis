@@ -12,3 +12,6 @@ try:
     from . import wnt
 except ImportError:
     print("Could not import WPE handles")
+
+__title__ = "wirepas_messaging"
+__version__ = "1.2.0rc1"
