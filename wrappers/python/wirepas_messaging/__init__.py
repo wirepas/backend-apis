@@ -13,6 +13,7 @@ try:
 except ImportError:
     print("Could not import WPE handles")
 
+
 from google.protobuf.internal import api_implementation
 
 warning_msg = """
@@ -26,3 +27,7 @@ warning_msg = """
 """
 if api_implementation._default_implementation_type == "python":
     print(warning_msg)
+
+__title__ = "wirepas_messaging"
+__version__ = "1.2.0rc1"
+
