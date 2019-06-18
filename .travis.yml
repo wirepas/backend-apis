@@ -3,12 +3,11 @@ python:
 - '3.7'
 dist: xenial
 cache: pip
+if: branch ~= /^build-(.*?)/
 jobs:
-
 install:
   - "./.ci/install-requirements.sh"
   - sudo gem install github_changelog_generator
-
 script:
   - "./.ci/build.sh"
   - "./.ci/install.sh"
@@ -16,11 +15,11 @@ script:
   - source releases.env
   - cd wrappers/python
   - github_changelog_generator -t "${GH_TOKEN}"
-
 before_deploy:
   - git config --local user.name "wirepas-bot"
   - git config --local user.email "opensource@wirepas.com"
-  - export TRAVIS_TAG=${TRAVIS_TAG:-build-$(date +'%Y%m%d%H%M%S')-${GH_RELEASE_PYTHON_VERSION}}
+  - export BUILD_TAG="build-$(date +'%Y%m%d%H%M%S')-${GH_RELEASE_PYTHON_VERSION}"
+  - export TRAVIS_TAG=${TRAVIS_TAG:-${BUILD_TAG}}
   - git tag $TRAVIS_TAG
 
 deploy:
@@ -32,12 +31,10 @@ deploy:
     - "${TRAVIS_BUILD_DIR}/wrappers/python/CHANGELOG.md"
   skip_cleanup: true
   draft: ${GH_RELEASE_DRAFT} = true
-  name: ${GH_RELEASE_NAME}
+  name: "${GH_RELEASE_NAME} (BUILD_TAG)"
   body: ${GH_RELEASE_BODY}
   on:
-    branch:
-      except:
-        - /^build-(.*?)/
+     all_branches: true
 #    tags: true
 #    branch: master
 
