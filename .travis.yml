@@ -34,17 +34,6 @@ deploy:
 
 - provider: pypi
   user: Wirepas
-  server: https://test.pypi.org/legacy/
-  password: ${PYPI_TEST_PWD}
-  skip_existing: true
-  skip_cleanup: true
-  on:
-    tags: true
-    branch: master
-
-- provider: pypi
-  user: Wirepas
-  server: https://test.pypi.org/legacy/
   password: ${PYPI_PWD}
   skip_existing: true
   skip_cleanup: true
