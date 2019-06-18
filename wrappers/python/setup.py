@@ -23,7 +23,11 @@ with open("LICENSE") as f:
     license = f.read()
 
 
-def filter(flist, rules=["private", ".out"]):
+def setup_filter(flist, rules=None):
+
+    if rules is None:
+        rules = ["private", ".out"]
+
     for f in flist:
         for rule in rules:
             if rule in f:
