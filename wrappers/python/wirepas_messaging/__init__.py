@@ -14,4 +14,4 @@ except ImportError:
     print("Could not import WPE handles")
 
 __title__ = "wirepas_messaging"
-__version__ = "1.2.0-rc9"
+__version__ = "1.2.0rc1"
