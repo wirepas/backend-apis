@@ -17,6 +17,12 @@ script:
   - cd wrappers/python
   - github_changelog_generator -t "${GH_TOKEN}"
 
+before_deploy:
+  - git config --local user.name "wirepas-bot"
+  - git config --local user.email "opensource@wirepas.com"
+  - export TRAVIS_TAG=${TRAVIS_TAG:-build-$(date +'%Y%m%d%H%M%S')-${GH_RELEASE_PYTHON_VERSION}}
+  - git tag $TRAVIS_TAG
+
 deploy:
 - provider: releases
   api_key: ${GH_TOKEN}
@@ -29,7 +35,9 @@ deploy:
   name: ${GH_RELEASE_NAME}
   body: ${GH_RELEASE_BODY}
   on:
-    all_branches: true
+    branch:
+      except:
+        - /^build-(.*?)/
 #    tags: true
 #    branch: master
 
