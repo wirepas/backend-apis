@@ -1,5 +1,2 @@
 # grpc
 grpcio==1.21.1
-
-# protobuf
-protobuf==3.8.0
