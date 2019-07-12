@@ -29,5 +29,5 @@ if api_implementation._default_implementation_type == "python":
     print(warning_msg)
 
 __title__ = "wirepas_messaging"
-__version__ = "1.2.0rc1"
+__version__ = "1.2.0rc2"
 
