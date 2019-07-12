@@ -32,4 +32,3 @@ except ImportError:
 
 __title__ = "wirepas_messaging"
 __version__ = "1.2.0rc1"
-
