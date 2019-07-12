@@ -31,5 +31,5 @@ except ImportError:
     print("Could not import api_implementation from google.protobuf.internal")
 
 __title__ = "wirepas_messaging"
-__version__ = "1.2.0rc1"
+__version__ = "1.2.0rc2"
 
