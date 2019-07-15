@@ -4,3 +4,5 @@ build/
 */*__pycache__
 *.pyc
 *~
+wirepas_messaging/gateway/*.proto
+wirepas_messaging/gateway/*pb2*.py
