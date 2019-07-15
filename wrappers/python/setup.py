@@ -16,23 +16,12 @@ from setuptools import setup, find_packages
 from wirepas_messaging import __title__
 from wirepas_messaging import __version__
 
-with open("README.rst") as f:
+here = os.path.abspath(os.path.dirname(__file__))
+readme_file = "README.rst"
+license_file = "LICENSE"
+
+with open(readme_file) as f:
     long_description = f.read()
-
-with open("LICENSE") as f:
-    license = f.read()
-
-
-def setup_filter(flist, rules=None):
-
-    if rules is None:
-        rules = ["private", ".out"]
-
-    for f in flist:
-        for rule in rules:
-            if rule in f:
-                flist.pop(flist.index(f))
-    return flist
 
 
 def get_list_files(root, flist=None):
@@ -47,8 +36,7 @@ def get_list_files(root, flist=None):
 
 def get_absolute_path(*args):
     """ Transform relative pathnames into absolute pathnames """
-    directory = os.path.dirname(os.path.abspath(__file__))
-    return os.path.join(directory, *args)
+    return os.path.join(here, *args)
 
 
 def get_requirements(*args):
@@ -64,29 +52,27 @@ def get_requirements(*args):
     return sorted(requirements)
 
 
+about = {}
+with open(get_absolute_path("./wirepas_messaging/__about__.py")) as f:
+    exec(f.read(), about)
+
 setup(
-    name=__title__,
-    version=__version__,
-    description="Wirepas messaging utilities",
+    name=about["__pkg_name__"],
+    version=about["__version__"],
+    description=about["__description__"],
     long_description=long_description,
-    author="Wirepas Oy",
-    author_email="opensource@wirepas.com",
-    url="https://github.com/wirepas/backend-apis/tree/master/wrappers/python",
-    license="Apache-2",
-    classifiers=[
-        "Development Status :: 5 - Production/Stable",
-        "Intended Audience :: Developers",
-        "License :: OSI Approved :: Apache Software License",
-        "Topic :: Software Development :: Libraries",
-        "Programming Language :: Python :: 3",
-    ],
-    keywords="wirepas connectivity iot mesh",
+    author=about["__author__"],
+    author_email=about["__author_email__"],
+    url=about["__url__"],
+    license=about["__license__"],
+    classifiers=about["__classifiers__"],
+    keywords=about["__keywords__"],
     packages=find_packages(exclude=["contrib", "docs", "tests", "examples"]),
     install_requires=get_requirements("requirements.txt"),
     data_files=[
         (
             "./wirepas_messaging-extras/package",
-            ["LICENSE", "README.rst", "requirements.txt", "setup.py"],
+            ["LICENSE", "README.md", "requirements.txt", "setup.py"],
         )
     ],
 )
