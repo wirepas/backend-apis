@@ -9,11 +9,23 @@ This wheel contains the generated code to interact with Wirepas Mesh services.
 To install the wirepas messaging package start by cloning the repo
 
 ```shell
-    git clone git@github.com:wirepas/backend-apis.git
+    git clone https://github.com/wirepas/backend-apis.git
 ```
 
-Change directory to backend-apis/wrappers/python and create the wheel and
-tar files with
+Install the protocol buffer compiler, eg,
+
+```shell
+   pip install grpcio-tools
+```
+
+Copy and compile the protocol buffer files
+
+```shell
+    ./utils/pull_protos.sh
+    ./utils/compile_protos.sh
+```
+
+Generate the python wheel with
 
 ```shell
     ./utils/generate_whell.sh
