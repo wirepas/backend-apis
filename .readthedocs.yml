@@ -22,3 +22,6 @@ python:
   system_packages: true
   install:
     - requirements: wrappers/python/docs/requirements.txt
+    - requirements: wrappers/python/requirements.txt
+    - method: pip
+      path: wrappers/python

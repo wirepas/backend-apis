@@ -15,11 +15,8 @@ from .__about__ import (
     __warning_msg__,
 )
 
-try:
-    from . import gateway
-    from . import nanopb
-except ImportError:
-    print("Could not import gateway api wrapper")
+from . import gateway
+from . import nanopb
 
 try:
     from . import wpe
