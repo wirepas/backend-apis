@@ -17,8 +17,9 @@ from wirepas_messaging import __title__
 from wirepas_messaging import __version__
 
 here = os.path.abspath(os.path.dirname(__file__))
-readme_file = "README.rst"
+readme_file = "README.md"
 license_file = "LICENSE"
+requirements_file = "requirements.txt"
 
 with open(readme_file) as f:
     long_description = f.read()
@@ -68,11 +69,11 @@ setup(
     classifiers=about["__classifiers__"],
     keywords=about["__keywords__"],
     packages=find_packages(exclude=["contrib", "docs", "tests", "examples"]),
-    install_requires=get_requirements("requirements.txt"),
+    install_requires=get_requirements(requirements_file),
     data_files=[
         (
             "./wirepas_messaging-extras/package",
-            ["LICENSE", "README.md", "requirements.txt", "setup.py"],
+            [readme_file, license_file, requirements_file, "setup.py"],
         )
     ],
 )
