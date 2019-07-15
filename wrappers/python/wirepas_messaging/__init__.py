@@ -1,20 +1,5 @@
 # Wirepas Oy
 
-from . import gateway
-from . import nanopb
-
-try:
-    from . import wpe
-except ImportError:
-    print("Could not import WPE handles")
-
-try:
-    from . import wnt
-except ImportError:
-    print("Could not import WPE handles")
-
-from google.protobuf.internal import api_implementation
-
 from .__about__ import (
     __author__,
     __author_email__,
@@ -30,6 +15,26 @@ from .__about__ import (
     __warning_msg__,
 )
 
+try:
+    from . import gateway
+    from . import nanopb
+except ImportError:
+    print("Could not import gateway api wrapper")
 
-if api_implementation._default_implementation_type == "python":
-    print(__warning_msg__)
+try:
+    from . import wpe
+except ImportError:
+    print("Could not import WPE handles")
+
+try:
+    from . import wnt
+except ImportError:
+    print("Could not import WPE handles")
+
+try:
+    from google.protobuf.internal import api_implementation
+
+    if api_implementation._default_implementation_type == "python":
+        print(__warning_msg__)
+except ImportError:
+    print("Could not import api_implementation from google.protobuf.internal")

@@ -90,7 +90,7 @@ apidoc_excluded_paths = ["tests", "setup"]
 apidoc_separate_modules = True
 
 # -- Options for autodoc output -------------------------------------------------
-autodoc_mock_imports = ["setup", "google"]
+autodoc_mock_imports = ["setup", "google", "nanopb", "google.protobuf"]
 
 
 # -- Options for HTML output -------------------------------------------------
