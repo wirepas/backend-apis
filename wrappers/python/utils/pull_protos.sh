@@ -6,7 +6,7 @@ WIREPAS_USER=${1:-""}
 # Defaults
 PKG_NAME="wirepas_messaging"
 PKG_PROTO_PATH="./${PKG_NAME}"
-WIREPAS_GIT=-
+WIREPAS_GIT=${WIREPAS_GIT:-}
 
 # For customization
 WPE_REPO_DIR=${WPE_REPO_DIR:-"wpe"}
@@ -25,6 +25,9 @@ GW_GIT_PRJ=${GW_GIT_PRJ:-""}
 GW_GIT_BRANCH=""
 
 
+
+# copy_proto
+# Copies protos from the current repository
 function copy_proto
 {
     REPO_DIR=${1}
@@ -35,7 +38,8 @@ function copy_proto
 }
 
 
-# Pulls down the git repository and copies the protos to the local package
+# pull_proto
+# Clones and copies protos from an internal location (to be removed)
 function pull_proto
 {
     REPO_DIR=${1}
@@ -49,6 +53,11 @@ function pull_proto
     rm ${REPO_DIR} -fr
 }
 
+
+# fix_import_path
+#
+# This function adjusts the proto files to match the expected import rules
+# for the python package
 function fix_import_path
 {
     TARGET_DIR=${1}
@@ -102,6 +111,10 @@ function fix_import_path
 
 function main
 {
+
+    # This block pulls protos from Wirepas private servers.
+    # WPE and WNT protos will be moved to this repo and once that happens
+    # this block will cease to exist.
     if [[ ! -z ${WIREPAS_USER}  && ! -z ${WIREPAS_GIT} ]]
     then
         echo "pulling wpe protos..."
@@ -111,9 +124,6 @@ function main
         echo "pulling wnt protos..."
         pull_proto ${WNT_REPO_DIR} ${WNT_PROTO_PATH} ${WNT_GIT_PRJ} ${WNT_GIT_BRANCH}
         fix_import_path ${WNT_REPO_DIR}
-    else
-        echo "skipping pull from external gits"
-        echo "please provide input argument: user.lastname"
     fi
 
     copy_proto ${GW_REPO_DIR} ${GW_PROTO_PATH}
