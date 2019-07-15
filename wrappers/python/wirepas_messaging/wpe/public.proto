@@ -2,7 +2,7 @@
 *   Definition of WPE's messages
 *
 *   Copyright:
-*       Copyright 2018 Wirepas Ltd. All Rights Reserved.
+*       Copyright 2019 Wirepas Ltd. All Rights Reserved.
 *       See file LICENSE.txt for full license details.
 */
 
@@ -242,10 +242,10 @@ message MeshData
     optional uint64 sink = 3; // sink who forwarded this.
 
     optional float version = 4; // version info, if necessary.
-    optional uint32 sequence = 5; // measurment sequence number.
+    optional uint32 sequence = 5; // measurement sequence number.
 
-    optional float travel_time = 6; // network travel time.
-    optional uint64 timestamp = 7; // when it was sent - unix epoch time.
+    optional float travel_time = 6; // network travel time in ms
+    optional uint64 timestamp = 7; // when it was sent from the node- unix epoch time.
 
     repeated MeasurementData payload = 8 [(nanopb).max_count = 30]; // measurement data.
 
@@ -287,6 +287,8 @@ message ConfigurationData
     optional uint64 network = 1; // network id.
     repeated Node nodes = 2 ; // node with their set of measurements.
     repeated Area areas = 3 ; // collection of geographic areas.
+
+    optional string sender = 200; // engine id who sent the answer.
 }
 
 
@@ -316,8 +318,14 @@ message Node
     repeated uint64 area_identifier = 6;  // list of areas where it is located.
     repeated string geo_identifier = 7;  // list of areas where it is located.
 
+    optional uint64 timestamp = 10; // when it was sent from the node - unix epoch time.
+
     optional string map_identifier = 100;  // map where it is located
+    optional string sender = 200; // engine id who sent the answer.
+    optional float measurement_offset = 500; // offset added to all measurement
+
 }
+
 
 
 /**
@@ -355,7 +363,7 @@ message Area
 */
 message Point
 {
-    enum GEOID{ // Geoid definitions.
+    enum GEOID { // Geoid definitions.
         WGS84 = 0; // WGS84 as default.
     }
 
@@ -374,11 +382,17 @@ message Status
         SUCCESS = 1; // call succeeded.
         ERROR = 2; // an error occured - see message for details.
         INSDATA = 3; // insufficient data - see message for details.
+        STARTED = 4; // service has started
+        STOPPED = 5; // service has stopped
     }
 
     optional CODE code = 1; // service dependent status code.
     optional string subscriber_id = 2; // subscriber id.
+    optional string service_id = 3; // subscriber id.
+    optional uint64 timestamp = 5; // when it was sent - unix epoch time.
     optional string message = 10; // readable text message.
+
+    optional string sender = 200; // engine id who sent the answer.
 }
 
 
@@ -396,6 +410,8 @@ message Query
     repeated uint64 node_id = 5; // node id to use in lookups.
     repeated uint64 area_id = 6; // area id to use in lookups.
     repeated string area_uuid = 7; // area id to use in lookups.
+
+    optional string sender = 200; // engine id who sent the answer.
 }
 
 

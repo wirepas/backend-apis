@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='wirepas_messaging/wpe/public.proto',
   package='wirepas.wpe',
   syntax='proto2',
-  serialized_pb=_b('\n\"wirepas_messaging/wpe/public.proto\x12\x0bwirepas.wpe\x1a%wirepas_messaging/nanopb/nanopb.proto\"\xdb\x01\n\x08MeshData\x12\x0e\n\x06source\x18\x01 \x01(\x04\x12\x0f\n\x07network\x18\x02 \x01(\x04\x12\x0c\n\x04sink\x18\x03 \x01(\x04\x12\x0f\n\x07version\x18\x04 \x01(\x02\x12\x10\n\x08sequence\x18\x05 \x01(\r\x12\x13\n\x0btravel_time\x18\x06 \x01(\x02\x12\x11\n\ttimestamp\x18\x07 \x01(\x04\x12\x34\n\x07payload\x18\x08 \x03(\x0b\x32\x1c.wirepas.wpe.MeasurementDataB\x05\x92?\x02\x10\x1e\x12\x1f\n\x17use_strongest_neighbors\x18\x14 \x01(\r\"\xdf\x01\n\x0fMeasurementData\x12\x31\n\x04type\x18\x01 \x01(\x0e\x32#.wirepas.wpe.MeasurementData.DOMAIN\x12\x0e\n\x06target\x18\x02 \x01(\x04\x12\r\n\x05value\x18\x03 \x01(\x02\x12\x0c\n\x04time\x18\x04 \x01(\x02\"l\n\x06\x44OMAIN\x12\x0c\n\x08POWER_SR\x10\x00\x12\x0c\n\x08POWER_HR\x10\x01\x12\x08\n\x04TIME\x10\x02\x12\t\n\x05SPACE\x10\x03\x12\x11\n\rPOWER_SR_RSSI\x10\n\x12\x11\n\rPOWER_HR_RSSI\x10\x0b\x12\x0b\n\x06IGNORE\x10\xf0\x01\"h\n\x11\x43onfigurationData\x12\x0f\n\x07network\x18\x01 \x01(\x04\x12 \n\x05nodes\x18\x02 \x03(\x0b\x32\x11.wirepas.wpe.Node\x12 \n\x05\x61reas\x18\x03 \x03(\x0b\x32\x11.wirepas.wpe.Area\"\x94\x02\n\x04Node\x12\x10\n\x08sequence\x18\x01 \x01(\r\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\x04\x12\x0f\n\x07network\x18\x03 \x01(\x04\x12(\n\x04role\x18\x04 \x01(\x0e\x32\x1a.wirepas.wpe.Node.BASEROLE\x12\'\n\x0b\x63oordinates\x18\x05 \x01(\x0b\x32\x12.wirepas.wpe.Point\x12\x17\n\x0f\x61rea_identifier\x18\x06 \x03(\x04\x12\x16\n\x0egeo_identifier\x18\x07 \x03(\t\x12\x16\n\x0emap_identifier\x18\x64 \x01(\t\"<\n\x08\x42\x41SEROLE\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x08\n\x04SINK\x10\x01\x12\x0c\n\x08HEADNODE\x10\x02\x12\x0b\n\x07SUBNODE\x10\x03\"\x91\x01\n\x04\x41rea\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0b\n\x03uid\x18\x02 \x01(\x04\x12\r\n\x05\x66loor\x18\x03 \x01(\x04\x12\x10\n\x08\x62uilding\x18\x04 \x01(\x04\x12\'\n\x0b\x63oordinates\x18\x05 \x03(\x0b\x32\x12.wirepas.wpe.Point\x12\x0c\n\x04uuid\x18\x06 \x01(\t\x12\x16\n\x0emap_identifier\x18\x07 \x01(\t\"Q\n\x05Point\x12\'\n\x05geoid\x18\x01 \x01(\x0e\x32\x18.wirepas.wpe.Point.GEOID\x12\x0b\n\x03lla\x18\x02 \x03(\x02\"\x12\n\x05GEOID\x12\t\n\x05WGS84\x10\x00\"\x92\x01\n\x06Status\x12&\n\x04\x63ode\x18\x01 \x01(\x0e\x32\x18.wirepas.wpe.Status.CODE\x12\x15\n\rsubscriber_id\x18\x02 \x01(\t\x12\x0f\n\x07message\x18\n \x01(\t\"8\n\x04\x43ODE\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\x12\t\n\x05\x45RROR\x10\x02\x12\x0b\n\x07INSDATA\x10\x03\"\x94\x01\n\x05Query\x12\x14\n\x0c\x66orce_update\x18\x01 \x01(\x08\x12\x15\n\rsubscriber_id\x18\x02 \x01(\t\x12\x18\n\x10send_node_status\x18\x03 \x01(\x08\x12\x0f\n\x07network\x18\x04 \x01(\r\x12\x0f\n\x07node_id\x18\x05 \x03(\x04\x12\x0f\n\x07\x61rea_id\x18\x06 \x03(\x04\x12\x11\n\tarea_uuid\x18\x07 \x03(\t\"\x92\x01\n\x03Log\x12\x0c\n\x04time\x18\x01 \x01(\x02\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x0e\n\x06sender\x18\x03 \x01(\t\x12\r\n\x05level\x18\x04 \x01(\r\x12\x11\n\ttimestamp\x18\x05 \x01(\x04\":\n\x0b\x44\x45\x42UG_LEVEL\x12\t\n\x05\x44\x45\x42UG\x10\x00\x12\t\n\x05\x45RROR\x10\x01\x12\x0b\n\x07WARNING\x10\x02\x12\x08\n\x04INFO\x10\x03\"\x07\n\x05\x45mpty2\xff\x03\n\x0c\x66low_manager\x12/\n\x04stop\x12\x12.wirepas.wpe.Query\x1a\x13.wirepas.wpe.Status\x12\x31\n\x06status\x12\x12.wirepas.wpe.Query\x1a\x13.wirepas.wpe.Status\x12\x30\n\x05purge\x12\x12.wirepas.wpe.Query\x1a\x13.wirepas.wpe.Status\x12\x42\n\tconfigure\x12\x1e.wirepas.wpe.ConfigurationData\x1a\x13.wirepas.wpe.Status(\x01\x12;\n\x05\x66\x65tch\x12\x12.wirepas.wpe.Query\x1a\x1e.wirepas.wpe.ConfigurationData\x12\x36\n\x06locate\x12\x15.wirepas.wpe.MeshData\x1a\x11.wirepas.wpe.Node(\x01\x30\x01\x12\x34\n\tsubscribe\x12\x12.wirepas.wpe.Query\x1a\x13.wirepas.wpe.Status\x12\x36\n\x0bunsubscribe\x12\x12.wirepas.wpe.Query\x1a\x13.wirepas.wpe.Status\x12\x32\n\x07observe\x12\x12.wirepas.wpe.Query\x1a\x11.wirepas.wpe.Node0\x01\x32\xa4\x01\n\x0blog_manager\x12/\n\x04stop\x12\x12.wirepas.wpe.Query\x1a\x13.wirepas.wpe.Status\x12\x31\n\x06status\x12\x12.wirepas.wpe.Query\x1a\x13.wirepas.wpe.Status\x12\x31\n\x06record\x12\x10.wirepas.wpe.Log\x1a\x13.wirepas.wpe.Status(\x01\x32\xaa\x01\n\x12subscriber_manager\x12/\n\x04stop\x12\x12.wirepas.wpe.Query\x1a\x13.wirepas.wpe.Status\x12\x31\n\x06status\x12\x12.wirepas.wpe.Query\x1a\x13.wirepas.wpe.Status\x12\x30\n\x05\x66\x65tch\x12\x12.wirepas.wpe.Query\x1a\x13.wirepas.wpe.StatusB\x1c\n\x15\x63om.wirepas.proto.wpeH\x01\xf8\x01\x01')
+  serialized_pb=_b('\n\"wirepas_messaging/wpe/public.proto\x12\x0bwirepas.wpe\x1a%wirepas_messaging/nanopb/nanopb.proto\"\xdb\x01\n\x08MeshData\x12\x0e\n\x06source\x18\x01 \x01(\x04\x12\x0f\n\x07network\x18\x02 \x01(\x04\x12\x0c\n\x04sink\x18\x03 \x01(\x04\x12\x0f\n\x07version\x18\x04 \x01(\x02\x12\x10\n\x08sequence\x18\x05 \x01(\r\x12\x13\n\x0btravel_time\x18\x06 \x01(\x02\x12\x11\n\ttimestamp\x18\x07 \x01(\x04\x12\x34\n\x07payload\x18\x08 \x03(\x0b\x32\x1c.wirepas.wpe.MeasurementDataB\x05\x92?\x02\x10\x1e\x12\x1f\n\x17use_strongest_neighbors\x18\x14 \x01(\r\"\xdf\x01\n\x0fMeasurementData\x12\x31\n\x04type\x18\x01 \x01(\x0e\x32#.wirepas.wpe.MeasurementData.DOMAIN\x12\x0e\n\x06target\x18\x02 \x01(\x04\x12\r\n\x05value\x18\x03 \x01(\x02\x12\x0c\n\x04time\x18\x04 \x01(\x02\"l\n\x06\x44OMAIN\x12\x0c\n\x08POWER_SR\x10\x00\x12\x0c\n\x08POWER_HR\x10\x01\x12\x08\n\x04TIME\x10\x02\x12\t\n\x05SPACE\x10\x03\x12\x11\n\rPOWER_SR_RSSI\x10\n\x12\x11\n\rPOWER_HR_RSSI\x10\x0b\x12\x0b\n\x06IGNORE\x10\xf0\x01\"y\n\x11\x43onfigurationData\x12\x0f\n\x07network\x18\x01 \x01(\x04\x12 \n\x05nodes\x18\x02 \x03(\x0b\x32\x11.wirepas.wpe.Node\x12 \n\x05\x61reas\x18\x03 \x03(\x0b\x32\x11.wirepas.wpe.Area\x12\x0f\n\x06sender\x18\xc8\x01 \x01(\t\"\xd5\x02\n\x04Node\x12\x10\n\x08sequence\x18\x01 \x01(\r\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\x04\x12\x0f\n\x07network\x18\x03 \x01(\x04\x12(\n\x04role\x18\x04 \x01(\x0e\x32\x1a.wirepas.wpe.Node.BASEROLE\x12\'\n\x0b\x63oordinates\x18\x05 \x01(\x0b\x32\x12.wirepas.wpe.Point\x12\x17\n\x0f\x61rea_identifier\x18\x06 \x03(\x04\x12\x16\n\x0egeo_identifier\x18\x07 \x03(\t\x12\x11\n\ttimestamp\x18\n \x01(\x04\x12\x16\n\x0emap_identifier\x18\x64 \x01(\t\x12\x0f\n\x06sender\x18\xc8\x01 \x01(\t\x12\x1b\n\x12measurement_offset\x18\xf4\x03 \x01(\x02\"<\n\x08\x42\x41SEROLE\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x08\n\x04SINK\x10\x01\x12\x0c\n\x08HEADNODE\x10\x02\x12\x0b\n\x07SUBNODE\x10\x03\"\x91\x01\n\x04\x41rea\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0b\n\x03uid\x18\x02 \x01(\x04\x12\r\n\x05\x66loor\x18\x03 \x01(\x04\x12\x10\n\x08\x62uilding\x18\x04 \x01(\x04\x12\'\n\x0b\x63oordinates\x18\x05 \x03(\x0b\x32\x12.wirepas.wpe.Point\x12\x0c\n\x04uuid\x18\x06 \x01(\t\x12\x16\n\x0emap_identifier\x18\x07 \x01(\t\"Q\n\x05Point\x12\'\n\x05geoid\x18\x01 \x01(\x0e\x32\x18.wirepas.wpe.Point.GEOID\x12\x0b\n\x03lla\x18\x02 \x03(\x02\"\x12\n\x05GEOID\x12\t\n\x05WGS84\x10\x00\"\xe4\x01\n\x06Status\x12&\n\x04\x63ode\x18\x01 \x01(\x0e\x32\x18.wirepas.wpe.Status.CODE\x12\x15\n\rsubscriber_id\x18\x02 \x01(\t\x12\x12\n\nservice_id\x18\x03 \x01(\t\x12\x11\n\ttimestamp\x18\x05 \x01(\x04\x12\x0f\n\x07message\x18\n \x01(\t\x12\x0f\n\x06sender\x18\xc8\x01 \x01(\t\"R\n\x04\x43ODE\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\x12\t\n\x05\x45RROR\x10\x02\x12\x0b\n\x07INSDATA\x10\x03\x12\x0b\n\x07STARTED\x10\x04\x12\x0b\n\x07STOPPED\x10\x05\"\xa5\x01\n\x05Query\x12\x14\n\x0c\x66orce_update\x18\x01 \x01(\x08\x12\x15\n\rsubscriber_id\x18\x02 \x01(\t\x12\x18\n\x10send_node_status\x18\x03 \x01(\x08\x12\x0f\n\x07network\x18\x04 \x01(\r\x12\x0f\n\x07node_id\x18\x05 \x03(\x04\x12\x0f\n\x07\x61rea_id\x18\x06 \x03(\x04\x12\x11\n\tarea_uuid\x18\x07 \x03(\t\x12\x0f\n\x06sender\x18\xc8\x01 \x01(\t\"\x92\x01\n\x03Log\x12\x0c\n\x04time\x18\x01 \x01(\x02\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x0e\n\x06sender\x18\x03 \x01(\t\x12\r\n\x05level\x18\x04 \x01(\r\x12\x11\n\ttimestamp\x18\x05 \x01(\x04\":\n\x0b\x44\x45\x42UG_LEVEL\x12\t\n\x05\x44\x45\x42UG\x10\x00\x12\t\n\x05\x45RROR\x10\x01\x12\x0b\n\x07WARNING\x10\x02\x12\x08\n\x04INFO\x10\x03\"\x07\n\x05\x45mpty2\xff\x03\n\x0c\x66low_manager\x12/\n\x04stop\x12\x12.wirepas.wpe.Query\x1a\x13.wirepas.wpe.Status\x12\x31\n\x06status\x12\x12.wirepas.wpe.Query\x1a\x13.wirepas.wpe.Status\x12\x30\n\x05purge\x12\x12.wirepas.wpe.Query\x1a\x13.wirepas.wpe.Status\x12\x42\n\tconfigure\x12\x1e.wirepas.wpe.ConfigurationData\x1a\x13.wirepas.wpe.Status(\x01\x12;\n\x05\x66\x65tch\x12\x12.wirepas.wpe.Query\x1a\x1e.wirepas.wpe.ConfigurationData\x12\x36\n\x06locate\x12\x15.wirepas.wpe.MeshData\x1a\x11.wirepas.wpe.Node(\x01\x30\x01\x12\x34\n\tsubscribe\x12\x12.wirepas.wpe.Query\x1a\x13.wirepas.wpe.Status\x12\x36\n\x0bunsubscribe\x12\x12.wirepas.wpe.Query\x1a\x13.wirepas.wpe.Status\x12\x32\n\x07observe\x12\x12.wirepas.wpe.Query\x1a\x11.wirepas.wpe.Node0\x01\x32\xa4\x01\n\x0blog_manager\x12/\n\x04stop\x12\x12.wirepas.wpe.Query\x1a\x13.wirepas.wpe.Status\x12\x31\n\x06status\x12\x12.wirepas.wpe.Query\x1a\x13.wirepas.wpe.Status\x12\x31\n\x06record\x12\x10.wirepas.wpe.Log\x1a\x13.wirepas.wpe.Status(\x01\x32\xaa\x01\n\x12subscriber_manager\x12/\n\x04stop\x12\x12.wirepas.wpe.Query\x1a\x13.wirepas.wpe.Status\x12\x31\n\x06status\x12\x12.wirepas.wpe.Query\x1a\x13.wirepas.wpe.Status\x12\x30\n\x05\x66\x65tch\x12\x12.wirepas.wpe.Query\x1a\x13.wirepas.wpe.StatusB\x1c\n\x15\x63om.wirepas.proto.wpeH\x01\xf8\x01\x01')
   ,
   dependencies=[wirepas__messaging_dot_nanopb_dot_nanopb__pb2.DESCRIPTOR,])
 
@@ -93,8 +93,8 @@ _NODE_BASEROLE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=861,
-  serialized_end=921,
+  serialized_start=943,
+  serialized_end=1003,
 )
 _sym_db.RegisterEnumDescriptor(_NODE_BASEROLE)
 
@@ -111,8 +111,8 @@ _POINT_GEOID = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1134,
-  serialized_end=1152,
+  serialized_start=1216,
+  serialized_end=1234,
 )
 _sym_db.RegisterEnumDescriptor(_POINT_GEOID)
 
@@ -138,11 +138,19 @@ _STATUS_CODE = _descriptor.EnumDescriptor(
       name='INSDATA', index=3, number=3,
       options=None,
       type=None),
+    _descriptor.EnumValueDescriptor(
+      name='STARTED', index=4, number=4,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='STOPPED', index=5, number=5,
+      options=None,
+      type=None),
   ],
   containing_type=None,
   options=None,
-  serialized_start=1245,
-  serialized_end=1301,
+  serialized_start=1383,
+  serialized_end=1465,
 )
 _sym_db.RegisterEnumDescriptor(_STATUS_CODE)
 
@@ -171,8 +179,8 @@ _LOG_DEBUG_LEVEL = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1543,
-  serialized_end=1601,
+  serialized_start=1724,
+  serialized_end=1782,
 )
 _sym_db.RegisterEnumDescriptor(_LOG_DEBUG_LEVEL)
 
@@ -345,6 +353,13 @@ _CONFIGURATIONDATA = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='sender', full_name='wirepas.wpe.ConfigurationData.sender', index=3,
+      number=200, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -358,7 +373,7 @@ _CONFIGURATIONDATA = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=538,
-  serialized_end=642,
+  serialized_end=659,
 )
 
 
@@ -419,9 +434,30 @@ _NODE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='map_identifier', full_name='wirepas.wpe.Node.map_identifier', index=7,
+      name='timestamp', full_name='wirepas.wpe.Node.timestamp', index=7,
+      number=10, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='map_identifier', full_name='wirepas.wpe.Node.map_identifier', index=8,
       number=100, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='sender', full_name='wirepas.wpe.Node.sender', index=9,
+      number=200, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='measurement_offset', full_name='wirepas.wpe.Node.measurement_offset', index=10,
+      number=500, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
@@ -438,8 +474,8 @@ _NODE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=645,
-  serialized_end=921,
+  serialized_start=662,
+  serialized_end=1003,
 )
 
 
@@ -511,8 +547,8 @@ _AREA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=924,
-  serialized_end=1069,
+  serialized_start=1006,
+  serialized_end=1151,
 )
 
 
@@ -550,8 +586,8 @@ _POINT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1071,
-  serialized_end=1152,
+  serialized_start=1153,
+  serialized_end=1234,
 )
 
 
@@ -577,8 +613,29 @@ _STATUS = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='message', full_name='wirepas.wpe.Status.message', index=2,
+      name='service_id', full_name='wirepas.wpe.Status.service_id', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='timestamp', full_name='wirepas.wpe.Status.timestamp', index=3,
+      number=5, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='message', full_name='wirepas.wpe.Status.message', index=4,
       number=10, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='sender', full_name='wirepas.wpe.Status.sender', index=5,
+      number=200, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -596,8 +653,8 @@ _STATUS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1155,
-  serialized_end=1301,
+  serialized_start=1237,
+  serialized_end=1465,
 )
 
 
@@ -657,6 +714,13 @@ _QUERY = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='sender', full_name='wirepas.wpe.Query.sender', index=7,
+      number=200, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -669,8 +733,8 @@ _QUERY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1304,
-  serialized_end=1452,
+  serialized_start=1468,
+  serialized_end=1633,
 )
 
 
@@ -729,8 +793,8 @@ _LOG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1455,
-  serialized_end=1601,
+  serialized_start=1636,
+  serialized_end=1782,
 )
 
 
@@ -753,8 +817,8 @@ _EMPTY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1603,
-  serialized_end=1610,
+  serialized_start=1784,
+  serialized_end=1791,
 )
 
 _MESHDATA.fields_by_name['payload'].message_type = _MEASUREMENTDATA
@@ -865,8 +929,8 @@ _FLOW_MANAGER = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   options=None,
-  serialized_start=1613,
-  serialized_end=2124,
+  serialized_start=1794,
+  serialized_end=2305,
   methods=[
   _descriptor.MethodDescriptor(
     name='stop',
@@ -961,8 +1025,8 @@ _LOG_MANAGER = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=1,
   options=None,
-  serialized_start=2127,
-  serialized_end=2291,
+  serialized_start=2308,
+  serialized_end=2472,
   methods=[
   _descriptor.MethodDescriptor(
     name='stop',
@@ -1003,8 +1067,8 @@ _SUBSCRIBER_MANAGER = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=2,
   options=None,
-  serialized_start=2294,
-  serialized_end=2464,
+  serialized_start=2475,
+  serialized_end=2645,
   methods=[
   _descriptor.MethodDescriptor(
     name='stop',
