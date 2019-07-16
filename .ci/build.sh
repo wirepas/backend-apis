@@ -10,3 +10,4 @@ cd "${TARGET_DIR}"
 ./utils/pull_protos.sh
 ./utils/compile_protos.sh
 ./utils/generate_wheel.sh
+twine check dist/*
