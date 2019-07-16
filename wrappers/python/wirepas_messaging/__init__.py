@@ -20,18 +20,15 @@ from . import nanopb
 
 try:
     from . import wpe
-except ImportError:
-    print("Could not import WPE handles")
+except ImportError as err:
+    print("Could not import WPE handles ({})".format(err))
 
 try:
     from . import wnt
-except ImportError:
-    print("Could not import WPE handles")
+except ImportError as err:
+    print("Could not import WPE handles ({})".format(err))
 
-try:
-    from google.protobuf.internal import api_implementation
+from google.protobuf.internal import api_implementation
 
-    if api_implementation._default_implementation_type == "python":
-        print(__warning_msg__)
-except ImportError:
-    print("Could not import api_implementation from google.protobuf.internal")
+if api_implementation._default_implementation_type == "python":
+    print(__warning_msg__)
