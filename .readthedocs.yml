@@ -9,12 +9,8 @@ version: 2
 sphinx:
   configuration: wrappers/python/docs/source/conf.py
 
-# Build documentation with MkDocs
-#mkdocs:
-#  configuration: mkdocs.yml
-
-# Optionally build your docs in additional formats such as PDF and ePub
-formats: all
+formats:
+  - htmlzip
 
 # Optionally set the version of Python and requirements required to build your docs
 python:
@@ -23,5 +19,3 @@ python:
   install:
     - requirements: wrappers/python/docs/requirements.txt
     - requirements: wrappers/python/requirements.txt
-    - method: pip
-      path: wrappers/python
