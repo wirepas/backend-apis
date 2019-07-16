@@ -4,3 +4,7 @@
 .ci/manifest/*
 dev-requirements.txt
 
+Pipfile
+releases.env
+wrappers/python/docs/source/api/
+
