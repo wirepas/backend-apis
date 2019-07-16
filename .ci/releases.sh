@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
+# Wirepas Oy
 set -e
 
 ROOT_DIR=$(pwd)
-TARGET_DIR=${TARGET_DIR:-"wrappers/python"}
-cd "${TARGET_DIR}"
+cd "${PYTHON_PKG_PATH}"
 
 set -a
-GH_RELEASE_PYTHON_VERSION=$(< wirepas_messaging/__init__.py  \
+GH_RELEASE_PYTHON_VERSION=$(< "${PYTHON_PKG_NAME}"/__about__.py  \
                      awk '/__version__/{print $NF}' | \
                      tr -d "\"")
 
@@ -30,7 +30,11 @@ then
     GH_RELEASE_NAME="\"Development version ${GH_RELEASE_PYTHON_VERSION}\""
 fi
 
-echo "version=${GH_RELEASE_PYTHON_VERSION},name=${GH_RELEASE_NAME}, body=${GH_RELEASE_BODY}, draft=${GH_RELEASE_DRAFT}, rc=${GH_RELEASE_CANDIDATE}"
+echo "version=${GH_RELEASE_PYTHON_VERSION},\
+      name=${GH_RELEASE_NAME}, \
+      body=${GH_RELEASE_BODY}, \
+      draft=${GH_RELEASE_DRAFT}, \
+      rc=${GH_RELEASE_CANDIDATE}"
 
 cd "${ROOT_DIR}"
 env | grep "GH_" > releases.env
