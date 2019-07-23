@@ -13,8 +13,6 @@ import re
 import glob
 
 from setuptools import setup, find_packages
-from wirepas_messaging import __title__
-from wirepas_messaging import __version__
 
 here = os.path.abspath(os.path.dirname(__file__))
 readme_file = "README.md"
