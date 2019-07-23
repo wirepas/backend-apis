@@ -1,4 +1,4 @@
-# Wirepas Oy
+# Copyright Wirepas Ltd 2019
 
 import wirepas_messaging
 
@@ -25,9 +25,27 @@ class ReceivedDataEvent(Event):
         event_id(int): event unique id (random value generated if None)
         hop_count(int): number of hop for th emessage to reach the gateway
     """
-    def __init__(self, gw_id, sink_id, rx_time_ms_epoch, src, dst, src_ep, dst_ep, travel_time_ms, qos,
-                 data=None, data_size=None, event_id=None, hop_count=0, **kwargs):
-        super(ReceivedDataEvent, self).__init__(gw_id, sink_id, event_id=event_id, **kwargs)
+
+    def __init__(
+        self,
+        gw_id,
+        sink_id,
+        rx_time_ms_epoch,
+        src,
+        dst,
+        src_ep,
+        dst_ep,
+        travel_time_ms,
+        qos,
+        data=None,
+        data_size=None,
+        event_id=None,
+        hop_count=0,
+        **kwargs
+    ):
+        super(ReceivedDataEvent, self).__init__(
+            gw_id, sink_id, event_id=event_id, **kwargs
+        )
         self.sink_id = sink_id
         self.rx_time_ms_epoch = rx_time_ms_epoch
         self.source_address = src
@@ -51,8 +69,7 @@ class ReceivedDataEvent(Event):
             message.ParseFromString(payload)
         except Exception:
             # Any Exception is promoted to Generic API exception
-            raise GatewayAPIParsingException(
-                "Cannot parse ReceivedDataEvent payload")
+            raise GatewayAPIParsingException("Cannot parse ReceivedDataEvent payload")
 
         event = message.wirepas.packet_received_event
         d = Event._parse_event_header(event.header)
@@ -65,39 +82,40 @@ class ReceivedDataEvent(Event):
             hop_count = 0
 
         # Check optional payload field
-        if event.HasField('payload'):
+        if event.HasField("payload"):
             payload = event.payload
         else:
             payload = None
 
         # Check optional payload field
-        if event.HasField('payload_size'):
+        if event.HasField("payload_size"):
             payload_size = event.payload_size
         else:
             # Attribute is not defined
             payload_size = None
 
-        return cls(d['gw_id'],
-                   d['sink_id'],
-                   event.rx_time_ms_epoch,
-                   event.source_address,
-                   event.destination_address,
-                   event.source_endpoint,
-                   event.destination_endpoint,
-                   event.travel_time_ms,
-                   event.qos,
-                   data=payload,
-                   data_size=payload_size,
-                   event_id=d['event_id'],
-                   hop_count=hop_count)
+        return cls(
+            d["gw_id"],
+            d["sink_id"],
+            event.rx_time_ms_epoch,
+            event.source_address,
+            event.destination_address,
+            event.source_endpoint,
+            event.destination_endpoint,
+            event.travel_time_ms,
+            event.qos,
+            data=payload,
+            data_size=payload_size,
+            event_id=d["event_id"],
+            hop_count=hop_count,
+        )
 
     @property
     def payload(self):
         message = wirepas_messaging.gateway.GenericMessage()
         # Fill the event header
         event = message.wirepas.packet_received_event
-        event.header.CopyFrom(
-            self._make_event_header())
+        event.header.CopyFrom(self._make_event_header())
 
         event.source_address = self.source_address
         event.destination_address = self.destination_address
@@ -117,4 +135,3 @@ class ReceivedDataEvent(Event):
             event.hop_count = self.hop_count
 
         return message.SerializeToString()
-

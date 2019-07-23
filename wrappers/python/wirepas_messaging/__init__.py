@@ -1,4 +1,4 @@
-# Wirepas Oy
+# Copyright Wirepas Ltd 2019
 
 from .__about__ import (
     __author__,

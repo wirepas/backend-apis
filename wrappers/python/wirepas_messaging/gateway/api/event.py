@@ -1,4 +1,4 @@
-# Wirepas Oy
+# Copyright Wirepas Ltd 2019
 
 import wirepas_messaging
 import random
@@ -13,6 +13,7 @@ class Event(object):
         sink_id(str): sink identifier
         event_id(int): event unique id (random value generated if None)
     """
+
     def __init__(self, gw_id, sink_id=None, event_id=None, **kwargs):
 
         super(Event, self).__init__()
@@ -54,11 +55,11 @@ class Event(object):
         """
 
         d = dict()
-        d['gw_id'] = header.gw_id
-        d['event_id'] = header.event_id
+        d["gw_id"] = header.gw_id
+        d["event_id"] = header.event_id
         if header.HasField("sink_id"):
-            d['sink_id'] = header.sink_id
+            d["sink_id"] = header.sink_id
         else:
-            d['sink_id'] = None
+            d["sink_id"] = None
 
         return d

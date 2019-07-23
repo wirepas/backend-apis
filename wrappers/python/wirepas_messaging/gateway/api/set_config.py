@@ -1,4 +1,4 @@
-# Wirepas Oy
+# Copyright Wirepas Ltd 2019
 
 import wirepas_messaging
 
@@ -33,6 +33,7 @@ class SetConfigRequest(Request):
                       only relevant keys for new config has to be defined
         req_id (int): unique request id
     """
+
     def __init__(self, sink_id, new_config, req_id=None, **kwargs):
         super(SetConfigRequest, self).__init__(req_id=req_id, **kwargs)
         self.sink_id = sink_id
@@ -45,30 +46,28 @@ class SetConfigRequest(Request):
             message.ParseFromString(payload)
         except Exception:
             # Any Exception is promoted to Generic API exception
-            raise GatewayAPIParsingException(
-                "Cannot parse SetConfigRequest payload")
+            raise GatewayAPIParsingException("Cannot parse SetConfigRequest payload")
 
         req = message.wirepas.set_config_req
 
         d = Request._parse_request_header(req.header)
 
-        if (d['sink_id'] is not None) and (d['sink_id'] != req.config.sink_id):
-            print('Warning: Mismatch in sink id for set_config_request')
+        if (d["sink_id"] is not None) and (d["sink_id"] != req.config.sink_id):
+            print("Warning: Mismatch in sink id for set_config_request")
 
         new_config = {}
-        new_config['sink_id'] = req.config.sink_id
+        new_config["sink_id"] = req.config.sink_id
         parse_config_rw(req.config, new_config)
         parse_config_keys(req.config, new_config)
 
-        return cls(req.config.sink_id, new_config, d['req_id'])
+        return cls(req.config.sink_id, new_config, d["req_id"])
 
     @property
     def payload(self):
         message = wirepas_messaging.gateway.GenericMessage()
         # Fill the request header
         set_config = message.wirepas.set_config_req
-        set_config.header.CopyFrom(
-            self._make_request_header())
+        set_config.header.CopyFrom(self._make_request_header())
 
         set_config.config.sink_id = self.sink_id
         set_config_rw(set_config.config, self.new_config)
@@ -88,9 +87,9 @@ class SetConfigResponse(Response):
         sink_id (str): id of the sink (dependant on gateway)
         config (dict): dictionnary containing the sink configuration after the setConfig request
     """
+
     def __init__(self, req_id, gw_id, res, sink_id, config, **kwargs):
-        super(SetConfigResponse, self).__init__(
-            req_id, gw_id, res, sink_id, **kwargs)
+        super(SetConfigResponse, self).__init__(req_id, gw_id, res, sink_id, **kwargs)
         # Config can be null in case of wrong sink_id for example
         self.config = config
 
@@ -101,30 +100,28 @@ class SetConfigResponse(Response):
             message.ParseFromString(payload)
         except Exception:
             # Any Exception is promoted to Generic API exception
-            raise GatewayAPIParsingException(
-                "Cannot parse SetConfigResponse payload")
+            raise GatewayAPIParsingException("Cannot parse SetConfigResponse payload")
 
         response = message.wirepas.set_config_resp
 
         d = Response._parse_response_header(response.header)
 
-        if d['sink_id'] != response.config.sink_id:
-            print('Error: Mismatch in sink id for set_config_response')
+        if d["sink_id"] != response.config.sink_id:
+            print("Error: Mismatch in sink id for set_config_response")
 
         new_config = {}
-        new_config['sink_id'] = response.config.sink_id
+        new_config["sink_id"] = response.config.sink_id
         parse_config_ro(response.config, new_config)
         parse_config_rw(response.config, new_config)
 
-        return cls(d['req_id'], d['gw_id'], d['res'], d['sink_id'], new_config)
+        return cls(d["req_id"], d["gw_id"], d["res"], d["sink_id"], new_config)
 
     @property
     def payload(self):
         message = wirepas_messaging.gateway.GenericMessage()
 
         response = message.wirepas.set_config_resp
-        response.header.CopyFrom(
-            self._make_response_header())
+        response.header.CopyFrom(self._make_response_header())
 
         response.config.sink_id = self.sink_id
         if self.config is not None:

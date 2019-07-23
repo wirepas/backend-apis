@@ -3,7 +3,7 @@
     =================
     Installation script
 
-    Wirepas Oy licensed under Apache 2.0
+    Copyright Wirepas Ltd 2019 licensed under Apache 2.0
 
     Please see License file for full text.
 """

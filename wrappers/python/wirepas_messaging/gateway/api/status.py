@@ -1,4 +1,4 @@
-# Wirepas Oy
+# Copyright Wirepas Ltd 2019
 
 from .event import Event
 
@@ -25,6 +25,7 @@ class StatusEvent(Event):
         version (int): API version for gateway. Should be always 1
         event_id(int): event unique id (random value generated if None)
     """
+
     def __init__(self, gw_id, state, version=API_VERSION, event_id=None, **kwargs):
         super(StatusEvent, self).__init__(gw_id, event_id=event_id, **kwargs)
         self.state = state
@@ -37,8 +38,7 @@ class StatusEvent(Event):
             message.ParseFromString(payload)
         except Exception:
             # Any Exception is promoted to Generic API exception
-            raise GatewayAPIParsingException(
-                "Cannot parse StatusEvent payload")
+            raise GatewayAPIParsingException("Cannot parse StatusEvent payload")
 
         event = message.wirepas.status_event
 
@@ -51,15 +51,14 @@ class StatusEvent(Event):
             raise RuntimeError("Wrong API version")
 
         d = Event._parse_event_header(event.header)
-        return cls(d['gw_id'], online, event_id=d['event_id'])
+        return cls(d["gw_id"], online, event_id=d["event_id"])
 
     @property
     def payload(self):
         message = wirepas_messaging.gateway.GenericMessage()
         # Fill the request header
         status = message.wirepas.status_event
-        status.header.CopyFrom(
-            self._make_event_header())
+        status.header.CopyFrom(self._make_event_header())
 
         status.version = API_VERSION
         if self.state == GatewayState.ONLINE:
