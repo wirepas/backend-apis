@@ -14,30 +14,51 @@
 
 import os
 import sys
+import subprocess
 
-sys.path.insert(0, os.path.abspath("../.."))
+_here = os.path.abspath(os.path.dirname(__file__))
+_library_root = os.path.abspath(os.path.join(_here, "../.."))
 
-import wirepas_messaging
+sys.path.insert(0, _library_root)
+
+
+def run_proto_gen(self):
+    """ Copies and runs the protoc compiler on the proto files"""
+
+    cmds = ["./utils/pull_protos.sh", "./utils/compile_protos.sh"]
+
+    for cmd in cmds:
+        print("calling {} (workdir={})".format(cmd, _library_root))
+        subprocess.check_call(cmd, cwd=_library_root)
+
+
+def setup(app):
+    """ Override for a custom sphinx build call. See manual on how to
+    change the event when this action is triggered. """
+    app.connect("builder-inited", run_proto_gen)
+
+
+about = {}
+with open("{}/wirepas_messaging/__about__.py".format(_library_root)) as f:
+    exec(f.read(), about)
 
 # -- Project information -----------------------------------------------------
-_project = wirepas_messaging.__title__
-_copyright = "{},{}".format(
-    wirepas_messaging.__copyright__, wirepas_messaging.__license__
-)
-_release = wirepas_messaging.__version__
-_name = wirepas_messaging.__pkg_name__
-_version = wirepas_messaging.__version__
-_description = wirepas_messaging.__description__
-_author = wirepas_messaging.__author__
-_author_email = wirepas_messaging.__author_email__
-_url = wirepas_messaging.__url__
-_license = wirepas_messaging.__license__
-_classifiers = wirepas_messaging.__classifiers__
-_keywords = wirepas_messaging.__keywords__
+_project = about["__title__"]
+_copyright = "{},{}".format(about["__copyright__"], about["__license__"])
+_release = about["__version__"]
+_name = about["__pkg_name__"]
+_version = about["__version__"]
+_description = about["__description__"]
+_author = about["__author__"]
+_author_email = about["__author_email__"]
+_url = about["__url__"]
+_license = about["__license__"]
+_classifiers = about["__classifiers__"]
+_keywords = about["__keywords__"]
 
 # -- General configuration ---------------------------------------------------
 
-# If your documentation needs a minimal Sphinx version, state it here.
+# If your documentation needs a minimal Sphinx version, state it _here.
 #
 # needs_sphinx = '1.0'
 
@@ -46,7 +67,6 @@ _keywords = wirepas_messaging.__keywords__
 # ones.
 extensions = [
     "m2r",
-    "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
     "sphinx.ext.todo",
     "sphinx.ext.coverage",
@@ -85,9 +105,10 @@ exclude_patterns = ["setup"]
 pygments_style = "sphinx"
 
 # -- Options for apidoc output -------------------------------------------------
-apidoc_module_dir = os.path.join(os.path.abspath("../.."), "wirepas_messaging")
+apidoc_module_dir = os.path.join(_library_root, "wirepas_messaging")
 apidoc_excluded_paths = ["tests", "setup"]
-apidoc_separate_modules = True
+apidoc_separate_modules = False
+apidoc_module_first = True
 
 # -- Options for autodoc output -------------------------------------------------
 autodoc_mock_imports = ["setup"]
@@ -128,51 +149,3 @@ html_sidebars = {"**": ["about.html", "relations.html", "searchbox.html"]}
 
 # Output file base name for HTML help builder.
 htmlhelp_basename = _name
-
-
-# -- Options for LaTeX output ------------------------------------------------
-
-latex_elements = {
-    # The paper size ('letterpaper' or 'a4paper').
-    #
-    "papersize": "a4paper",
-    # The font size ('10pt', '11pt' or '12pt').
-    #
-    "pointsize": "11pt",
-    # Additional stuff for the LaTeX preamble.
-    #
-    # 'preamble': '',
-    # Latex figure (float) alignment
-    #
-    # 'figure_align': 'htbp',
-}
-
-
-# -- Options for manual page output ------------------------------------------
-
-# One entry per manual page. List of tuples
-# (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, _project, _description, [_author], 1)]
-
-
-# -- Options for Texinfo output ----------------------------------------------
-
-# Grouping the document tree into Texinfo files. List of tuples
-# (source start file, target name, title, author,
-#  dir menu entry, description, category)
-texinfo_documents = [
-    (master_doc, _name, _project, _author, _author, _description, _keywords)
-]
-
-
-# -- Extension configuration -------------------------------------------------
-
-# -- Options for intersphinx extension ---------------------------------------
-
-# Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {"https://docs.python.org/": None}
-
-# -- Options for todo extension ----------------------------------------------
-
-# If true, `todo` and `todoList` produce output, else they produce nothing.
-# todo_include_todos = True
