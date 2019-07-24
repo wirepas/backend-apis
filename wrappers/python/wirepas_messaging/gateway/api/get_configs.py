@@ -1,4 +1,4 @@
-# Wirepas Oy
+# Copyright Wirepas Ltd 2019
 
 import wirepas_messaging
 
@@ -16,6 +16,7 @@ class GetConfigsRequest(Request):
     Attributes:
         req_id (int): unique request id
     """
+
     def __init__(self, req_id=None, **kwargs):
         super(GetConfigsRequest, self).__init__(req_id=req_id, **kwargs)
 
@@ -26,19 +27,17 @@ class GetConfigsRequest(Request):
             message.ParseFromString(payload)
         except Exception:
             # Any Exception is promoted to Generic API exception
-            raise GatewayAPIParsingException(
-                "Cannot parse GetConfigsRequest payload")
+            raise GatewayAPIParsingException("Cannot parse GetConfigsRequest payload")
 
         d = Request._parse_request_header(message.wirepas.get_configs_req.header)
-        return cls(d['req_id'])
+        return cls(d["req_id"])
 
     @property
     def payload(self):
         message = wirepas_messaging.gateway.GenericMessage()
         # Fill the request header
         get_config = message.wirepas.get_configs_req
-        get_config.header.CopyFrom(
-            self._make_request_header())
+        get_config.header.CopyFrom(self._make_request_header())
 
         return message.SerializeToString()
 
@@ -53,6 +52,7 @@ class GetConfigsResponse(Response):
         res (GatewayResultCode): result of the operation
         configs (list): list of dictionnary containing a dict representing an attached sink
     """
+
     def __init__(self, req_id, gw_id, res, configs, **kwargs):
         super(GetConfigsResponse, self).__init__(req_id, gw_id, res, **kwargs)
         self.configs = configs
@@ -64,8 +64,7 @@ class GetConfigsResponse(Response):
             message.ParseFromString(payload)
         except Exception:
             # Any Exception is promoted to Generic API exception
-            raise GatewayAPIParsingException(
-                "Cannot parse GetConfigsResponse payload")
+            raise GatewayAPIParsingException("Cannot parse GetConfigsResponse payload")
 
         response = message.wirepas.get_configs_resp
 
@@ -83,15 +82,14 @@ class GetConfigsResponse(Response):
 
             configs.append(config)
 
-        return cls(d['req_id'], d['gw_id'], d['res'], configs)
+        return cls(d["req_id"], d["gw_id"], d["res"], configs)
 
     @property
     def payload(self):
         message = wirepas_messaging.gateway.GenericMessage()
 
         response = message.wirepas.get_configs_resp
-        response.header.CopyFrom(
-            self._make_response_header())
+        response.header.CopyFrom(self._make_response_header())
 
         for config in self.configs:
             conf = response.configs.add()

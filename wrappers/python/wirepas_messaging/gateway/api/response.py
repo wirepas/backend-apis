@@ -1,4 +1,4 @@
-# Wirepas Oy
+# Copyright Wirepas Ltd 2019
 
 import wirepas_messaging
 from .gateway_result_code import GatewayResultCode
@@ -55,13 +55,13 @@ class Response(object):
             A dictionary with the header details
         """
         d = dict()
-        d['req_id'] = header.req_id
-        d['gw_id'] = header.gw_id
-        d['res'] = GatewayResultCode(header.res)
+        d["req_id"] = header.req_id
+        d["gw_id"] = header.gw_id
+        d["res"] = GatewayResultCode(header.res)
 
         if header.HasField("sink_id"):
-            d['sink_id'] = header.sink_id
+            d["sink_id"] = header.sink_id
         else:
-            d['sink_id'] = None
+            d["sink_id"] = None
 
         return d

@@ -1,4 +1,4 @@
-# Wirepas Oy
+# Copyright Wirepas Ltd 2019
 
 from .config_message_pb2 import *
 from .data_message_pb2 import *

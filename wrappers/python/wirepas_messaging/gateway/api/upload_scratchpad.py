@@ -1,4 +1,4 @@
-# Wirepas Oy
+# Copyright Wirepas Ltd 2019
 
 import wirepas_messaging
 
@@ -16,9 +16,9 @@ class UploadScratchpadRequest(Request):
         req_id (int): unique request id
         scratchpad (bytearray): scratchpad to upload (None to clear scratchpad)
     """
+
     def __init__(self, seq, sink_id, req_id=None, scratchpad=None, **kwargs):
-        super(UploadScratchpadRequest, self).__init__(
-            sink_id, req_id, **kwargs)
+        super(UploadScratchpadRequest, self).__init__(sink_id, req_id, **kwargs)
         self.seq = seq
         self.scratchpad = scratchpad
 
@@ -30,26 +30,26 @@ class UploadScratchpadRequest(Request):
         except Exception:
             # Any Exception is promoted to Generic API exception
             raise GatewayAPIParsingException(
-                "Cannot parse UploadScratchpadRequest payload")
+                "Cannot parse UploadScratchpadRequest payload"
+            )
 
         req = message.wirepas.upload_scratchpad_req
 
         d = Request._parse_request_header(req.header)
-        if req.HasField('scratchpad'):
+        if req.HasField("scratchpad"):
             scratchpad = req.scratchpad
         else:
             # Clear the scratchpad
             scratchpad = None
 
-        return cls(req.seq, d['sink_id'], d['req_id'], scratchpad)
+        return cls(req.seq, d["sink_id"], d["req_id"], scratchpad)
 
     @property
     def payload(self):
         message = wirepas_messaging.gateway.GenericMessage()
         # Fill the request header
         req = message.wirepas.upload_scratchpad_req
-        req.header.CopyFrom(
-            self._make_request_header())
+        req.header.CopyFrom(self._make_request_header())
 
         req.seq = self.seq
         if self.scratchpad is not None:
@@ -68,9 +68,11 @@ class UploadScratchpadResponse(Response):
         res (GatewayResultCode): result of the operation
         sink_id (str): id of the sink (dependant on gateway)
     """
+
     def __init__(self, req_id, gw_id, res, sink_id, **kwargs):
         super(UploadScratchpadResponse, self).__init__(
-            req_id, gw_id, res, sink_id, **kwargs)
+            req_id, gw_id, res, sink_id, **kwargs
+        )
 
     @classmethod
     def from_payload(cls, payload):
@@ -80,20 +82,20 @@ class UploadScratchpadResponse(Response):
         except Exception:
             # Any Exception is promoted to Generic API exception
             raise GatewayAPIParsingException(
-                "Cannot parse UploadScratchpadResponse payload")
+                "Cannot parse UploadScratchpadResponse payload"
+            )
 
         response = message.wirepas.upload_scratchpad_resp
 
         d = Response._parse_response_header(response.header)
 
-        return cls(d['req_id'], d['gw_id'], d['res'], d['sink_id'])
+        return cls(d["req_id"], d["gw_id"], d["res"], d["sink_id"])
 
     @property
     def payload(self):
         message = wirepas_messaging.gateway.GenericMessage()
 
         response = message.wirepas.upload_scratchpad_resp
-        response.header.CopyFrom(
-            self._make_response_header())
+        response.header.CopyFrom(self._make_response_header())
 
         return message.SerializeToString()

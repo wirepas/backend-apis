@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Wirepas Oy
+# Copyright Wirepas Ltd 2019
 
 WIREPAS_USER=${1:-""}
 
