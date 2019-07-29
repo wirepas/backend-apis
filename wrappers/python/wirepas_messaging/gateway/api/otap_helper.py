@@ -1,4 +1,4 @@
-# Wirepas Oy
+# Copyright Wirepas Ltd 2019
 
 import wirepas_messaging
 from ..otap_message_pb2 import *
@@ -18,12 +18,12 @@ class ScratchpadStatus(enum.Enum):
 
 
 def parse_scratchpad_info(message_obj, dic):
-    dic['len'] = message_obj.len
-    dic['crc'] = message_obj.crc
-    dic['seq'] = message_obj.seq
+    dic["len"] = message_obj.len
+    dic["crc"] = message_obj.crc
+    dic["seq"] = message_obj.seq
 
 
 def set_scratchpad_info(message_obj, dic):
-    message_obj.len = dic['len']
-    message_obj.crc = dic['crc']
-    message_obj.seq = dic['seq']
+    message_obj.len = dic["len"]
+    message_obj.crc = dic["crc"]
+    message_obj.seq = dic["seq"]

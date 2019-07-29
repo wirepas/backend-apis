@@ -1,4 +1,4 @@
-# Wirepas Oy
+# Copyright Wirepas Ltd 2019
 
 import wirepas_messaging
 
@@ -14,16 +14,20 @@ def convert_proto_role_to_wirepas(base, flags):
     Returns:
         Wirepas role as an int
     """
-    base_proto_to_wirepas = dict([
-        (wirepas_messaging.gateway.NodeRole.SINK, 1),
-        (wirepas_messaging.gateway.NodeRole.ROUTER, 2),
-        (wirepas_messaging.gateway.NodeRole.NON_ROUTER, 3)
-    ])
+    base_proto_to_wirepas = dict(
+        [
+            (wirepas_messaging.gateway.NodeRole.SINK, 1),
+            (wirepas_messaging.gateway.NodeRole.ROUTER, 2),
+            (wirepas_messaging.gateway.NodeRole.NON_ROUTER, 3),
+        ]
+    )
 
-    flag_proto_to_wirepas = dict([
-        (wirepas_messaging.gateway.NodeRole.LOW_LATENCY, 0x10),
-        (wirepas_messaging.gateway.NodeRole.AUTOROLE, 0x80)
-    ])
+    flag_proto_to_wirepas = dict(
+        [
+            (wirepas_messaging.gateway.NodeRole.LOW_LATENCY, 0x10),
+            (wirepas_messaging.gateway.NodeRole.AUTOROLE, 0x80),
+        ]
+    )
 
     wirepas_role = base_proto_to_wirepas[base]
 
@@ -43,23 +47,27 @@ def convert_wirepas_role_to_proto(wirepas_role):
     Returns:
         Tupple with protocol buffer base and flags
     """
-    wirepas_base = wirepas_role & 0xf
+    wirepas_base = wirepas_role & 0xF
 
-    wirepas_base_to_proto = dict([
-        (1, wirepas_messaging.gateway.NodeRole.SINK),
-        (2, wirepas_messaging.gateway.NodeRole.ROUTER),
-        (3, wirepas_messaging.gateway.NodeRole.NON_ROUTER)
-    ])
+    wirepas_base_to_proto = dict(
+        [
+            (1, wirepas_messaging.gateway.NodeRole.SINK),
+            (2, wirepas_messaging.gateway.NodeRole.ROUTER),
+            (3, wirepas_messaging.gateway.NodeRole.NON_ROUTER),
+        ]
+    )
 
-    flag_proto_to_wirepas = dict([
-        (0x10, wirepas_messaging.gateway.NodeRole.LOW_LATENCY),
-        (0x80, wirepas_messaging.gateway.NodeRole.AUTOROLE)
-    ])
+    flag_proto_to_wirepas = dict(
+        [
+            (0x10, wirepas_messaging.gateway.NodeRole.LOW_LATENCY),
+            (0x80, wirepas_messaging.gateway.NodeRole.AUTOROLE),
+        ]
+    )
 
     base = wirepas_base_to_proto[wirepas_base]
 
     flags = []
-    flags_val = wirepas_role & 0xf0
+    flags_val = wirepas_role & 0xF0
     for flag in flag_proto_to_wirepas:
         if flag & flags_val != 0:
             flags.append(flag_proto_to_wirepas[flag])
@@ -116,26 +124,23 @@ def parse_config_rw(message_obj, dic):
 
     if message_obj.HasField("node_role"):
         dic["node_role"] = convert_proto_role_to_wirepas(
-            message_obj.node_role.role, message_obj.node_role.flags)
+            message_obj.node_role.role, message_obj.node_role.flags
+        )
 
+    parse_optional_field(message_obj, "node_address", dic, "node_address")
+    parse_optional_field(message_obj, "network_address", dic, "network_address")
+    parse_optional_field(message_obj, "network_channel", dic, "network_channel")
     parse_optional_field(
-        message_obj, "node_address", dic, "node_address")
+        message_obj.app_config, "diag_interval_s", dic, "app_config_diag"
+    )
+    parse_optional_field(message_obj.app_config, "seq", dic, "app_config_seq")
     parse_optional_field(
-        message_obj, "network_address", dic, "network_address")
-    parse_optional_field(
-        message_obj, "network_channel", dic, "network_channel")
-    parse_optional_field(
-        message_obj.app_config, "diag_interval_s", dic, "app_config_diag")
-    parse_optional_field(
-        message_obj.app_config, "seq", dic, "app_config_seq")
-    parse_optional_field(
-        message_obj.app_config, "app_config_data", dic, "app_config_data")
-    parse_optional_field(
-        message_obj, "channel_map", dic, "channel_map")
+        message_obj.app_config, "app_config_data", dic, "app_config_data"
+    )
+    parse_optional_field(message_obj, "channel_map", dic, "channel_map")
 
     if message_obj.HasField("sink_state"):
-        dic["started"] = (message_obj.sink_state ==
-                          wirepas_messaging.gateway.ON)
+        dic["started"] = message_obj.sink_state == wirepas_messaging.gateway.ON
 
 
 def set_config_rw(message_obj, dic):
@@ -155,27 +160,22 @@ def set_config_rw(message_obj, dic):
         # Field is unknown, just skip it
         pass
 
-    set_optional_field(
-        message_obj, "node_address", dic, "node_address")
-    set_optional_field(
-        message_obj, "network_address", dic, "network_address")
-    set_optional_field(
-        message_obj, "network_channel", dic, "network_channel")
+    set_optional_field(message_obj, "node_address", dic, "node_address")
+    set_optional_field(message_obj, "network_address", dic, "network_address")
+    set_optional_field(message_obj, "network_channel", dic, "network_channel")
 
     set_optional_field(
-        message_obj.app_config, "diag_interval_s", dic, "app_config_diag")
-    set_optional_field(
-        message_obj.app_config, "seq", dic, "app_config_seq")
+        message_obj.app_config, "diag_interval_s", dic, "app_config_diag"
+    )
+    set_optional_field(message_obj.app_config, "seq", dic, "app_config_seq")
 
     try:
-        message_obj.app_config.app_config_data = bytes(
-            dic["app_config_data"])
+        message_obj.app_config.app_config_data = bytes(dic["app_config_data"])
     except KeyError:
         # Field is unknown, just skip it
         pass
 
-    set_optional_field(
-        message_obj, "channel_map", dic, "channel_map")
+    set_optional_field(message_obj, "channel_map", dic, "channel_map")
 
     try:
         if dic["started"]:
@@ -198,10 +198,8 @@ def parse_config_keys(message_obj, dic):
         dic (dict): the dictionary where to copy the keys into
     """
 
-    parse_optional_field(
-        message_obj.keys, "cipher", dic, "cipher_key")
-    parse_optional_field(
-        message_obj.keys, "authentication", dic, "authentication_key")
+    parse_optional_field(message_obj.keys, "cipher", dic, "cipher_key")
+    parse_optional_field(message_obj.keys, "authentication", dic, "authentication_key")
 
 
 def set_config_keys(message_obj, dic):
@@ -214,10 +212,8 @@ def set_config_keys(message_obj, dic):
         message_obj (proto): protocol buffer object
         dic (dict): the dictionary where to copy the keys from
     """
-    set_optional_field(
-        message_obj, "cipher", dic, "cipher_key")
-    set_optional_field(
-        message_obj, "authentication", dic, "authentication_key")
+    set_optional_field(message_obj, "cipher", dic, "cipher_key")
+    set_optional_field(message_obj, "authentication", dic, "authentication_key")
 
 
 def parse_config_ro(message_obj, dic):
@@ -230,36 +226,31 @@ def parse_config_ro(message_obj, dic):
 
     """
     parse_optional_field(
-        message_obj.current_ac_range, "min_ms", dic, "current_ac_range_min")
+        message_obj.current_ac_range, "min_ms", dic, "current_ac_range_min"
+    )
     parse_optional_field(
-        message_obj.current_ac_range, "max_ms", dic, "current_ac_range_max")
+        message_obj.current_ac_range, "max_ms", dic, "current_ac_range_max"
+    )
 
-    parse_optional_field(
-        message_obj.ac_limits, "min_ms", dic, "min_ac")
-    parse_optional_field(
-        message_obj.ac_limits, "max_ms", dic, "max_ac")
+    parse_optional_field(message_obj.ac_limits, "min_ms", dic, "min_ac")
+    parse_optional_field(message_obj.ac_limits, "max_ms", dic, "max_ac")
 
-    parse_optional_field(
-        message_obj, "max_mtu", dic, "max_mtu")
+    parse_optional_field(message_obj, "max_mtu", dic, "max_mtu")
 
-    parse_optional_field(
-        message_obj.channel_limits, "min_channel", dic, "min_ch")
-    parse_optional_field(
-        message_obj.channel_limits, "max_channel", dic, "max_ch")
-    parse_optional_field(
-        message_obj, "hw_magic", dic, "hw_magic")
-    parse_optional_field(
-        message_obj, "stack_profile", dic, "stack_profile")
-    parse_optional_field(
-        message_obj, "app_config_max_size", dic, "app_config_max_size")
-    parse_optional_field(
-        message_obj, "are_keys_set", dic, "are_keys_set")
+    parse_optional_field(message_obj.channel_limits, "min_channel", dic, "min_ch")
+    parse_optional_field(message_obj.channel_limits, "max_channel", dic, "max_ch")
+    parse_optional_field(message_obj, "hw_magic", dic, "hw_magic")
+    parse_optional_field(message_obj, "stack_profile", dic, "stack_profile")
+    parse_optional_field(message_obj, "app_config_max_size", dic, "app_config_max_size")
+    parse_optional_field(message_obj, "are_keys_set", dic, "are_keys_set")
 
     if message_obj.HasField("firmware_version"):
-        dic["firmware_version"] = [message_obj.firmware_version.major,
-                                   message_obj.firmware_version.minor,
-                                   message_obj.firmware_version.maint,
-                                   message_obj.firmware_version.dev]
+        dic["firmware_version"] = [
+            message_obj.firmware_version.major,
+            message_obj.firmware_version.minor,
+            message_obj.firmware_version.maint,
+            message_obj.firmware_version.dev,
+        ]
 
 
 def set_config_ro(message_obj, dic):
@@ -271,32 +262,21 @@ def set_config_ro(message_obj, dic):
         dic (dict): the dictionary where to copy the ro fields from
 
     """
-    set_optional_field(
-        message_obj.current_ac_range, "min_ms", dic, "min_ac_cur")
-    set_optional_field(
-        message_obj.current_ac_range, "max_ms", dic, "max_ac_cur")
+    set_optional_field(message_obj.current_ac_range, "min_ms", dic, "min_ac_cur")
+    set_optional_field(message_obj.current_ac_range, "max_ms", dic, "max_ac_cur")
 
-    set_optional_field(
-        message_obj.ac_limits, "min_ms", dic, "min_ac")
-    set_optional_field(
-        message_obj.ac_limits, "max_ms", dic, "max_ac")
+    set_optional_field(message_obj.ac_limits, "min_ms", dic, "min_ac")
+    set_optional_field(message_obj.ac_limits, "max_ms", dic, "max_ac")
 
-    set_optional_field(
-        message_obj, "max_mtu", dic, "max_mtu")
+    set_optional_field(message_obj, "max_mtu", dic, "max_mtu")
 
-    set_optional_field(
-        message_obj.channel_limits, "min_channel", dic, "min_ch")
-    set_optional_field(
-        message_obj.channel_limits, "max_channel", dic, "max_ch")
+    set_optional_field(message_obj.channel_limits, "min_channel", dic, "min_ch")
+    set_optional_field(message_obj.channel_limits, "max_channel", dic, "max_ch")
 
-    set_optional_field(
-        message_obj, "hw_magic", dic, "hw_magic")
-    set_optional_field(
-        message_obj, "stack_profile", dic, "stack_profile")
-    set_optional_field(
-        message_obj, "app_config_max_size", dic, "app_config_max_size")
-    set_optional_field(
-        message_obj, "are_keys_set", dic, "are_keys_set")
+    set_optional_field(message_obj, "hw_magic", dic, "hw_magic")
+    set_optional_field(message_obj, "stack_profile", dic, "stack_profile")
+    set_optional_field(message_obj, "app_config_max_size", dic, "app_config_max_size")
+    set_optional_field(message_obj, "are_keys_set", dic, "are_keys_set")
 
     try:
         message_obj.firmware_version.major = dic["firmware_version"][0]

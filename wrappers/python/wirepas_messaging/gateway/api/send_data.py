@@ -1,4 +1,4 @@
-# Wirepas Oy
+# Copyright Wirepas Ltd 2019
 
 import wirepas_messaging
 
@@ -24,9 +24,21 @@ class SendDataRequest(Request):
         is_unack_csma_ca(bool): if true only sent to CB-MAC nodes
         hop_limit(int): maximum number of hops this message can do to reach its destination (<16)
     """
-    def __init__(self, dest_add, src_ep, dst_ep, qos, payload,
-                 initial_delay_ms=0, sink_id=None, req_id=None,
-                 is_unack_csma_ca=False, hop_limit=0, **kwargs):
+
+    def __init__(
+        self,
+        dest_add,
+        src_ep,
+        dst_ep,
+        qos,
+        payload,
+        initial_delay_ms=0,
+        sink_id=None,
+        req_id=None,
+        is_unack_csma_ca=False,
+        hop_limit=0,
+        **kwargs
+    ):
         super(SendDataRequest, self).__init__(sink_id, req_id, **kwargs)
         self.destination_address = dest_add
         self.source_endpoint = src_ep
@@ -44,8 +56,7 @@ class SendDataRequest(Request):
             message.ParseFromString(payload)
         except Exception:
             # Any Exception is promoted to Generic API exception
-            raise GatewayAPIParsingException(
-                "Cannot parse SendDataRequest payload")
+            raise GatewayAPIParsingException("Cannot parse SendDataRequest payload")
 
         req = message.wirepas.send_packet_req
         d = Request._parse_request_header(req.header)
@@ -69,16 +80,18 @@ class SendDataRequest(Request):
             # Attribute is not defined
             hop_limit = 0
 
-        return cls(req.destination_address,
-                   req.source_endpoint,
-                   req.destination_endpoint,
-                   req.qos,
-                   req.payload,
-                   initial_delay_ms,
-                   d['sink_id'],
-                   d['req_id'],
-                   is_unack_csma_ca,
-                   hop_limit)
+        return cls(
+            req.destination_address,
+            req.source_endpoint,
+            req.destination_endpoint,
+            req.qos,
+            req.payload,
+            initial_delay_ms,
+            d["sink_id"],
+            d["req_id"],
+            is_unack_csma_ca,
+            hop_limit,
+        )
 
     @property
     def payload(self):
@@ -86,8 +99,7 @@ class SendDataRequest(Request):
 
         # Fill the request header
         req = message.wirepas.send_packet_req
-        req.header.CopyFrom(
-            self._make_request_header())
+        req.header.CopyFrom(self._make_request_header())
 
         req.destination_address = self.destination_address
         req.source_endpoint = self.source_endpoint
@@ -118,9 +130,9 @@ class SendDataResponse(Response):
          res (GatewayResultCode): result of the operation
          sink_id (str): id of the sink (dependant on gateway)
      """
+
     def __init__(self, req_id, gw_id, res, sink_id, **kwargs):
-        super(SendDataResponse, self).__init__(
-            req_id, gw_id, res, sink_id, **kwargs)
+        super(SendDataResponse, self).__init__(req_id, gw_id, res, sink_id, **kwargs)
 
     @classmethod
     def from_payload(cls, payload):
@@ -129,21 +141,19 @@ class SendDataResponse(Response):
             message.ParseFromString(payload)
         except Exception:
             # Any Exception is promoted to Generic API exception
-            raise GatewayAPIParsingException(
-                "Cannot parse SendDataResponse payload")
+            raise GatewayAPIParsingException("Cannot parse SendDataResponse payload")
 
         response = message.wirepas.send_packet_resp
 
         d = Response._parse_response_header(response.header)
 
-        return cls(d['req_id'], d['gw_id'], d['res'], d['sink_id'])
+        return cls(d["req_id"], d["gw_id"], d["res"], d["sink_id"])
 
     @property
     def payload(self):
         message = wirepas_messaging.gateway.GenericMessage()
 
         response = message.wirepas.send_packet_resp
-        response.header.CopyFrom(
-            self._make_response_header())
+        response.header.CopyFrom(self._make_response_header())
 
         return message.SerializeToString()

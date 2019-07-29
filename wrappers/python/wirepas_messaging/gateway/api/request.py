@@ -1,4 +1,4 @@
-# Wirepas Oy
+# Copyright Wirepas Ltd 2019
 
 import wirepas_messaging
 import random
@@ -50,10 +50,10 @@ class Request(object):
             A dictionary with the header details
         """
         d = dict()
-        d['req_id'] = header.req_id
+        d["req_id"] = header.req_id
         if header.HasField("sink_id"):
-            d['sink_id'] = header.sink_id
+            d["sink_id"] = header.sink_id
         else:
-            d['sink_id'] = None
+            d["sink_id"] = None
 
         return d
