@@ -62,6 +62,8 @@ class MessagesBase(object):
         SEND_REMOTE_API_REQUEST = 1072
         SEND_DATA_MESSAGE = 1073
 
+        QUERY_COMPONENTS_INFORMATION = 1081
+
     def __init__(self, logger, protocol_version) -> None:
         """Initialization
 
