@@ -15,7 +15,7 @@ WPE_GIT_PRJ=${WPE_GIT_PRJ:-"/positioning/engine"}
 WPE_GIT_BRANCH="master"
 
 WNT_REPO_DIR=${WNT_REPO_DIR:-"wnt"}
-WNT_PROTO_PATH=${WNT_PROTO_PATH:-"protos"}
+WNT_PROTO_PATH=${WNT_PROTO_PATH:-"../../wnt/protocol_buffers_files"}
 WNT_GIT_PRJ=${WNT_GIT_PRJ:-"nms-backend"}
 WNT_GIT_BRANCH="master"
 
@@ -111,7 +111,6 @@ function fix_import_path
 
 function main
 {
-
     # This block pulls protos from Wirepas private servers.
     # WPE and WNT protos will be moved to this repo and once that happens
     # this block will cease to exist.
@@ -120,11 +119,10 @@ function main
         echo "pulling wpe protos..."
         pull_proto ${WPE_REPO_DIR} ${WPE_PROTO_PATH} ${WPE_GIT_PRJ} ${WPE_GIT_BRANCH}
         fix_import_path ${WPE_REPO_DIR}
-
-        echo "pulling wnt protos..."
-        pull_proto ${WNT_REPO_DIR} ${WNT_PROTO_PATH} ${WNT_GIT_PRJ} ${WNT_GIT_BRANCH}
-        fix_import_path ${WNT_REPO_DIR}
     fi
+
+    copy_proto ${WNT_REPO_DIR} ${WNT_PROTO_PATH}
+    fix_import_path ${WNT_REPO_DIR}
 
     copy_proto ${GW_REPO_DIR} ${GW_PROTO_PATH}
     fix_import_path ${GW_REPO_DIR}
