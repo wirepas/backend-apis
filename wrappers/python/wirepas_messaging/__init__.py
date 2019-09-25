@@ -1,4 +1,16 @@
-# Copyright Wirepas Ltd 2019
+"""
+    WNT
+    ===
+    Wirepas Network Tool metadata - and realtime situation message definitions
+
+    Metadata message protocol version compatibility
+    Version 2: WNT backend 1.7.x
+    Version 3: WNT backend 2.0.x
+
+    .. Copyright:
+       Copyright 2019 Wirepas Ltd under Apache License, Version 2.0.
+       See file LICENSE for full license details.
+"""
 
 from .__about__ import (
     __author__,
