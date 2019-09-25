@@ -9,7 +9,6 @@
         See file LICENSE.txt for full license details.
 """
 
-import enum
 from .authenticationmessages import AuthenticationMessages
 
 

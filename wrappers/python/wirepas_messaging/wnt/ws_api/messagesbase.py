@@ -18,6 +18,8 @@ class MessagesBase(object):
     """Base class for messages classes"""
 
     class MessageTypes(enum.Enum):
+        """Message types enum class"""
+
         # Authentication server messages
         LOGIN = 1
         LOGOUT = 2
@@ -63,7 +65,10 @@ class MessagesBase(object):
         SEND_DATA_MESSAGE = 1073
         QUERY_SCRATCHPAD_STATUS = 1074
 
+        QUERY_COMPONENTS_INFORMATION = 1081
+
     class ProtocolVersions(enum.Enum):
+        """Protocol versions enum class"""
         VERSION_2 = 2
         VERSION_3 = 3
 
