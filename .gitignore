@@ -8,3 +8,8 @@ Pipfile
 releases.env
 wrappers/python/docs/source/api/
 
+**/*pb2.py
+**/*_pb2_grpc.py
+pb2.py
+wrappers/python/wirepas_messaging/**/*.proto
+
