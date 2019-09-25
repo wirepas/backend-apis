@@ -10,6 +10,7 @@ install:
   - sudo gem install github_changelog_generator
 
 script:
+  - ./style-check.sh
   - ./.ci/build.sh
   - ./.ci/install.sh
   - ./.ci/releases.sh
