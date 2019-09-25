@@ -1,16 +1,33 @@
-# Copyright Wirepas Ltd 2019
+"""
+    Status
+    ======
+
+    .. Copyright:
+        Copyright 2019 Wirepas Ltd under Apache License, Version 2.0.
+        See file LICENSE for full license details.
+"""
+
+import enum
+import wirepas_messaging
 
 from .event import Event
-
-import wirepas_messaging
-import enum
-from .wirepas_exceptions import *
+from .wirepas_exceptions import GatewayAPIParsingException
 
 # This API should never be changes in future (prupose of protobuf)
 API_VERSION = 1
 
 
 class GatewayState(enum.Enum):
+    """
+    GatewayState
+
+    Enum providing the possible
+    states for the gateway
+
+    ONLINE or OFFLINE
+
+    """
+
     ONLINE = 0
     OFFLINE = 1
 
@@ -33,6 +50,7 @@ class StatusEvent(Event):
 
     @classmethod
     def from_payload(cls, payload):
+        """ Converts a protobuff message into a python object """
         message = wirepas_messaging.gateway.GenericMessage()
         try:
             message.ParseFromString(payload)
@@ -55,6 +73,8 @@ class StatusEvent(Event):
 
     @property
     def payload(self):
+        """ Returns a proto serialization of itself """
+
         message = wirepas_messaging.gateway.GenericMessage()
         # Fill the request header
         status = message.wirepas.status_event

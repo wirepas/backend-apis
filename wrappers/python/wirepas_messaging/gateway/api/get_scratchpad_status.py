@@ -1,13 +1,20 @@
-# Copyright Wirepas Ltd 2019
+"""
+    Get scratchpad status
+    =====================
+
+    .. Copyright:
+        Copyright 2019 Wirepas Ltd under Apache License, Version 2.0.
+        See file LICENSE for full license details.
+"""
 
 import wirepas_messaging
 
 from .request import Request
 from .response import Response
 
-from .otap_helper import *
+from .otap_helper import set_scratchpad_info, parse_scratchpad_info, ScratchpadStatus, ScratchpadType
 from .gateway_result_code import GatewayResultCode
-from .wirepas_exceptions import *
+from .wirepas_exceptions import GatewayAPIParsingException
 
 
 class GetScratchpadStatusRequest(Request):

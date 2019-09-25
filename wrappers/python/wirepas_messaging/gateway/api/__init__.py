@@ -1,6 +1,9 @@
 """
-    Wirepas Messaging
-    =================
+    Gateway API
+    ===========
+
+    This module contains api wrappers to translate protos into
+    python objects
 
     .. Copyright:
         Copyright 2019 Wirepas Ltd under Apache License, Version 2.0.

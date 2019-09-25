@@ -1,4 +1,13 @@
-# Copyright Wirepas Ltd 2019
+"""
+    Gateway result code
+    ===================
+
+    .. Copyright:
+        Copyright 2019 Wirepas Ltd under Apache License, Version 2.0.
+        See file LICENSE for full license details.
+"""
+
+# flake8: noqa
 
 from ..error_pb2 import *
 import enum
