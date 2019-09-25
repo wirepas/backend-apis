@@ -63,6 +63,10 @@ class MessagesBase(object):
         SEND_DATA_MESSAGE = 1073
         QUERY_SCRATCHPAD_STATUS = 1074
 
+    class ProtocolVersions(enum.Enum):
+        VERSION_2 = 2
+        VERSION_3 = 3
+
     def __init__(self, logger, protocol_version) -> None:
         """Initialization
 

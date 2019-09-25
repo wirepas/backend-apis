@@ -76,6 +76,11 @@ class FloorPlanMessages(AuthenticationMessages):
                            originator_token=self.originator_token
                        ))
 
+        if self.protocol_version == self.ProtocolVersions.VERSION_3.value:
+            floor_plan = message['data']['buildings'][0]['floor_plans'][0]
+            floor_plan['image_width'] = 1
+            floor_plan['image_height'] = 1
+
         self.logger.info(self.json_dump_pretty(message))
         return message
 
