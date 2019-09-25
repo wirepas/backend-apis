@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Copyright Wirepas Ltd 2019
 
+set -e
 
 PKG_NAME=${1:-"wirepas_messaging"}
 GENERATE_PYTHON="true"
