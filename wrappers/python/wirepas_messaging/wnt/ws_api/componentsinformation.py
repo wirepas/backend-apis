@@ -27,12 +27,12 @@ class ComponentsInformationMessages(AuthenticationMessages):
     def message_query_components_information(self) -> dict:
         """Returns query components' information message"""
 
-        message = dict(version=self.protocol_version,
-                       session_id=self.session_id,
-                       type=AuthenticationMessages.MessageTypes.QUERY_COMPONENTS_INFORMATION.value,
-                       data=dict(
-                           originator_token=self.originator_token
-                       ))
+        message = dict(
+            version=self.protocol_version,
+            session_id=self.session_id,
+            type=AuthenticationMessages.MessageTypes.QUERY_COMPONENTS_INFORMATION.value,
+            data=dict(originator_token=self.originator_token),
+        )
 
         self.logger.info(self.json_dump_pretty(message))
         return message
@@ -50,7 +50,7 @@ class ComponentsInformationMessages(AuthenticationMessages):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot query components\' information')
+            self.logger.error("Cannot query components' information")
             self.logger.error(self.json_dump_pretty(message))
             return False
 

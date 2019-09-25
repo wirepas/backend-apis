@@ -31,16 +31,15 @@ class NetworkMessages(AuthenticationMessages):
             network_id (str): network id
             network_name (str): network name
         """
-        message = dict(version=self.protocol_version,
-                       session_id=self.session_id,
-                       type=AuthenticationMessages.MessageTypes.CREATE_NETWORK.value,
-                       data=dict(
-                           networks=[
-                               dict(id=network_id,
-                                    name=network_name)
-                           ],
-                           originator_token=self.originator_token
-                       ))
+        message = dict(
+            version=self.protocol_version,
+            session_id=self.session_id,
+            type=AuthenticationMessages.MessageTypes.CREATE_NETWORK.value,
+            data=dict(
+                networks=[dict(id=network_id, name=network_name)],
+                originator_token=self.originator_token,
+            ),
+        )
 
         self.logger.info(self.json_dump_pretty(message))
         return message
@@ -58,7 +57,7 @@ class NetworkMessages(AuthenticationMessages):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot create network')
+            self.logger.error("Cannot create network")
             self.logger.error(self.json_dump_pretty(message))
             return False
 
@@ -71,16 +70,15 @@ class NetworkMessages(AuthenticationMessages):
             network_id (str): network id
             network_name (str): network name
         """
-        message = dict(version=self.protocol_version,
-                       session_id=self.session_id,
-                       type=AuthenticationMessages.MessageTypes.UPDATE_NETWORK.value,
-                       data=dict(
-                           networks=[
-                               dict(id=network_id,
-                                    name=network_name)
-                           ],
-                           originator_token=self.originator_token
-                       ))
+        message = dict(
+            version=self.protocol_version,
+            session_id=self.session_id,
+            type=AuthenticationMessages.MessageTypes.UPDATE_NETWORK.value,
+            data=dict(
+                networks=[dict(id=network_id, name=network_name)],
+                originator_token=self.originator_token,
+            ),
+        )
 
         self.logger.info(self.json_dump_pretty(message))
         return message
@@ -98,7 +96,7 @@ class NetworkMessages(AuthenticationMessages):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot update network')
+            self.logger.error("Cannot update network")
             self.logger.error(self.json_dump_pretty(message))
             return False
 
@@ -106,10 +104,12 @@ class NetworkMessages(AuthenticationMessages):
 
     def message_get_networks(self) -> dict:
         """Returns get networks message"""
-        message = dict(version=self.protocol_version,
-                       session_id=self.session_id,
-                       type=AuthenticationMessages.MessageTypes.GET_NETWORKS.value,
-                       data=dict(originator_token=self.originator_token))
+        message = dict(
+            version=self.protocol_version,
+            session_id=self.session_id,
+            type=AuthenticationMessages.MessageTypes.GET_NETWORKS.value,
+            data=dict(originator_token=self.originator_token),
+        )
 
         self.logger.info(self.json_dump_pretty(message))
         return message
@@ -127,7 +127,7 @@ class NetworkMessages(AuthenticationMessages):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot delete network')
+            self.logger.error("Cannot delete network")
             self.logger.error(self.json_dump_pretty(message))
             return False
 
@@ -139,15 +139,14 @@ class NetworkMessages(AuthenticationMessages):
         Args:
             network_id (str): network id
         """
-        message = dict(version=self.protocol_version,
-                       session_id=self.session_id,
-                       type=AuthenticationMessages.MessageTypes.DELETE_NETWORK.value,
-                       data=dict(
-                           networks=[
-                               dict(id=network_id)
-                           ],
-                           originator_token=self.originator_token
-                       ))
+        message = dict(
+            version=self.protocol_version,
+            session_id=self.session_id,
+            type=AuthenticationMessages.MessageTypes.DELETE_NETWORK.value,
+            data=dict(
+                networks=[dict(id=network_id)], originator_token=self.originator_token
+            ),
+        )
 
         self.logger.info(self.json_dump_pretty(message))
         return message
@@ -165,7 +164,7 @@ class NetworkMessages(AuthenticationMessages):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot delete network')
+            self.logger.error("Cannot delete network")
             self.logger.error(self.json_dump_pretty(message))
             return False
 

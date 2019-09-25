@@ -24,16 +24,18 @@ class NodeMessages(AuthenticationMessages):
         """
         super(NodeMessages, self).__init__(logger, protocol_version)
 
-    def message_set_node_metadata(self,
-                                  node_id: int,
-                                  network_id: int,
-                                  name: str,
-                                  description: str,
-                                  latitude: float,
-                                  longitude: float,
-                                  altitude: float,
-                                  is_approved: bool,
-                                  is_virtual: bool) -> dict:
+    def message_set_node_metadata(
+        self,
+        node_id: int,
+        network_id: int,
+        name: str,
+        description: str,
+        latitude: float,
+        longitude: float,
+        altitude: float,
+        is_approved: bool,
+        is_virtual: bool,
+    ) -> dict:
         """Returns set node metadata message
 
         Args:
@@ -47,25 +49,29 @@ class NodeMessages(AuthenticationMessages):
             is_approved (bool): is node approved
             is_virtual (bool): is node used for planning
         """
-        message = dict(version=self.protocol_version,
-                       session_id=self.session_id,
-                       type=AuthenticationMessages.MessageTypes.SET_NODE_METADATA.value,
-                       data=dict(
-                           nodes=[
-                               dict(id=node_id,
-                                    network_id=network_id,
-                                    name=name,
-                                    description=description,
-                                    latitude=latitude,
-                                    longitude=longitude,
-                                    altitude=altitude,
-                                    pixel_location_x=-1,
-                                    pixel_location_y=-1,
-                                    is_approved=is_approved,
-                                    is_virtual=is_virtual)
-                           ],
-                           originator_token=self.originator_token
-                       ))
+        message = dict(
+            version=self.protocol_version,
+            session_id=self.session_id,
+            type=AuthenticationMessages.MessageTypes.SET_NODE_METADATA.value,
+            data=dict(
+                nodes=[
+                    dict(
+                        id=node_id,
+                        network_id=network_id,
+                        name=name,
+                        description=description,
+                        latitude=latitude,
+                        longitude=longitude,
+                        altitude=altitude,
+                        pixel_location_x=-1,
+                        pixel_location_y=-1,
+                        is_approved=is_approved,
+                        is_virtual=is_virtual,
+                    )
+                ],
+                originator_token=self.originator_token,
+            ),
+        )
 
         self.logger.info(self.json_dump_pretty(message))
         return message
@@ -83,16 +89,15 @@ class NodeMessages(AuthenticationMessages):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot set node metadata')
+            self.logger.error("Cannot set node metadata")
             self.logger.error(self.json_dump_pretty(message))
             return False
 
         return True
 
-    def message_add_node_to_floor_plan(self,
-                                       node_id: int,
-                                       network_id: int,
-                                       floor_plan_id: str) -> dict:
+    def message_add_node_to_floor_plan(
+        self, node_id: int, network_id: int, floor_plan_id: str
+    ) -> dict:
         """Returns set node metadata message
 
         Args:
@@ -100,17 +105,17 @@ class NodeMessages(AuthenticationMessages):
             network_id (int): node's network id
             floor_plan_id (str): id of the floor plan where node is placed
         """
-        message = dict(version=self.protocol_version,
-                       session_id=self.session_id,
-                       type=AuthenticationMessages.MessageTypes.ADD_NODE_TO_FLOOR_PLAN.value,
-                       data=dict(
-                           nodes=[
-                               dict(id=node_id,
-                                    network_id=network_id,
-                                    floor_plan_id=floor_plan_id)
-                           ],
-                           originator_token=self.originator_token
-                       ))
+        message = dict(
+            version=self.protocol_version,
+            session_id=self.session_id,
+            type=AuthenticationMessages.MessageTypes.ADD_NODE_TO_FLOOR_PLAN.value,
+            data=dict(
+                nodes=[
+                    dict(id=node_id, network_id=network_id, floor_plan_id=floor_plan_id)
+                ],
+                originator_token=self.originator_token,
+            ),
+        )
 
         self.logger.info(self.json_dump_pretty(message))
         return message
@@ -128,31 +133,30 @@ class NodeMessages(AuthenticationMessages):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot add node to floor plan')
+            self.logger.error("Cannot add node to floor plan")
             self.logger.error(self.json_dump_pretty(message))
             return False
 
         return True
 
-    def message_remove_node_from_floor_plan(self,
-                                            node_id: int,
-                                            network_id: int) -> dict:
+    def message_remove_node_from_floor_plan(
+        self, node_id: int, network_id: int
+    ) -> dict:
         """Returns remove node from floor plan message
 
         Args:
             node_id (int): node id
             network_id (int): node's network id
         """
-        message = dict(version=self.protocol_version,
-                       session_id=self.session_id,
-                       type=AuthenticationMessages.MessageTypes.REMOVE_NODE_FROM_FLOOR_PLAN.value,
-                       data=dict(
-                           nodes=[
-                               dict(id=node_id,
-                                    network_id=network_id)
-                           ],
-                           originator_token=self.originator_token
-                       ))
+        message = dict(
+            version=self.protocol_version,
+            session_id=self.session_id,
+            type=AuthenticationMessages.MessageTypes.REMOVE_NODE_FROM_FLOOR_PLAN.value,
+            data=dict(
+                nodes=[dict(id=node_id, network_id=network_id)],
+                originator_token=self.originator_token,
+            ),
+        )
 
         self.logger.info(self.json_dump_pretty(message))
         return message
@@ -170,16 +174,13 @@ class NodeMessages(AuthenticationMessages):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot remove node from floor plan')
+            self.logger.error("Cannot remove node from floor plan")
             self.logger.error(self.json_dump_pretty(message))
             return False
 
         return True
 
-    def message_delete_node(self,
-                            node_id: int,
-                            network_id: int,
-                            is_sink: bool) -> dict:
+    def message_delete_node(self, node_id: int, network_id: int, is_sink: bool) -> dict:
         """Returns delete node message
 
         Args:
@@ -187,17 +188,15 @@ class NodeMessages(AuthenticationMessages):
             network_id (int): node's network id
             is_sink (bool): is node sink
         """
-        message = dict(version=self.protocol_version,
-                       session_id=self.session_id,
-                       type=AuthenticationMessages.MessageTypes.DELETE_NODE.value,
-                       data=dict(
-                           nodes=[
-                               dict(id=node_id,
-                                    network_id=network_id,
-                                    is_sink=is_sink)
-                           ],
-                           originator_token=self.originator_token
-                       ))
+        message = dict(
+            version=self.protocol_version,
+            session_id=self.session_id,
+            type=AuthenticationMessages.MessageTypes.DELETE_NODE.value,
+            data=dict(
+                nodes=[dict(id=node_id, network_id=network_id, is_sink=is_sink)],
+                originator_token=self.originator_token,
+            ),
+        )
 
         self.logger.info(self.json_dump_pretty(message))
         return message
@@ -215,7 +214,7 @@ class NodeMessages(AuthenticationMessages):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot delete node')
+            self.logger.error("Cannot delete node")
             self.logger.error(self.json_dump_pretty(message))
             return False
 
