@@ -1,0 +1,275 @@
+/**
+*   Definition of WNT messages
+*
+*   Copyright:
+*       Copyright 2019 Wirepas Ltd. All Rights Reserved.
+*/
+
+syntax="proto2";
+
+import "nanopb.proto";
+import "commons.proto";
+
+package com.wirepas.proto.wnt;
+
+message NodeMetadata {
+    enum PositioningRole {
+        UNKNOWN = 0;
+        ANCHOR = 1;
+        TAG = 2;
+    }
+
+    optional double latitude = 1;
+    optional double longitude = 2;
+    optional double altitude = 3;
+
+    repeated string map_uuid = 10; // Floor plan id
+    // Obsolete for WNT >= 2.0
+    // optional uint32 pixel_location_x = 11;
+    // optional uint32 pixel_location_y = 12;
+    repeated string area_uuid = 13;
+    optional bool is_area_uuid_empty = 14;
+
+    optional bool is_approved = 20;
+    optional bool is_deleted = 21;
+    optional bool is_map_uuid_empty = 22;
+    optional bool is_virtual = 23; // Planning node
+
+    optional PositioningRole positioning_role = 30;
+    optional int32 rssi_offset = 31;
+
+    optional uint64 wpe_scan_time = 40; // Epoch ms
+    optional uint64 wpe_calculation_time = 41; // Epoch ms
+
+    optional string name = 50;
+    optional string description = 51;
+
+    optional uint32 update_time = 60; // Epoch
+
+    optional string originator_token = 255;
+}
+
+message RTSituationMetadata {
+    optional uint32 cluster_no = 1; // Cluster cell number
+    optional uint32 cluster_size = 2; // Total count of cells in the cluster
+    optional uint32 node_count = 3;
+
+    optional string backend_version = 10;
+}
+
+message BackendMessage { // Used for backend internal messaging
+    enum MessageType {
+        Delta = 1;
+        Full = 2;
+        RTSituationMetadata = 3;
+        RTSituationDeleteNode = 4;
+        RTSituationRemoteApiConfigurationStarted = 5;
+        RTSituationRemoteApiActivationStarted = 6;
+        RTSituationRemoteApiCancellationStarted = 7;
+        RTSituationMetadataUpdate = 8;
+        RTSituationSendPositioningData = 9;
+        RTSituationComponentInformation = 10;
+        RTSituationQueryNodeMetadata = 11;
+    }
+
+    optional MessageType message = 1;
+    optional uint32 client_id = 2;
+
+    optional string originator_token = 255;
+}
+
+message OnlineStatus { // Node online status
+    enum Status {
+        OFFLINE = 0;
+        UNCERTAIN = 1;
+        ONLINE = 2;
+    }
+
+    optional Status status = 1;
+    optional uint32 update_time = 2; // Epoch
+    optional uint32 last_time_series_write = 3; // Epoch
+
+    optional bool is_sink_online_in_gateway = 10;
+}
+
+message TraveltimeKPI {
+    optional float qos0_minimum = 1;
+    optional float qos0_average = 2;
+    optional float qos0_maximum = 3;
+
+    optional float qos1_minimum = 11;
+    optional float qos1_average = 12;
+    optional float qos1_maximum = 13;
+
+    optional int32 window_duration = 20;
+}
+
+enum BackendComponent
+{
+    AUTH_MANAGER = 1;
+    DIAGNOSTICS_INJECTOR = 2;
+    FEROUTER = 3;
+    METADATA_MANAGER = 4;
+    PARSER = 5;
+    RTSITUATION = 6;
+    TIMESERIES_MANAGER = 7;
+    GATEWAY_COMMUNICATOR = 8;
+}
+
+message BackendHeartbeat {
+    optional BackendComponent sender = 1;
+    optional uint32 cluster_no = 2;
+    optional uint32 interval_s = 3 [default = 60];
+}
+
+enum RunningStatus
+{
+    STARTING = 1;
+    RUNNING = 10;
+    RUNNING_AND_ACKNOWLEDGED = 11;
+    CLOSED = 20;
+    UNKNOWN = 255;
+}
+
+message BackendComponentStatus {
+    optional BackendComponent component = 1;
+    optional RunningStatus status = 2;
+}
+
+message Network {
+    optional uint32 id = 1;
+    optional string name = 2;
+    optional uint32 update_time = 3;
+}
+
+message User {
+    enum Role {
+        Admin = 1;
+        User = 2;
+    }
+    optional Role role = 1;
+    optional string user_name = 2;
+    optional string full_name = 3;
+}
+
+message Building {
+    optional string id = 1;
+    optional string name = 2;
+    optional uint32 update_time = 3;
+}
+
+message FloorplanCorner {
+    optional double latitude = 1;
+    optional double longitude = 2;
+    optional double altitude = 3;
+    optional double x_anchor = 4;
+    optional double y_anchor = 5;
+}
+
+message XYPoint {
+    optional double x = 1;
+    optional double y = 2;
+}
+
+message XYZPoint {
+    optional double x = 1;
+    optional double y = 2;
+    optional double z = 3;
+}
+
+message Matrix {
+    optional double m11 = 1;
+    optional double m12 = 2;
+    optional double m13 = 3;
+    optional double m21 = 4;
+    optional double m22 = 5;
+    optional double m23 = 6;
+    optional double m31 = 7;
+    optional double m32 = 8;
+    optional double m33 = 9;
+}
+
+message FloorPlan {
+    optional string id = 1;
+    optional string building_id = 2;
+    optional string name = 3;
+    optional int32 level = 4;
+
+    optional string image_id = 11;
+    optional string image_thumbnail_id = 12;
+    optional uint32 image_width = 13;
+    optional uint32 image_height = 14;
+
+    optional FloorplanCorner left_top_corner = 21;
+    optional FloorplanCorner right_top_corner = 22;
+    optional FloorplanCorner left_bottom_corner = 23;
+    optional FloorplanCorner right_bottom_corner = 24;
+
+    optional XYPoint distance_point_1 = 31;
+    optional XYPoint distance_point_2 = 32;
+    optional double distance_in_m = 33;
+
+    optional Matrix rotation_matrix = 40;
+    optional XYZPoint offset_ecef_to_local = 41;
+    optional XYZPoint offset_local_to_ecef = 42;
+    optional double pixels_per_meter = 43;
+
+    optional uint32 update_time = 50;
+}
+
+// Alpha, red, green and blue
+message ARGB {
+    optional uint32 A = 1;
+    optional uint32 R = 2;
+    optional uint32 G = 3;
+    optional uint32 B = 4;
+}
+
+message LLA {
+    optional double latitude = 1;
+    optional double longitude = 2;
+    optional double altitude = 3;
+}
+
+message Area {
+    optional string id = 1;
+    optional string floor_plan_id = 2;
+    optional string name = 3;
+    optional ARGB color = 4;
+
+    repeated LLA polygon_points = 10;
+
+    optional uint32 update_time = 20;
+}
+
+message MetadataUpdateMessage {
+    repeated Network added_or_changed_networks = 1;
+    repeated Network deleted_networks = 2;
+
+    repeated User added_or_changed_users = 11;
+    repeated User deleted_users = 12;
+
+    repeated Building added_or_changed_buildings = 21;
+    repeated Building deleted_buildings = 22;
+
+    repeated FloorPlan added_or_changed_floor_plans = 31;
+    repeated FloorPlan deleted_floor_plans = 32;
+
+    repeated Area added_or_changed_areas = 41;
+    repeated Area deleted_areas = 42;
+
+    optional string originator_token = 255;
+}
+
+message SinkPseudoIdMap {
+    optional string pseudo_id = 1 [(nanopb).max_size = 1024];
+
+    optional uint32 network_id = 10;
+    optional uint32 address = 11; // Node id
+    optional string gateway_id = 12 [(nanopb).max_size = 128];
+    optional string gateway_sink_id = 13 [(nanopb).max_size = 128];
+
+    optional AppConfigData app_config = 20;
+    optional uint32 stored_scratchpad_sequence = 21;
+    optional uint64 stored_scratchpad_sequence_update_time_ms_epoch = 22;
+}

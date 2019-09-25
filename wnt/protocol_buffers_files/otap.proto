@@ -1,0 +1,65 @@
+/**
+*   Definition of OTAP related messages
+*
+*   Copyright:
+*       Copyright 2019 Wirepas Ltd. All Rights Reserved.
+*/
+
+syntax="proto2";
+
+import "nanopb.proto";
+
+package com.wirepas.proto.wnt;
+
+message LoadScratchpad {
+    optional uint32 network_id = 1;
+    optional bytes scratchpad_bytes = 2 [(nanopb).max_size = 1048576]; // 1MB
+    optional uint32 rerun_interval_s = 3;
+    optional bool is_cancel = 4;
+    optional bool is_close = 5;
+    optional bool is_sink_only = 6;
+
+    optional uint32 start_time_s_epoch = 10;
+    optional uint32 activation_time_s_epoch = 11;
+    optional uint32 cancel_time_s_epoch = 12;
+}
+
+message OTAPResponse {
+    enum OTAPResponseId { // Same as gateway ErrorCode
+        OK = 0;
+        INTERNAL_ERROR = 1;
+        INVALID_SINK_ID = 2;
+        INVALID_ROLE = 3;
+        INVALID_NETWORK_ADDRESS = 4;
+        INVALID_NETWORK_CHANNEL = 5;
+        INVALID_CHANNEL_MAP = 6;
+        INVALID_NETWORK_KEYS = 7;
+        INVALID_AC_RANGE = 8;
+        INVALID_SINK_STATE = 9;
+        INVALID_DEST_ADDRESS = 10;
+        INVALID_DEST_ENDPOINT = 11;
+        INVALID_SRC_ENDPOINT = 12;
+        INVALID_QOS = 13;
+        INVALID_DATA_PAYLOAD = 14;
+        INVALID_SCRATCHPAD = 15;
+        INVALID_SCRATCHPAD_SIZE = 16;
+        INVLAID_SEQUENCE_NUMBER = 17;
+        INVALID_REBOOT_DELAY = 18;
+        INVALID_DIAG_INTERVAL = 19;
+        INVALID_APP_CONFIG = 20;
+        INVALID_PARAM = 21;
+        NO_SCRATCHPAD_PRESENT = 22;
+        ACCESS_DENIED = 23;
+        REQUEST_NEEDS_SINK_ID = 24;
+        INVALID_MAX_HOP_COUNT = 25;
+    }
+
+    optional uint32 start_time_s_epoch = 1;
+    optional uint32 activation_time_s_epoch = 2;
+    optional uint32 cancel_time_s_epoch = 3;
+
+    optional uint32 new_scratchpad_sequence = 10;
+
+    optional OTAPResponseId load_scratchpad_response = 20;
+    optional OTAPResponseId activate_scratchpad_response = 21;
+}
