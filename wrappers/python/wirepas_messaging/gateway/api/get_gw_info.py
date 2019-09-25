@@ -1,12 +1,18 @@
-# Copyright Wirepas Ltd 2019
+"""
+    Get gateway info
+    ================
+
+    .. Copyright:
+        Copyright 2019 Wirepas Ltd under Apache License, Version 2.0.
+        See file LICENSE for full license details.
+"""
 
 import wirepas_messaging
 
 from .request import Request
 from .response import Response
 
-from .config_helper import *
-from .wirepas_exceptions import *
+from .wirepas_exceptions import GatewayAPIParsingException
 
 
 class GetGatewayInfoRequest(Request):

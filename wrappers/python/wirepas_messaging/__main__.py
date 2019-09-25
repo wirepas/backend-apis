@@ -1,10 +1,8 @@
-import wirepas_messaging
+"""
+    Wirepas Messaging
+    =================
 
-
-def main():
-    pass
-
-
-if __name__ == "__main__":
-
-    main()
+    .. Copyright:
+        Copyright 2019 Wirepas Ltd under Apache License, Version 2.0.
+        See file LICENSE for full license details.
+"""

@@ -1,8 +1,8 @@
 """
-    WNT
-    ====
+    WS_API
+    ======
 
-    Module to handle WNT authentication and metadata messages
+    WNT websocket metadata messages
 
     .. Copyright:
         Copyright 2018 Wirepas Ltd. All Rights Reserved.
@@ -18,5 +18,19 @@ from .networkmessages import NetworkMessages
 from .nodemessages import NodeMessages
 from .applicationconfigurationmessages import ApplicationConfigurationMessages
 from .realtimesituationmessages import RealtimeSituationMessages
-from .componentsinformation import ComponentsInformationMessages
-from .scratchpadstatus import ScratchpadStatusMessages
+from .componentsinformationmessages import ComponentsInformationMessages
+from .scratchpadstatusmessages import ScratchpadStatusMessages
+
+
+__all__ = [
+    "AuthenticationMessages",
+    "BuildingMessages",
+    "FloorPlanMessages",
+    "AreaMessages",
+    "NetworkMessages",
+    "NodeMessages",
+    "ApplicationConfigurationMessages",
+    "RealtimeSituationMessages",
+    "ComponentsInformationMessages",
+    "ScratchpadStatusMessages",
+]

@@ -1,4 +1,16 @@
-# Copyright Wirepas Ltd 2019
+"""
+    Gateway API
+    ===========
+
+    This module contains api wrappers to translate protos into
+    python objects
+
+    .. Copyright:
+        Copyright 2019 Wirepas Ltd under Apache License, Version 2.0.
+        See file LICENSE for full license details.
+"""
+
+# flake8: noqa
 
 from .get_configs import *
 from .get_gw_info import *

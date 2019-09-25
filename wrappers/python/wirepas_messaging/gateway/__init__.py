@@ -1,4 +1,15 @@
-# Copyright Wirepas Ltd 2019
+"""
+    Gateway Messages
+    ================
+
+    This folder contains the proto generated code.
+
+    .. Copyright:
+        Copyright 2019 Wirepas Ltd under Apache License, Version 2.0.
+        See file LICENSE for full license details.
+"""
+
+# flake8: noqa
 
 from .config_message_pb2 import *
 from .data_message_pb2 import *

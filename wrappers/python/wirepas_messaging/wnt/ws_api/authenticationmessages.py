@@ -1,3 +1,4 @@
+# pylint: disable=duplicate-code
 """
     Authentication
     ==============
@@ -17,6 +18,8 @@ class AuthenticationMessages(MessagesBase):
     """This class generates and decodes authentication connection messages"""
 
     class Role(enum.Enum):
+        """User role enum class"""
+
         ADMIN = 1
         OPERATOR = 2
 

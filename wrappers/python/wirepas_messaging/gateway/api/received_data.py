@@ -1,9 +1,16 @@
-# Copyright Wirepas Ltd 2019
+"""
+    Received data
+    =============
+
+    .. Copyright:
+        Copyright 2019 Wirepas Ltd under Apache License, Version 2.0.
+        See file LICENSE for full license details.
+"""
 
 import wirepas_messaging
 
 from .event import Event
-from .wirepas_exceptions import *
+from .wirepas_exceptions import GatewayAPIParsingException
 
 
 class ReceivedDataEvent(Event):

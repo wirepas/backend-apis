@@ -7,10 +7,9 @@
 
     Please see License file for full text.
 """
-import codecs
+
 import os
 import re
-import glob
 
 from setuptools import setup, find_packages
 

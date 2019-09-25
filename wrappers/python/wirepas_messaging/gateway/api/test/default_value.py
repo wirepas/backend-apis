@@ -1,3 +1,5 @@
+# flake8: noqa
+
 import wirepas_messaging
 
 from ..otap_helper import *

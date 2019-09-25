@@ -1,12 +1,24 @@
-# Copyright Wirepas Ltd 2019
+"""
+    Get configs
+    ===========
+
+    .. Copyright:
+        Copyright 2019 Wirepas Ltd under Apache License, Version 2.0.
+        See file LICENSE for full license details.
+"""
 
 import wirepas_messaging
 
 from .request import Request
 from .response import Response
 
-from .config_helper import *
-from .wirepas_exceptions import *
+from .config_helper import (
+    parse_config_rw,
+    parse_config_ro,
+    set_config_ro,
+    set_config_rw,
+)
+from .wirepas_exceptions import GatewayAPIParsingException
 
 
 class GetConfigsRequest(Request):
