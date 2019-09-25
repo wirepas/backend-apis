@@ -1,0 +1,227 @@
+/**
+*   Definition of WPE messages
+*
+*   Copyright:
+*       Copyright 2019 Wirepas Ltd. All Rights Reserved.
+*/
+
+syntax = "proto2";
+
+import "nanopb.proto";
+
+package com.wirepas.proto.wpe;
+
+/**
+* Stripped the services out from 
+* positioning/engine.git/plain/wirepas_positioning/proto/wpe/public.proto
+**/
+
+/**
+* Representation of data coming in from the mesh network
+*/
+message MeshData
+{
+    optional uint64 source = 1; // who created this message.
+    optional uint64 network = 2; // network id.
+    optional uint64 sink = 3; // sink who forwarded this.
+
+    optional float version = 4; // version info, if necessary.
+    optional uint32 sequence = 5; // measurement sequence number.
+
+    optional float travel_time = 6; // network travel time in ms
+    optional uint64 timestamp = 7; // when it was sent from the node- unix epoch time.
+
+    repeated MeasurementData payload = 8 [(nanopb).max_count = 30]; // measurement data.
+
+    optional uint32 use_strongest_neighbors = 20; // number of strongest neighbors to use.
+}
+
+
+/**
+* Representation of the application data payload
+*/
+message MeasurementData
+{
+    enum DOMAIN{ // Measurement domains.
+        POWER_SR = 0; // RSS domain - subnodes scanning (values in dbm).
+        POWER_HR = 1; // RSS domain - Not supported (values in dbm).
+        TIME = 2; // Time domain - Not supported.
+        SPACE = 3; // Space domain - Not supported.
+        POWER_SR_RSSI = 10; // RSS domain - subnodes scanning (values in RSSi).
+        POWER_HR_RSSI = 11; // RSS domain - Not supported (values in RSSi).
+        IGNORE = 0xF0; // no operation - ignores the measurement data
+    }
+
+    optional DOMAIN type = 1; // measurement domain - use 0.
+    optional uint64 target = 2; // to whom the measurement is done.
+    optional float value = 3; // measurement value
+    optional float time = 4; // amount of seconds to when measurement was done.
+}
+
+
+/**
+* Representation of the infrastructure data.
+*
+* This message contains a set of nodes and areas, which is used as
+* an update/initialisation vector.
+*
+*/
+message ConfigurationData
+{
+    optional uint64 network = 1; // network id.
+    repeated Node nodes = 2 ; // node with their set of measurements.
+    repeated Area areas = 3 ; // collection of geographic areas.
+
+    optional string sender = 200; // engine id who sent the answer.
+}
+
+
+
+/**
+*   Node represents an infrastruture device
+*   the given address at a particular point in time.
+*   It will get translated into a Node instance.
+*/
+message Node
+{
+    enum BASEROLE { // WM Roles.
+        UNKNOWN = 0;
+        SINK = 1;
+        HEADNODE = 2;
+        SUBNODE = 3;
+    }
+
+    optional uint32 sequence = 1; // corresponds to the incoming sequence.
+
+    optional uint64 address = 2; // an unique device address.
+    optional uint64 network = 3; // the network where it belongs to.
+
+    optional BASEROLE role = 4; // represents the node's mesh role.
+    optional Point coordinates = 5; // Last or currently known coordinates.
+
+    repeated uint64 area_identifier = 6;  // list of areas where it is located.
+    repeated string geo_identifier = 7;  // list of areas where it is located.
+
+    optional uint64 timestamp = 10; // when it was sent from the node - unix epoch time.
+
+    optional string map_identifier = 100;  // map where it is located
+    optional string sender = 200; // engine id who sent the answer.
+    optional float measurement_offset = 500; // offset added to all measurement
+
+}
+
+
+
+/**
+*   Representation of a closed geographic Area.
+*
+*   A set of points that define the geogrphic polygon that defines a given area.
+*   This area contains more metadata regarding building, floor and type of
+*   security clearance required to remain in it.
+*
+*/
+message Area
+{
+    optional string name = 1; // logical name for the area.
+
+    optional uint64 uid = 2;  // unique id of the area.
+    optional uint64 floor = 3; // floor identifier.
+    optional uint64 building = 4; // building identifier.
+
+    repeated Point coordinates = 5; // polygon definition.
+
+    optional string uuid = 6; // uuid
+    optional string map_identifier = 7; // map where it is located
+}
+
+
+/**
+*   Representation of a geographic Point.
+*
+*   The definition of a point in space, whose interpretation depends on the
+*   GEOID type.
+*
+*   A point can have multiple reference frames, local and global and keep track
+*   of their origin point.
+*
+*/
+message Point
+{
+    enum GEOID { // Geoid definitions.
+        WGS84 = 0; // WGS84 as default.
+    }
+
+    optional GEOID geoid = 1 ; // to which geoid the lla corresponds to.
+    repeated float lla = 2; // latitude, longitude, altitude.
+}
+
+
+/**
+* Represnts the status of a service.
+*/
+message Status
+{
+    enum CODE { // Error code values.
+        UNKNOWN = 0; // default value - no return provided.
+        SUCCESS = 1; // call succeeded.
+        ERROR = 2; // an error occured - see message for details.
+        INSDATA = 3; // insufficient data - see message for details.
+        STARTED = 4; // service has started
+        STOPPED = 5; // service has stopped
+    }
+
+    optional CODE code = 1; // service dependent status code.
+    optional string subscriber_id = 2; // subscriber id.
+    optional string service_id = 3; // subscriber id.
+    optional uint64 timestamp = 5; // when it was sent - unix epoch time.
+    optional string message = 10; // readable text message.
+
+    optional string sender = 200; // engine id who sent the answer.
+}
+
+
+/**
+* Represents a question performed by the services query payload.
+*/
+message Query
+{
+    optional bool force_update = 1; // force a data fetch if possible.
+
+    optional string subscriber_id = 2; // subscriber id.
+    optional bool send_node_status = 3; // provide status.
+
+    optional uint32 network = 4; // network id to be used on server queries.
+    repeated uint64 node_id = 5; // node id to use in lookups.
+    repeated uint64 area_id = 6; // area id to use in lookups.
+    repeated string area_uuid = 7; // area id to use in lookups.
+
+    optional string sender = 200; // engine id who sent the answer.
+}
+
+
+
+/**
+* Represents a question performed by the services query payload.
+*/
+message Log
+{
+    enum DEBUG_LEVEL { // Debug level filters.
+        DEBUG = 0;
+        ERROR = 1;
+        WARNING = 2;
+        INFO = 3;
+    }
+
+    optional float time = 1; // other system time
+    optional string message = 2; // message to write.
+    optional string sender = 3; // identifier of send.
+    optional uint32 level = 4; // debug level.
+    optional uint64 timestamp = 5; // linux epoch timestamp when message is sent.
+}
+
+
+
+/**
+* Empty message.
+*/
+message Empty{}
