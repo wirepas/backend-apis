@@ -1,0 +1,33 @@
+/**
+*   Definition of WNT messages
+*
+*   Copyright:
+*       Copyright 2019 Wirepas Ltd. All Rights Reserved.
+*/
+
+syntax="proto2";
+
+import "nanopb.proto";
+
+package com.wirepas.proto.wnt;
+
+enum BaseRole {
+    SUBNODE = 1;
+    HEADNODE = 2;
+    SINK = 4;
+    ROLE_UNKNOWN = 255;
+}
+
+message FullRole {
+    optional BaseRole base_role = 1;
+    optional bool cb_mac = 2; // True = low latency, false = low energy
+    optional bool is_relay = 3;
+    optional bool is_autorole = 4;
+}
+
+message AppConfigData {
+    optional uint32 interval = 1;  // Diagnostics interval in seconds
+    optional uint32 sequence = 2;
+    optional bytes app_config = 3 [(nanopb).max_size = 1024];
+    optional uint32 max_length = 4; // Maximum length of the app config
+}

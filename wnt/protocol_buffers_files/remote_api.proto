@@ -1,19 +1,19 @@
 /**
-*   Definition of WNT messages
+*   Definition of Remote API related messages
 *
 *   Copyright:
-*       Copyright 2018 Wirepas Ltd. All Rights Reserved.
+*       Copyright 2019 Wirepas Ltd. All Rights Reserved.
 */
 
 syntax="proto2";
 
-import "wirepas_messaging/nanopb/nanopb.proto";
-import "wirepas_messaging/wnt/commons.proto";
+import "nanopb.proto";
+import "commons.proto";
 
 package com.wirepas.proto.wnt;
 
 message RemoteApiRequest {
-    // To which devices this stands for
+    // To which devices this request stands for
     repeated uint32 addresses = 1 [(nanopb).max_count = 1024];
 
     // Sink address to use when sendind data via unicast
@@ -21,7 +21,7 @@ message RemoteApiRequest {
 
     // Changing the role
     optional BaseRole role = 10;
-    optional bool cb_mac = 11; // True = low latency, false = low energy
+    optional bool is_cb_mac = 11; // True = low latency, false = low energy
     optional bool is_autorole = 12;
 
     optional uint32 network_address = 13;
@@ -30,9 +30,6 @@ message RemoteApiRequest {
     optional bytes authentication_key = 16 [(nanopb).max_size = 32];
     optional uint32 channel_map = 17;
     optional uint32 node_address = 18;
-
-    // If the list is empty, there is only this field
-    optional bool is_empty = 20;
 }
 
 enum RemoteApiRequestType {
@@ -45,12 +42,13 @@ message RemoteApiRequestCollection {
     optional string id = 1 [(nanopb).max_size = 64]; // UUID
     optional RemoteApiRequestType type = 2;
     repeated RemoteApiRequest messages = 3 [(nanopb).max_count = 32];
-    optional uint32 retry_interval = 4; // Interval to resend the requests
-    optional bool cancel = 5;
+    optional uint32 rerun_interval_s = 4; // Interval to resend the requests
+    optional bool is_cancel = 5;
+    optional bool is_close = 6;
 
-    optional uint32 start_time = 6; // Epoch
-    optional uint32 activation_time = 7; // Epoch
-    optional uint32 cancellation_time = 8; // Epoch
+    optional uint32 start_time_s_epoch = 10;
+    optional uint32 activation_time_s_epoch = 11;
+    optional uint32 cancellation_time_s_epoch = 12;
 }
 
 // This is a response for remote api responses
@@ -68,10 +66,10 @@ enum RemoteApiResponseId {
 }
 
 message RemoteApiResponse {
-    optional uint32 request_start_time = 1; // Epoch
-    optional uint32 request_activation_time = 2; // Epoch
-    optional uint32 request_cancellation_time = 3; // Epoch
-    optional uint32 request_metadata_update_time = 11; // Epoch
+    optional uint32 start_time_s_epoch = 1;
+    optional uint32 activation_time_s_epoch = 2;
+    optional uint32 cancellation_time_s_epoch = 3;
+    optional uint32 metadata_update_time_s_epoch = 11;
 
     optional RemoteApiResponseId configure_result = 21;
     optional RemoteApiResponseId activate_result = 22;
