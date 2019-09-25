@@ -61,6 +61,7 @@ class MessagesBase(object):
         SET_NETWORK_DATA = 1071
         SEND_REMOTE_API_REQUEST = 1072
         SEND_DATA_MESSAGE = 1073
+        QUERY_SCRATCHPAD_STATUS = 1074
 
     class ProtocolVersions(enum.Enum):
         VERSION_2 = 2
