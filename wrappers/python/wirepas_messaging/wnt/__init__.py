@@ -10,4 +10,4 @@
 """
 
 from .message_pb2 import *
-from .ws_api import *
+from . import ws_api
