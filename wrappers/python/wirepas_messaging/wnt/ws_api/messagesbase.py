@@ -62,6 +62,10 @@ class MessagesBase(object):
         SEND_REMOTE_API_REQUEST = 1072
         SEND_DATA_MESSAGE = 1073
 
+    class ProtocolVersions(enum.Enum):
+        VERSION_2 = 2
+        VERSION_3 = 3
+
     def __init__(self, logger, protocol_version) -> None:
         """Initialization
 
