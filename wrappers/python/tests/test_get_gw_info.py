@@ -1,7 +1,7 @@
 # flake8: noqa
 
 import wirepas_messaging
-from .default_value import *
+from default_value import *
 import time
 
 

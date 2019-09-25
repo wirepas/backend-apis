@@ -2,7 +2,7 @@
 
 import wirepas_messaging
 
-from ..otap_helper import *
+from wirepas_messaging.gateway.api import *
 
 
 # Define list of default values used during testing
