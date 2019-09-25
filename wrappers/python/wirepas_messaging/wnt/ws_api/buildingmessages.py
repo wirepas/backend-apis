@@ -32,15 +32,15 @@ class BuildingMessages(AuthenticationMessages):
         Args:
             building_name (str): new building name
         """
-        message = dict(version=self.protocol_version,
-                       session_id=self.session_id,
-                       type=AuthenticationMessages.MessageTypes.CREATE_BUILDING.value,
-                       data=dict(
-                           buildings=[
-                               dict(name=building_name)
-                           ],
-                           originator_token=self.originator_token
-                       ))
+        message = dict(
+            version=self.protocol_version,
+            session_id=self.session_id,
+            type=AuthenticationMessages.MessageTypes.CREATE_BUILDING.value,
+            data=dict(
+                buildings=[dict(name=building_name)],
+                originator_token=self.originator_token,
+            ),
+        )
 
         self.logger.info(self.json_dump_pretty(message))
         return message
@@ -58,13 +58,13 @@ class BuildingMessages(AuthenticationMessages):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot create building')
+            self.logger.error("Cannot create building")
             self.logger.error(self.json_dump_pretty(message))
             return False
 
-        data = message['data']
+        data = message["data"]
 
-        self.new_building_id = data['buildings'][0]['id']
+        self.new_building_id = data["buildings"][0]["id"]
 
         return True
 
@@ -78,16 +78,15 @@ class BuildingMessages(AuthenticationMessages):
         Returns:
             dict: Message dictionary
         """
-        message = dict(version=self.protocol_version,
-                       session_id=self.session_id,
-                       type=AuthenticationMessages.MessageTypes.UPDATE_BUILDING.value,
-                       data=dict(
-                           buildings=[
-                               dict(id=building_id,
-                                    name=building_name)
-                           ],
-                           originator_token=self.originator_token
-                       ))
+        message = dict(
+            version=self.protocol_version,
+            session_id=self.session_id,
+            type=AuthenticationMessages.MessageTypes.UPDATE_BUILDING.value,
+            data=dict(
+                buildings=[dict(id=building_id, name=building_name)],
+                originator_token=self.originator_token,
+            ),
+        )
 
         self.logger.info(self.json_dump_pretty(message))
         return message
@@ -105,7 +104,7 @@ class BuildingMessages(AuthenticationMessages):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot update building')
+            self.logger.error("Cannot update building")
             self.logger.error(self.json_dump_pretty(message))
             return False
 
@@ -118,10 +117,12 @@ class BuildingMessages(AuthenticationMessages):
         Returns:
             dict: Message dictionary
         """
-        message = dict(version=self.protocol_version,
-                       session_id=self.session_id,
-                       type=AuthenticationMessages.MessageTypes.GET_BUILDINGS.value,
-                       data=dict(originator_token=self.originator_token))
+        message = dict(
+            version=self.protocol_version,
+            session_id=self.session_id,
+            type=AuthenticationMessages.MessageTypes.GET_BUILDINGS.value,
+            data=dict(originator_token=self.originator_token),
+        )
 
         self.logger.info(self.json_dump_pretty(message))
         return message
@@ -139,7 +140,7 @@ class BuildingMessages(AuthenticationMessages):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot get buildings')
+            self.logger.error("Cannot get buildings")
             self.logger.error(self.json_dump_pretty(message))
             return False
 
@@ -154,15 +155,14 @@ class BuildingMessages(AuthenticationMessages):
         Returns:
             dict: Message dictionary
         """
-        message = dict(version=self.protocol_version,
-                       session_id=self.session_id,
-                       type=AuthenticationMessages.MessageTypes.DELETE_BUILDING.value,
-                       data=dict(
-                           buildings=[
-                               dict(id=building_id)
-                           ],
-                           originator_token=self.originator_token
-                       ))
+        message = dict(
+            version=self.protocol_version,
+            session_id=self.session_id,
+            type=AuthenticationMessages.MessageTypes.DELETE_BUILDING.value,
+            data=dict(
+                buildings=[dict(id=building_id)], originator_token=self.originator_token
+            ),
+        )
 
         self.logger.info(self.json_dump_pretty(message))
         return message
@@ -180,7 +180,7 @@ class BuildingMessages(AuthenticationMessages):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot delete building')
+            self.logger.error("Cannot delete building")
             self.logger.error(self.json_dump_pretty(message))
             return False
 

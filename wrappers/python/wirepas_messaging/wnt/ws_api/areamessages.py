@@ -32,17 +32,15 @@ class AreaMessages(AuthenticationMessages):
         Args:
             floor_plan_id (str): floor plan id
         """
-        message = dict(version=self.protocol_version,
-                       session_id=self.session_id,
-                       type=AuthenticationMessages.MessageTypes.GET_MAP_AREAS.value,
-                       data=dict(
-                           buildings=[
-                               dict(floor_plans=[
-                                   dict(id=floor_plan_id)
-                               ])
-                           ],
-                           originator_token=self.originator_token
-                       ))
+        message = dict(
+            version=self.protocol_version,
+            session_id=self.session_id,
+            type=AuthenticationMessages.MessageTypes.GET_MAP_AREAS.value,
+            data=dict(
+                buildings=[dict(floor_plans=[dict(id=floor_plan_id)])],
+                originator_token=self.originator_token,
+            ),
+        )
 
         self.logger.info(self.json_dump_pretty(message))
         return message
@@ -60,7 +58,7 @@ class AreaMessages(AuthenticationMessages):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot query areas')
+            self.logger.error("Cannot query areas")
             self.logger.error(self.json_dump_pretty(message))
             return False
 
@@ -73,25 +71,26 @@ class AreaMessages(AuthenticationMessages):
             floor_plan_id (str): floor plan id where area is created
             area_name (str): new area name
         """
-        message = dict(version=self.protocol_version,
-                       session_id=self.session_id,
-                       type=AuthenticationMessages.MessageTypes.CREATE_MAP_AREA.value,
-                       data=dict(
-                           buildings=[
-                               dict(floor_plans=[
-                                   dict(id=floor_plan_id,
-                                        areas=[
-                                            dict(name=area_name,
-                                                 a=0,
-                                                 r=0,
-                                                 g=0,
-                                                 b=0,
-                                                 llas=[])
-                                        ])
-                               ])
-                           ],
-                           originator_token=self.originator_token
-                       ))
+        message = dict(
+            version=self.protocol_version,
+            session_id=self.session_id,
+            type=AuthenticationMessages.MessageTypes.CREATE_MAP_AREA.value,
+            data=dict(
+                buildings=[
+                    dict(
+                        floor_plans=[
+                            dict(
+                                id=floor_plan_id,
+                                areas=[
+                                    dict(name=area_name, a=0, r=0, g=0, b=0, llas=[])
+                                ],
+                            )
+                        ]
+                    )
+                ],
+                originator_token=self.originator_token,
+            ),
+        )
 
         self.logger.info(self.json_dump_pretty(message))
         return message
@@ -109,25 +108,27 @@ class AreaMessages(AuthenticationMessages):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot create area')
+            self.logger.error("Cannot create area")
             self.logger.error(self.json_dump_pretty(message))
             return False
 
-        data = message['data']
+        data = message["data"]
 
-        self.new_area_id = data['buildings'][0]['floor_plans'][0]['areas'][0]['id']
+        self.new_area_id = data["buildings"][0]["floor_plans"][0]["areas"][0]["id"]
 
         return True
 
-    def message_update_area(self,
-                            area_id: str,
-                            floor_plan_id: str,
-                            area_name: str,
-                            color_a: int,
-                            color_r: int,
-                            color_g: int,
-                            color_b: int,
-                            llas: []) -> dict:
+    def message_update_area(
+        self,
+        area_id: str,
+        floor_plan_id: str,
+        area_name: str,
+        color_a: int,
+        color_r: int,
+        color_g: int,
+        color_b: int,
+        llas: [],
+    ) -> dict:
         """Returns area update message
 
         Args:
@@ -140,26 +141,34 @@ class AreaMessages(AuthenticationMessages):
             color_b (int): area color blue (0-255)
             llas ([]): array of latitude, longitude and altitude dictionaries for area corner points
         """
-        message = dict(version=self.protocol_version,
-                       session_id=self.session_id,
-                       type=AuthenticationMessages.MessageTypes.UPDATE_MAP_AREA.value,
-                       data=dict(
-                           buildings=[
-                               dict(floor_plans=[
-                                   dict(id=floor_plan_id,
-                                        areas=[
-                                            dict(id=area_id,
-                                                 name=area_name,
-                                                 a=color_a,
-                                                 r=color_r,
-                                                 g=color_g,
-                                                 b=color_b,
-                                                 llas=llas)
-                                        ])
-                               ])
-                           ],
-                           originator_token=self.originator_token
-                       ))
+        message = dict(
+            version=self.protocol_version,
+            session_id=self.session_id,
+            type=AuthenticationMessages.MessageTypes.UPDATE_MAP_AREA.value,
+            data=dict(
+                buildings=[
+                    dict(
+                        floor_plans=[
+                            dict(
+                                id=floor_plan_id,
+                                areas=[
+                                    dict(
+                                        id=area_id,
+                                        name=area_name,
+                                        a=color_a,
+                                        r=color_r,
+                                        g=color_g,
+                                        b=color_b,
+                                        llas=llas,
+                                    )
+                                ],
+                            )
+                        ]
+                    )
+                ],
+                originator_token=self.originator_token,
+            ),
+        )
 
         self.logger.info(self.json_dump_pretty(message))
         return message
@@ -177,7 +186,7 @@ class AreaMessages(AuthenticationMessages):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot update area')
+            self.logger.error("Cannot update area")
             self.logger.error(self.json_dump_pretty(message))
             return False
 
@@ -190,20 +199,17 @@ class AreaMessages(AuthenticationMessages):
             floor_plan_id (str): floor plan id
             area_id (str): area id
         """
-        message = dict(version=self.protocol_version,
-                       session_id=self.session_id,
-                       type=AuthenticationMessages.MessageTypes.DELETE_MAP_AREA.value,
-                       data=dict(
-                           buildings=[
-                               dict(floor_plans=[
-                                   dict(id=floor_plan_id,
-                                        areas=[
-                                            dict(id=area_id)
-                                        ])
-                               ])
-                           ],
-                           originator_token=self.originator_token
-                       ))
+        message = dict(
+            version=self.protocol_version,
+            session_id=self.session_id,
+            type=AuthenticationMessages.MessageTypes.DELETE_MAP_AREA.value,
+            data=dict(
+                buildings=[
+                    dict(floor_plans=[dict(id=floor_plan_id, areas=[dict(id=area_id)])])
+                ],
+                originator_token=self.originator_token,
+            ),
+        )
 
         self.logger.info(self.json_dump_pretty(message))
         return message
@@ -221,7 +227,7 @@ class AreaMessages(AuthenticationMessages):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot delete area')
+            self.logger.error("Cannot delete area")
             self.logger.error(self.json_dump_pretty(message))
             return False
 

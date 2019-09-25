@@ -15,26 +15,19 @@ SOURCE_ADD = 1234
 SOURCE_EP = 98
 DESTINATION_EP = 127
 QOS = 0
-DATA_PAYLOAD = bytes(b'Test')
+DATA_PAYLOAD = bytes(b"Test")
 INITIAL_DELAY = 12
 RX_TIME_MS_EPOCH = int(123456789)
 TRAVEL_TIME_MS = 123
 HOP_COUNT = 10
 
 # Todo add more fields in config
-NODE_CONFIG_1 = dict([
-    ('sink_id', SINK_ID),
-    ('node_address', 123)
-])
+NODE_CONFIG_1 = dict([("sink_id", SINK_ID), ("node_address", 123)])
 
 SCRATCHPAD_SEQ = 12
 SCRATCHPAD = bytes(bytearray(1024))
 
-SCRATCHPAD_INFO = dict([
-    ('len', 2032),
-    ('crc', 0x1234),
-    ('seq', 112)
-])
+SCRATCHPAD_INFO = dict([("len", 2032), ("crc", 0x1234), ("seq", 112)])
 
 SCRATCHPAD_STATUS = ScratchpadStatus.SCRATCHPAD_STATUS_SUCCESS
 SCRATCHPAD_TYPE = ScratchpadType.SCRATCHPAD_TYPE_PRESENT

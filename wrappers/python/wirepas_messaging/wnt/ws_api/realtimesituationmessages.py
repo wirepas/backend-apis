@@ -34,8 +34,7 @@ class RealtimeSituationMessages(AuthenticationMessages):
         Returns:
             dict: Message dictionary
         """
-        message = dict(version=self.protocol_version,
-                       session_id=session_id)
+        message = dict(version=self.protocol_version, session_id=session_id)
 
         self.logger.info(self.json_dump_pretty(message))
         return message
@@ -53,7 +52,7 @@ class RealtimeSituationMessages(AuthenticationMessages):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot login')
+            self.logger.error("Cannot login")
             self.logger.error(self.json_dump_pretty(message))
             return False
 

@@ -31,7 +31,7 @@ class AuthenticationMessages(MessagesBase):
 
         self.user_role = None
         self.session_id = None
-        self.originator_token = 'sometoken'
+        self.originator_token = "sometoken"
 
     def message_login(self, username: str, password: str) -> dict:
         """Returns a login request message
@@ -43,10 +43,11 @@ class AuthenticationMessages(MessagesBase):
         Returns:
             dict: Message dictionary
         """
-        message = dict(version=self.protocol_version,
-                       type=MessagesBase.MessageTypes.LOGIN.value,
-                       data=dict(username=username,
-                                 password=password))
+        message = dict(
+            version=self.protocol_version,
+            type=MessagesBase.MessageTypes.LOGIN.value,
+            data=dict(username=username, password=password),
+        )
 
         self.logger.info(self.json_dump_pretty(message))
         return message
@@ -64,14 +65,14 @@ class AuthenticationMessages(MessagesBase):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot login')
+            self.logger.error("Cannot login")
             self.logger.error(self.json_dump_pretty(message))
             return False
 
-        data = message['data']
+        data = message["data"]
 
-        self.user_role = data['role']
-        self.session_id = data['session_id']
+        self.user_role = data["role"]
+        self.session_id = data["session_id"]
 
         return data
 
@@ -82,10 +83,12 @@ class AuthenticationMessages(MessagesBase):
         Returns:
             dict: Message dictionary
         """
-        message = dict(version=self.protocol_version,
-                       session_id=self.session_id,
-                       type=MessagesBase.MessageTypes.LOGOUT.value,
-                       data=dict())
+        message = dict(
+            version=self.protocol_version,
+            session_id=self.session_id,
+            type=MessagesBase.MessageTypes.LOGOUT.value,
+            data=dict(),
+        )
 
         self.logger.info(self.json_dump_pretty(message))
         return message
@@ -103,7 +106,7 @@ class AuthenticationMessages(MessagesBase):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot logout')
+            self.logger.error("Cannot logout")
             self.logger.error(self.json_dump_pretty(message))
             return False
 
@@ -116,10 +119,12 @@ class AuthenticationMessages(MessagesBase):
         Returns:
             dict: Message dictionary
         """
-        message = dict(version=self.protocol_version,
-                       session_id=self.session_id,
-                       type=MessagesBase.MessageTypes.GET_USERS.value,
-                       data=dict())
+        message = dict(
+            version=self.protocol_version,
+            session_id=self.session_id,
+            type=MessagesBase.MessageTypes.GET_USERS.value,
+            data=dict(),
+        )
 
         self.logger.info(self.json_dump_pretty(message))
 
@@ -138,17 +143,15 @@ class AuthenticationMessages(MessagesBase):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot query users')
+            self.logger.error("Cannot query users")
             self.logger.error(self.json_dump_pretty(message))
             return False
 
         return True
 
-    def message_create_user(self,
-                            username: str,
-                            password: str,
-                            full_name: str,
-                            role: int) -> dict:
+    def message_create_user(
+        self, username: str, password: str, full_name: str, role: int
+    ) -> dict:
         """Returns a create user message
 
         Args:
@@ -160,16 +163,22 @@ class AuthenticationMessages(MessagesBase):
         Returns:
             dict: Message dictionary
         """
-        message = dict(version=self.protocol_version,
-                       session_id=self.session_id,
-                       type=MessagesBase.MessageTypes.CREATE_USER.value,
-                       data=dict(
-                           users=[
-                               dict(username=username,
-                                    full_name=full_name,
-                                    password=password,
-                                    role=role)],
-                           originator_token=self.originator_token))
+        message = dict(
+            version=self.protocol_version,
+            session_id=self.session_id,
+            type=MessagesBase.MessageTypes.CREATE_USER.value,
+            data=dict(
+                users=[
+                    dict(
+                        username=username,
+                        full_name=full_name,
+                        password=password,
+                        role=role,
+                    )
+                ],
+                originator_token=self.originator_token,
+            ),
+        )
 
         self.logger.info(self.json_dump_pretty(message))
 
@@ -188,17 +197,15 @@ class AuthenticationMessages(MessagesBase):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot create user')
+            self.logger.error("Cannot create user")
             self.logger.error(self.json_dump_pretty(message))
             return False
 
         return True
 
-    def message_update_user(self,
-                            username: str,
-                            new_password: str,
-                            new_full_name: str,
-                            new_role: int) -> dict:
+    def message_update_user(
+        self, username: str, new_password: str, new_full_name: str, new_role: int
+    ) -> dict:
         """Returns an update user message
 
         Args:
@@ -210,16 +217,22 @@ class AuthenticationMessages(MessagesBase):
         Returns:
             dict: Message dictionary
         """
-        message = dict(version=self.protocol_version,
-                       session_id=self.session_id,
-                       type=MessagesBase.MessageTypes.UPDATE_USER.value,
-                       data=dict(
-                           users=[
-                               dict(username=username,
-                                    full_name=new_full_name,
-                                    password=new_password,
-                                    role=new_role)],
-                           originator_token=self.originator_token))
+        message = dict(
+            version=self.protocol_version,
+            session_id=self.session_id,
+            type=MessagesBase.MessageTypes.UPDATE_USER.value,
+            data=dict(
+                users=[
+                    dict(
+                        username=username,
+                        full_name=new_full_name,
+                        password=new_password,
+                        role=new_role,
+                    )
+                ],
+                originator_token=self.originator_token,
+            ),
+        )
 
         self.logger.info(self.json_dump_pretty(message))
 
@@ -238,14 +251,13 @@ class AuthenticationMessages(MessagesBase):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot update user')
+            self.logger.error("Cannot update user")
             self.logger.error(self.json_dump_pretty(message))
             return False
 
         return True
 
-    def message_delete_user(self,
-                            username: str) -> dict:
+    def message_delete_user(self, username: str) -> dict:
         """Returns a delete user message
 
         Args:
@@ -254,13 +266,14 @@ class AuthenticationMessages(MessagesBase):
         Returns:
             dict: Message dictionary
         """
-        message = dict(version=self.protocol_version,
-                       session_id=self.session_id,
-                       type=MessagesBase.MessageTypes.DELETE_USER.value,
-                       data=dict(
-                           users=[
-                               dict(username=username)],
-                           originator_token=self.originator_token))
+        message = dict(
+            version=self.protocol_version,
+            session_id=self.session_id,
+            type=MessagesBase.MessageTypes.DELETE_USER.value,
+            data=dict(
+                users=[dict(username=username)], originator_token=self.originator_token
+            ),
+        )
 
         self.logger.info(self.json_dump_pretty(message))
 
@@ -279,7 +292,7 @@ class AuthenticationMessages(MessagesBase):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot delete user')
+            self.logger.error("Cannot delete user")
             self.logger.error(self.json_dump_pretty(message))
             return False
 
