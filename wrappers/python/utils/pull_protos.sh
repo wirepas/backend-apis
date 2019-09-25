@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Copyright Wirepas Ltd 2019
 
+set -e
+
 WIREPAS_USER=${1:-""}
 
 # Defaults
