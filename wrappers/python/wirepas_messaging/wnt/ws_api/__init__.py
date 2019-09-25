@@ -20,3 +20,17 @@ from .applicationconfigurationmessages import ApplicationConfigurationMessages
 from .realtimesituationmessages import RealtimeSituationMessages
 from .componentsinformationmessages import ComponentsInformationMessages
 from .scratchpadstatusmessages import ScratchpadStatusMessages
+
+
+__all__ = [
+    "AuthenticationMessages",
+    "BuildingMessages",
+    "FloorPlanMessages",
+    "AreaMessages",
+    "NetworkMessages",
+    "NodeMessages",
+    "ApplicationConfigurationMessages",
+    "RealtimeSituationMessages",
+    "ComponentsInformationMessages",
+    "ScratchpadStatusMessages",
+]

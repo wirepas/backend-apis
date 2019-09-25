@@ -48,19 +48,21 @@ if api_implementation._default_implementation_type == "python":
     print(__warning_msg__)
 
 
-__all__ = ["__author__",
-           "__author_email__",
-           "__classifiers__",
-           "__copyright__",
-           "__description__",
-           "__license__",
-           "__pkg_name__",
-           "__title__",
-           "__url__",
-           "__version__",
-           "__keywords__",
-           "__warning_msg__",
-           "gateway",
-           "nanopb",
-           "wpe",
-           "wnt"]
+__all__ = [
+    "__author__",
+    "__author_email__",
+    "__classifiers__",
+    "__copyright__",
+    "__description__",
+    "__license__",
+    "__pkg_name__",
+    "__title__",
+    "__url__",
+    "__version__",
+    "__keywords__",
+    "__warning_msg__",
+    "gateway",
+    "nanopb",
+    "wpe",
+    "wnt",
+]

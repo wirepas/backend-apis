@@ -69,6 +69,7 @@ class MessagesBase(object):
 
     class ProtocolVersions(enum.Enum):
         """Protocol versions enum class"""
+
         VERSION_2 = 2
         VERSION_3 = 3
 

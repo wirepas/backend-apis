@@ -19,6 +19,7 @@ class AuthenticationMessages(MessagesBase):
 
     class Role(enum.Enum):
         """User role enum class"""
+
         ADMIN = 1
         OPERATOR = 2
 
