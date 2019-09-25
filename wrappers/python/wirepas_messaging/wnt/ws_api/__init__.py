@@ -18,5 +18,5 @@ from .networkmessages import NetworkMessages
 from .nodemessages import NodeMessages
 from .applicationconfigurationmessages import ApplicationConfigurationMessages
 from .realtimesituationmessages import RealtimeSituationMessages
-from .componentsinformation import ComponentsInformationMessages
-from .scratchpadstatus import ScratchpadStatusMessages
+from .componentsinformationmessages import ComponentsInformationMessages
+from .scratchpadstatusmessages import ScratchpadStatusMessages
