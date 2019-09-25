@@ -1,8 +1,8 @@
 """
-    WNT
-    ====
+    WS_API
+    ======
 
-    Module to handle WNT authentication and metadata messages
+    WNT websocket metadata messages
 
     .. Copyright:
         Copyright 2018 Wirepas Ltd. All Rights Reserved.
