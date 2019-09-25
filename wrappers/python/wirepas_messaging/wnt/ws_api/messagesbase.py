@@ -67,6 +67,8 @@ class MessagesBase(object):
         VERSION_2 = 2
         VERSION_3 = 3
 
+        QUERY_COMPONENTS_INFORMATION = 1081
+
     def __init__(self, logger, protocol_version) -> None:
         """Initialization
 
