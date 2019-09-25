@@ -1,18 +1,21 @@
 language: python
 python:
 - '3.7'
-dist: xenial
+dist: "bionic"
 cache: pip
 jobs:
+
 install:
-  - "./.ci/install-requirements.sh"
+  - ./.ci/install-requirements.sh
   - sudo gem install github_changelog_generator
+
 script:
-  - "./.ci/build.sh"
-  - "./.ci/install.sh"
+  - ./.ci/build.sh
+  - ./.ci/install.sh
   - ./.ci/releases.sh
   - source releases.env
   - cd wrappers/python
+  - ./tests/run_all_examples.sh
 
 before_deploy:
   - github_changelog_generator -t "${GH_TOKEN}"
