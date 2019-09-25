@@ -89,8 +89,8 @@ class MessagesBase(object):
             bool: True if message validation succeeded. Otherwise throw ValueError exception
         """
         try:
-            version = message['version']
-            result = message['result']
+            version = message["version"]
+            result = message["result"]
 
             if version != self.protocol_version:
                 raise ValueError
@@ -111,6 +111,4 @@ class MessagesBase(object):
         Returns:
             str: Formatted JSON message string
         """
-        return os.linesep + json.dumps(message,
-                                       indent=4,
-                                       sort_keys=True) + os.linesep
+        return os.linesep + json.dumps(message, indent=4, sort_keys=True) + os.linesep

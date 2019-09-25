@@ -24,22 +24,25 @@ class ScratchpadStatusMessages(AuthenticationMessages):
         """
         super(ScratchpadStatusMessages, self).__init__(logger, protocol_version)
 
-    def message_query_scratchpad_status(self,
-                                        network_id: int,
-                                        rerun_interval_s: int,
-                                        is_close: bool) -> dict:
+    def message_query_scratchpad_status(
+        self, network_id: int, rerun_interval_s: int, is_close: bool
+    ) -> dict:
         """Returns query scratchpad status message"""
 
-        message = dict(version=self.protocol_version,
-                       session_id=self.session_id,
-                       type=AuthenticationMessages.MessageTypes.QUERY_SCRATCHPAD_STATUS.value,
-                       data=dict(
-                           networks=[
-                               dict(id=network_id,
-                                    rerun_interval_s=rerun_interval_s,
-                                    is_close=is_close)
-                           ]
-                       ))
+        message = dict(
+            version=self.protocol_version,
+            session_id=self.session_id,
+            type=AuthenticationMessages.MessageTypes.QUERY_SCRATCHPAD_STATUS.value,
+            data=dict(
+                networks=[
+                    dict(
+                        id=network_id,
+                        rerun_interval_s=rerun_interval_s,
+                        is_close=is_close,
+                    )
+                ]
+            ),
+        )
 
         self.logger.info(self.json_dump_pretty(message))
         return message
@@ -57,7 +60,7 @@ class ScratchpadStatusMessages(AuthenticationMessages):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot query scratchpad status')
+            self.logger.error("Cannot query scratchpad status")
             self.logger.error(self.json_dump_pretty(message))
             return False
 

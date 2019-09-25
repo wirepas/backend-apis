@@ -24,10 +24,12 @@ class ApplicationConfigurationMessages(AuthenticationMessages):
         """
         super(ApplicationConfigurationMessages, self).__init__(logger, protocol_version)
 
-    def message_set_app_config(self,
-                               network_id: str,
-                               diagnostics_interval_in_s: int,
-                               application_data_in_hex: str) -> dict:
+    def message_set_app_config(
+        self,
+        network_id: str,
+        diagnostics_interval_in_s: int,
+        application_data_in_hex: str,
+    ) -> dict:
         """Returns application configuration setting message
 
         For diagnostics interval values please see WP-RM-100 – Wirepas Mesh DualMCU API Reference Manual
@@ -37,18 +39,21 @@ class ApplicationConfigurationMessages(AuthenticationMessages):
             diagnostics_interval_in_s (int): diagnostics interval in seconds
             application_data_in_hex (str): application data as hexadecimal string
         """
-        message = dict(version=self.protocol_version,
-                       session_id=self.session_id,
-                       type=AuthenticationMessages.MessageTypes.SET_NETWORK_DATA.value,
-                       data=dict(
-                           networks=[
-                               dict(id=network_id,
-                                    diagnostics_interval=diagnostics_interval_in_s,
-                                    application_data=application_data_in_hex
-                               )
-                           ]),
-                           originator_token=self.originator_token
-                       )
+        message = dict(
+            version=self.protocol_version,
+            session_id=self.session_id,
+            type=AuthenticationMessages.MessageTypes.SET_NETWORK_DATA.value,
+            data=dict(
+                networks=[
+                    dict(
+                        id=network_id,
+                        diagnostics_interval=diagnostics_interval_in_s,
+                        application_data=application_data_in_hex,
+                    )
+                ]
+            ),
+            originator_token=self.originator_token,
+        )
 
         self.logger.info(self.json_dump_pretty(message))
         return message
@@ -66,7 +71,7 @@ class ApplicationConfigurationMessages(AuthenticationMessages):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error('Cannot set application config')
+            self.logger.error("Cannot set application config")
             self.logger.error(self.json_dump_pretty(message))
             return False
 
