@@ -8,9 +8,9 @@
 
 syntax = "proto2";
 
-import "wirepas_messaging/nanopb/nanopb.proto";
+import "wirepas_positioning/proto/nanopb/nanopb.proto";
 
-option java_package = "com.wirepas.proto.wpe";
+option java_package = "com.wirepas.wpe";
 option optimize_for = SPEED;
 option cc_enable_arenas = true;
 
