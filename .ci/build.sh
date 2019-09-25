@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 set -e
-set -x
 
 TARGET_DIR=${TARGET_DIR:-"wrappers/python"}
 
