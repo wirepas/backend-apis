@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Copyright Wirepas Ltd 2019
 
+set -e
+
 echo "generating the wheel"
 
 rm -fr build || true
