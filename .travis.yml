@@ -14,7 +14,6 @@ script:
   - ./.ci/build.sh
   - ./.ci/install.sh
   - pytest -vvv
-  - ./tests/run_all_examples.sh
   - ./.ci/releases.sh
   - source releases.env
   - github_changelog_generator -t "${GH_TOKEN}"
