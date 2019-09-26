@@ -22,6 +22,7 @@ class Response(object):
         res(GatewayResultCode): result of the operation
     """
 
+    # pylint: disable=unused-argument
     def __init__(self, req_id, gw_id, res, sink_id=None, **kwargs):
         super(Response, self).__init__()
         self.gw_id = gw_id

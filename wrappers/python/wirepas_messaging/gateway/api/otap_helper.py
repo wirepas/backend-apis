@@ -10,7 +10,6 @@
 # flake8: noqa
 
 import enum
-import wirepas_messaging
 from ..otap_message_pb2 import *
 
 

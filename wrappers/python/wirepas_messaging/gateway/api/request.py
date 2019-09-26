@@ -7,8 +7,8 @@
         See file LICENSE for full license details.
 """
 
-import wirepas_messaging
 import random
+import wirepas_messaging
 
 
 class Request(object):
@@ -20,6 +20,7 @@ class Request(object):
         req_id (int): identifier to help distinguish a response/request pair
     """
 
+    # pylint: disable=unused-argument
     def __init__(self, sink_id=None, req_id=None, **kwargs):
         super(Request, self).__init__()
         self.sink_id = sink_id

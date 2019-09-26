@@ -44,8 +44,13 @@ except ImportError as err:
 
 from google.protobuf.internal import api_implementation
 
-if api_implementation._default_implementation_type == "python":
-    print(__warning_msg__)
+
+# pylint: disable=locally-disabled, protected-access, wrong-import-order
+try:
+    if api_implementation._default_implementation_type == "python":
+        print(__warning_msg__)
+except AttributeError:
+    print("Could not evaluate protobuf implementation type")
 
 
 __all__ = [
