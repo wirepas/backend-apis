@@ -23,6 +23,8 @@ RX_TIME_MS_EPOCH = int(123456789)
 TRAVEL_TIME_MS = 123
 HOP_COUNT = 10
 
+IMPLEMENTED_API_VERSION = 0
+
 # Todo add more fields in config
 NODE_CONFIG_1 = dict([("sink_id", SINK_ID), ("node_address", 123)])
 

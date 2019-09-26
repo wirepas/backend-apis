@@ -24,6 +24,7 @@ def test_generate_parse_response():
         int(time.time()),
         "Gateway model A",
         "Version x.y",
+        implemented_api_version=IMPLEMENTED_API_VERSION,
     )
 
     request2 = wirepas_messaging.gateway.api.GetGatewayInfoResponse.from_payload(
