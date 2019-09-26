@@ -64,8 +64,6 @@ class NodeMessages(AuthenticationMessages):
                         latitude=latitude,
                         longitude=longitude,
                         altitude=altitude,
-                        pixel_location_x=-1,
-                        pixel_location_y=-1,
                         is_approved=is_approved,
                         is_virtual=is_virtual,
                     )
@@ -73,6 +71,11 @@ class NodeMessages(AuthenticationMessages):
                 originator_token=self.originator_token,
             ),
         )
+
+        if self.protocol_version == self.ProtocolVersions.VERSION_2.value:
+            node = message["data"]["nodes"][0]
+            node["pixel_location_x"] = -1
+            node["pixel_location_y"] = -1
 
         self.logger.info(self.json_dump_pretty(message))
         return message
