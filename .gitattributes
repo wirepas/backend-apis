@@ -5,6 +5,7 @@
 *.env             text eol=lf
 *.ini             text eol=lf
 
+*.py              text eol=lf
 *.rst             text
 *.md              text
 *.txt             text
