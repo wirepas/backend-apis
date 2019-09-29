@@ -27,7 +27,13 @@ class ScratchpadStatusMessages(AuthenticationMessages):
     def message_query_scratchpad_status(
         self, network_id: int, rerun_interval_s: int, is_close: bool
     ) -> dict:
-        """Returns query scratchpad status message"""
+        """Returns query scratchpad status message
+
+        Args:
+            network_id (int): network id
+            rerun_interval_s (int): how often the query should be sent
+            is_close (bool): set to true to stop repeated querying
+        """
 
         message = dict(
             version=self.protocol_version,
