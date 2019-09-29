@@ -20,7 +20,7 @@ from .applicationconfigurationmessages import ApplicationConfigurationMessages
 from .realtimesituationmessages import RealtimeSituationMessages
 from .componentsinformationmessages import ComponentsInformationMessages
 from .scratchpadstatusmessages import ScratchpadStatusMessages
-
+from .nodedatamessagemessages import NodeDataMessages
 
 __all__ = [
     "AuthenticationMessages",
@@ -33,4 +33,5 @@ __all__ = [
     "RealtimeSituationMessages",
     "ComponentsInformationMessages",
     "ScratchpadStatusMessages",
+    "NodeDataMessages"
 ]
