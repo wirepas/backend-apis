@@ -20,6 +20,7 @@ class AuthenticationExample(object):
 
     class State(Enum):
         """State enumeration class"""
+
         START = auto()
 
         LOGIN = auto()  # Started on authentication_on_open
@@ -39,29 +40,33 @@ class AuthenticationExample(object):
         self.state = self.State(self.State.START.value + 1)
 
         self.new_user = dict(
-            username='jdoeexample',
-            password='secret',
-            full_name='John Doe',
+            username="jdoeexample",
+            password="secret",
+            full_name="John Doe",
             role=AuthenticationMessages.Role.OPERATOR.value,
-            updated_full_name='John J. Doe',
-            updated_password='secret2',
+            updated_full_name="John J. Doe",
+            updated_password="secret2",
             updated_role=AuthenticationMessages.Role.ADMIN.value,
         )
 
         self.settings = wnt.settings()
 
         self.logger = wnt.utils.setup_log(
-            'AuthenticationExample', self.settings.log_level)
+            "AuthenticationExample", self.settings.log_level
+        )
 
-        self.client = wnt.Connections(hostname=self.settings.hostname,
-                                      logger=self.logger,
-                                      authentication_on_open=self.authentication_on_open,
-                                      authentication_on_message=self.authentication_on_message,
-                                      authentication_on_error=self.authentication_on_error,
-                                      authentication_on_close=self.authentication_on_close)
+        self.client = wnt.Connections(
+            hostname=self.settings.hostname,
+            logger=self.logger,
+            authentication_on_open=self.authentication_on_open,
+            authentication_on_message=self.authentication_on_message,
+            authentication_on_error=self.authentication_on_error,
+            authentication_on_close=self.authentication_on_close,
+        )
 
-        self.authentication = AuthenticationMessages(self.logger,
-                                                     self.settings.protocol_version)
+        self.authentication = AuthenticationMessages(
+            self.logger, self.settings.protocol_version
+        )
 
     def send_request(self, websocket) -> None:
         """Send request
@@ -70,34 +75,49 @@ class AuthenticationExample(object):
             websocket (Websocket): communication socket
         """
         if self.state.name.startswith(self.State.LOGIN.name):
-            websocket.send(json.dumps(self.authentication.message_login(self.settings.username,
-                                                                        self.settings.password)))
+            websocket.send(
+                json.dumps(
+                    self.authentication.message_login(
+                        self.settings.username, self.settings.password
+                    )
+                )
+            )
 
         elif self.state.name.startswith(self.State.QUERY_USERS.name):
-            websocket.send(json.dumps(
-                self.authentication.message_query_users()))
+            websocket.send(json.dumps(self.authentication.message_query_users()))
 
         elif self.state.name.startswith(self.State.CREATE_USER.name):
-            websocket.send(json.dumps(
-                self.authentication.message_create_user(username=self.new_user["username"],
-                                                        password=self.new_user[
-                                                            "password"],
-                                                        full_name=self.new_user[
-                                                            "full_name"],
-                                                        role=self.new_user["role"])))
+            websocket.send(
+                json.dumps(
+                    self.authentication.message_create_user(
+                        username=self.new_user["username"],
+                        password=self.new_user["password"],
+                        full_name=self.new_user["full_name"],
+                        role=self.new_user["role"],
+                    )
+                )
+            )
 
         elif self.state.name.startswith(self.State.UPDATE_USER.name):
-            websocket.send(json.dumps(
-                self.authentication.message_update_user(username=self.new_user["username"],
-                                                        new_password=self.new_user[
-                                                            "updated_password"],
-                                                        new_full_name=self.new_user[
-                                                            "updated_full_name"],
-                                                        new_role=self.new_user["updated_role"])))
+            websocket.send(
+                json.dumps(
+                    self.authentication.message_update_user(
+                        username=self.new_user["username"],
+                        new_password=self.new_user["updated_password"],
+                        new_full_name=self.new_user["updated_full_name"],
+                        new_role=self.new_user["updated_role"],
+                    )
+                )
+            )
 
         elif self.state.name.startswith(self.State.DELETE_USER.name):
-            websocket.send(json.dumps(
-                self.authentication.message_delete_user(username=self.new_user["username"])))
+            websocket.send(
+                json.dumps(
+                    self.authentication.message_delete_user(
+                        username=self.new_user["username"]
+                    )
+                )
+            )
 
     def parse_response(self, message: str) -> bool:
         """Parse response
@@ -136,7 +156,7 @@ class AuthenticationExample(object):
         Args:
             websocket (Websocket): communication socket
         """
-        self.logger.info('Socket open')
+        self.logger.info("Socket open")
         self.send_request(websocket)
 
     def authentication_on_message(self, websocket, message: str) -> None:
@@ -147,7 +167,7 @@ class AuthenticationExample(object):
             message (str): received message
         """
         if not self.parse_response(message):
-            self.logger.error('Example run failed. Exiting.')
+            self.logger.error("Example run failed. Exiting.")
             self.client.stop_authentication_thread()
         else:
             self.state = self.State(self.state.value + 1)
@@ -165,7 +185,7 @@ class AuthenticationExample(object):
             _websocket (Websocket): communication socket
             error (str): error message
         """
-        self.logger.error('Socket error: {0}'.format(error))
+        self.logger.error("Socket error: {0}".format(error))
 
     def authentication_on_close(self, _websocket) -> None:
         """Websocket callback when the authentication connection closes
@@ -173,7 +193,7 @@ class AuthenticationExample(object):
         Args:
             _websocket (Websocket): communication socket
         """
-        self.logger.info('Socket close')
+        self.logger.info("Socket close")
 
     def run(self) -> int:
         """Run method which starts and waits the communication thread(s)
@@ -189,5 +209,5 @@ class AuthenticationExample(object):
         return self.return_code
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     exit(AuthenticationExample().run())

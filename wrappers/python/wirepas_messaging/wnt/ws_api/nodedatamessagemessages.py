@@ -33,7 +33,7 @@ class NodeDataMessages(AuthenticationMessages):
         source_end_point: int,
         destination_end_point: int,
         qos: int,
-        payload: str
+        payload: str,
     ) -> dict:
         """Returns send node data message metadata message
 
@@ -58,7 +58,7 @@ class NodeDataMessages(AuthenticationMessages):
                     source_end_point=source_end_point,
                     destination_end_point=destination_end_point,
                     qos=qos,
-                    payload=payload
+                    payload=payload,
                 ),
                 originator_token=self.originator_token,
             ),
