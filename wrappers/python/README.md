@@ -28,7 +28,7 @@ Copy and compile the protocol buffer files
 Generate the python wheel with
 
 ```shell
-    ./utils/generate_whell.sh
+    ./utils/generate_wheel.sh
 ```
 
 Afterwards, install the package from the dist folder with
