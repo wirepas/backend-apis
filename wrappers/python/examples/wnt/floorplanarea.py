@@ -14,7 +14,11 @@ import json
 
 from enum import Enum, auto
 from filehelper import FileHelper
-from wirepas_messaging.wnt.ws_api import BuildingMessages, FloorPlanMessages, AreaMessages
+from wirepas_messaging.wnt.ws_api import (
+    BuildingMessages,
+    FloorPlanMessages,
+    AreaMessages,
+)
 
 
 class Messages(BuildingMessages, FloorPlanMessages, AreaMessages):
@@ -37,6 +41,7 @@ class FloorPlanAreaExample(object):
 
     class State(Enum):
         """State enumeration class"""
+
         START = auto()
 
         LOGIN = auto()  # Started on authentication_on_open
@@ -70,144 +75,195 @@ class FloorPlanAreaExample(object):
         self.settings = wnt.settings()
 
         self.logger = wnt.utils.setup_log(
-            'FloorPlanAreaExample', self.settings.log_level)
+            "FloorPlanAreaExample", self.settings.log_level
+        )
 
-        self.client = wnt.Connections(hostname=self.settings.hostname,
-                                      logger=self.logger,
-                                      authentication_on_open=self.authentication_on_open,
-                                      authentication_on_message=self.authentication_on_message,
-                                      authentication_on_error=self.authentication_on_error,
-                                      authentication_on_close=self.authentication_on_close,
-                                      metadata_on_open=self.metadata_on_open,
-                                      metadata_on_message=self.metadata_on_message,
-                                      metadata_on_error=self.metadata_on_error,
-                                      metadata_on_close=self.metadata_on_close)
+        self.client = wnt.Connections(
+            hostname=self.settings.hostname,
+            logger=self.logger,
+            authentication_on_open=self.authentication_on_open,
+            authentication_on_message=self.authentication_on_message,
+            authentication_on_error=self.authentication_on_error,
+            authentication_on_close=self.authentication_on_close,
+            metadata_on_open=self.metadata_on_open,
+            metadata_on_message=self.metadata_on_message,
+            metadata_on_error=self.metadata_on_error,
+            metadata_on_close=self.metadata_on_close,
+        )
 
-        self.messages = Messages(self.logger,
-                                 self.settings.protocol_version)
+        self.messages = Messages(self.logger, self.settings.protocol_version)
 
         script_path = os.path.dirname(os.path.realpath(__file__))
 
         self.floor_plan_image_file_path = os.path.join(
-            script_path, 'assets/floor_plan.png')
+            script_path, "assets/floor_plan.png"
+        )
 
-        self.floor_plan_image_thumbnail_file_path = \
-            os.path.join(script_path, 'assets/floor_plan_thumbnail.png')
+        self.floor_plan_image_thumbnail_file_path = os.path.join(
+            script_path, "assets/floor_plan_thumbnail.png"
+        )
 
         self.floor_plan_image_width = 8989
         self.floor_plan_image_height = 4432
 
-        self.temp_floor_plan_image_file_path = self.floor_plan_image_file_path + '.tmp.png'
-        self.temp_floor_plan_image_thumbnail_file_path = \
-            self.floor_plan_image_thumbnail_file_path + '.tmp.png'
+        self.temp_floor_plan_image_file_path = (
+            self.floor_plan_image_file_path + ".tmp.png"
+        )
+        self.temp_floor_plan_image_thumbnail_file_path = (
+            self.floor_plan_image_thumbnail_file_path + ".tmp.png"
+        )
 
     def send_request(self) -> None:
         """Send request"""
         if self.state == self.State.LOGIN:
-            self.authentication_thread.socket.send(json.dumps(
-                self.messages.message_login(self.settings.username,
-                                            self.settings.password)))
+            self.authentication_thread.socket.send(
+                json.dumps(
+                    self.messages.message_login(
+                        self.settings.username, self.settings.password
+                    )
+                )
+            )
 
         elif self.state == self.State.CREATE_BUILDING:
-            self.metadata_thread.socket.send(json.dumps(
-                self.messages.message_create_building('New building')))
+            self.metadata_thread.socket.send(
+                json.dumps(self.messages.message_create_building("New building"))
+            )
 
         elif self.state == self.State.CREATE_FLOOR_PLAN:
-            self.metadata_thread.socket.send(json.dumps(
-                self.messages.message_create_floor_plan(self.messages.new_building_id,
-                                                        'New floor plan')))
+            self.metadata_thread.socket.send(
+                json.dumps(
+                    self.messages.message_create_floor_plan(
+                        self.messages.new_building_id, "New floor plan"
+                    )
+                )
+            )
 
         elif self.state == self.state.SET_FLOOR_PLAN_IMAGE:
             self.metadata_thread.socket.send(
-                json.dumps(self.messages.message_set_image(
-                    FileHelper.read_file_content_as_base64(self.floor_plan_image_file_path))))
+                json.dumps(
+                    self.messages.message_set_image(
+                        FileHelper.read_file_content_as_base64(
+                            self.floor_plan_image_file_path
+                        )
+                    )
+                )
+            )
 
         elif self.state == self.state.SET_FLOOR_PLAN_IMAGE_THUMBNAIL:
             self.metadata_thread.socket.send(
-                json.dumps(self.messages.message_set_image(
-                    FileHelper.read_file_content_as_base64(self.floor_plan_image_thumbnail_file_path))))
+                json.dumps(
+                    self.messages.message_set_image(
+                        FileHelper.read_file_content_as_base64(
+                            self.floor_plan_image_thumbnail_file_path
+                        )
+                    )
+                )
+            )
 
         elif self.state == self.State.UPDATE_FLOOR_PLAN:
-            self.metadata_thread.socket.send(json.dumps(
-                self.messages.message_update_floor_plan(self.messages.new_floor_plan_id,
-                                                        image_id=self.floor_plan_image_id,
-                                                        image_thumbnail_id=self.floor_plan_image_thumbnail_id,
-                                                        latitude_lefttop=61.454823,
-                                                        longitude_lefttop=23.884526,
-                                                        altitude_lefttop=0,
-                                                        x_normcoord_lefttop=0.0748329808357999,
-                                                        y_normcoord_lefttop=0.203506328386351,
-                                                        latitude_righttop=61.454773,
-                                                        longitude_righttop=23.886096,
-                                                        altitude_righttop=0,
-                                                        x_normcoord_righttop=0.903860782456575,
-                                                        y_normcoord_righttop=0.203571943827163,
-                                                        latitude_leftbottom=61.454612,
-                                                        longitude_leftbottom=23.884503,
-                                                        altitude_leftbottom=0,
-                                                        x_normcoord_leftbottom=0.0747559429065484,
-                                                        y_normcoord_leftbottom=0.780014805319742,
-                                                        latitude_rightbottom=61.454562,
-                                                        longitude_rightbottom=23.88607,
-                                                        altitude_rightbottom=0,
-                                                        x_normcoord_rightbottom=0.904069882566427,
-                                                        y_normcoord_rightbottom=0.78039444527477,
-                                                        x_distance_point1=0.450065006833406,
-                                                        y_distance_point1=0.203192686229106,
-                                                        x_distance_point2=0.449649314572983,
-                                                        y_distance_point2=0.780260953915855,
-                                                        distance_in_m=25.1,
-                                                        level=0,
-                                                        image_width=self.floor_plan_image_width,
-                                                        image_height=self.floor_plan_image_height)))
+            self.metadata_thread.socket.send(
+                json.dumps(
+                    self.messages.message_update_floor_plan(
+                        self.messages.new_floor_plan_id,
+                        image_id=self.floor_plan_image_id,
+                        image_thumbnail_id=self.floor_plan_image_thumbnail_id,
+                        latitude_lefttop=61.454823,
+                        longitude_lefttop=23.884526,
+                        altitude_lefttop=0,
+                        x_normcoord_lefttop=0.0748329808357999,
+                        y_normcoord_lefttop=0.203506328386351,
+                        latitude_righttop=61.454773,
+                        longitude_righttop=23.886096,
+                        altitude_righttop=0,
+                        x_normcoord_righttop=0.903860782456575,
+                        y_normcoord_righttop=0.203571943827163,
+                        latitude_leftbottom=61.454612,
+                        longitude_leftbottom=23.884503,
+                        altitude_leftbottom=0,
+                        x_normcoord_leftbottom=0.0747559429065484,
+                        y_normcoord_leftbottom=0.780014805319742,
+                        latitude_rightbottom=61.454562,
+                        longitude_rightbottom=23.88607,
+                        altitude_rightbottom=0,
+                        x_normcoord_rightbottom=0.904069882566427,
+                        y_normcoord_rightbottom=0.78039444527477,
+                        x_distance_point1=0.450065006833406,
+                        y_distance_point1=0.203192686229106,
+                        x_distance_point2=0.449649314572983,
+                        y_distance_point2=0.780260953915855,
+                        distance_in_m=25.1,
+                        level=0,
+                        image_width=self.floor_plan_image_width,
+                        image_height=self.floor_plan_image_height,
+                    )
+                )
+            )
 
         elif self.state == self.state.CREATE_AREA:
             self.metadata_thread.socket.send(
-                json.dumps(self.messages.message_create_area(self.messages.new_floor_plan_id,
-                                                             'new area')))
+                json.dumps(
+                    self.messages.message_create_area(
+                        self.messages.new_floor_plan_id, "new area"
+                    )
+                )
+            )
 
         elif self.state == self.state.UPDATE_AREA:
             corner_point_llas = [
-                dict(latitude=61.454674940345,
-                     longitude=23.8857998957377,
-                     altitude=0),
-                dict(latitude=61.4546694661163,
-                     longitude=23.8859745817991,
-                     altitude=0),
-                dict(latitude=61.4545636984609,
-                     longitude=23.8859602235394,
-                     altitude=0),
-                dict(latitude=61.4545691231503,
-                     longitude=23.8857853265751,
-                     altitude=0)
+                dict(latitude=61.454674940345, longitude=23.8857998957377, altitude=0),
+                dict(latitude=61.4546694661163, longitude=23.8859745817991, altitude=0),
+                dict(latitude=61.4545636984609, longitude=23.8859602235394, altitude=0),
+                dict(latitude=61.4545691231503, longitude=23.8857853265751, altitude=0),
             ]
 
             self.metadata_thread.socket.send(
-                json.dumps(self.messages.message_update_area(self.messages.new_area_id,
-                                                             self.messages.new_floor_plan_id,
-                                                             'updated name',
-                                                             80,
-                                                             0,
-                                                             0,
-                                                             200,
-                                                             corner_point_llas)))
+                json.dumps(
+                    self.messages.message_update_area(
+                        self.messages.new_area_id,
+                        self.messages.new_floor_plan_id,
+                        "updated name",
+                        80,
+                        0,
+                        0,
+                        200,
+                        corner_point_llas,
+                    )
+                )
+            )
 
         elif self.state == self.State.GET_AREAS:
-            self.metadata_thread.socket.send(json.dumps(
-                self.messages.message_get_floor_plan_areas(self.messages.new_floor_plan_id)))
+            self.metadata_thread.socket.send(
+                json.dumps(
+                    self.messages.message_get_floor_plan_areas(
+                        self.messages.new_floor_plan_id
+                    )
+                )
+            )
 
         elif self.state == self.State.DELETE_AREA:
-            self.metadata_thread.socket.send(json.dumps(
-                self.messages.message_delete_area(self.messages.new_area_id,
-                                                  self.messages.new_floor_plan_id)))
+            self.metadata_thread.socket.send(
+                json.dumps(
+                    self.messages.message_delete_area(
+                        self.messages.new_area_id, self.messages.new_floor_plan_id
+                    )
+                )
+            )
 
         elif self.state == self.State.DELETE_FLOOR_PLAN:
-            self.metadata_thread.socket.send(json.dumps(
-                self.messages.message_delete_floor_plan(self.messages.new_floor_plan_id)))
+            self.metadata_thread.socket.send(
+                json.dumps(
+                    self.messages.message_delete_floor_plan(
+                        self.messages.new_floor_plan_id
+                    )
+                )
+            )
 
         elif self.state == self.State.DELETE_BUILDING:
-            self.metadata_thread.socket.send(json.dumps(
-                self.messages.message_delete_building(self.messages.new_building_id)))
+            self.metadata_thread.socket.send(
+                json.dumps(
+                    self.messages.message_delete_building(self.messages.new_building_id)
+                )
+            )
 
     def parse_response(self, message: str) -> bool:
         """Parse response
@@ -270,7 +326,7 @@ class FloorPlanAreaExample(object):
         Args:
             websocket (Websocket): communication socket
         """
-        self.logger.info('Authentication socket open')
+        self.logger.info("Authentication socket open")
         self.send_request()
 
     def authentication_on_message(self, websocket, message: str) -> None:
@@ -289,7 +345,7 @@ class FloorPlanAreaExample(object):
             _websocket (Websocket): communication socket
             error (str): error message
         """
-        self.logger.error('Authentication socket error: {0}'.format(error))
+        self.logger.error("Authentication socket error: {0}".format(error))
 
     def authentication_on_close(self, _websocket) -> None:
         """Websocket callback when the authentication connection closes
@@ -297,7 +353,7 @@ class FloorPlanAreaExample(object):
         Args:
             _websocket (Websocket): communication socket
         """
-        self.logger.info('Authentication socket close')
+        self.logger.info("Authentication socket close")
 
     def metadata_on_open(self, _websocket) -> None:
         """Websocket callback when the metadata websocket has been opened
@@ -305,7 +361,7 @@ class FloorPlanAreaExample(object):
         Args:
             websocket (Websocket): communication socket
         """
-        self.logger.info('Metadata socket open')
+        self.logger.info("Metadata socket open")
 
     def metadata_on_message(self, websocket, message: str) -> None:
         """Websocket callback when a new metadata message arrives
@@ -323,7 +379,7 @@ class FloorPlanAreaExample(object):
             _websocket (Websocket): communication socket
             error (str): error message
         """
-        self.logger.error('Metadata socket error: {0}'.format(error))
+        self.logger.error("Metadata socket error: {0}".format(error))
 
     def metadata_on_close(self, _websocket) -> None:
         """Websocket callback when the metadata connection closes
@@ -331,7 +387,7 @@ class FloorPlanAreaExample(object):
         Args:
             _websocket (Websocket): communication socket
         """
-        self.logger.warning('Metadata socket close')
+        self.logger.warning("Metadata socket close")
 
     def on_message(self, _websocket, message: str) -> None:
         """Called when authentication or metadata message is received
@@ -343,7 +399,7 @@ class FloorPlanAreaExample(object):
             message (str): received message
         """
         if not self.parse_response(message):
-            self.logger.error('Test run failed. Exiting.')
+            self.logger.error("Test run failed. Exiting.")
             self.client.stop_metadata_thread()
             self.client.stop_authentication_thread()
         else:
@@ -374,5 +430,5 @@ class FloorPlanAreaExample(object):
         return self.return_code
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     exit(FloorPlanAreaExample().run())

@@ -20,6 +20,7 @@ class BuildingExample(object):
 
     class State(Enum):
         """State enumeration class"""
+
         START = auto()
 
         LOGIN = auto()  # Started on authentication_on_open
@@ -41,46 +42,59 @@ class BuildingExample(object):
 
         self.settings = wnt.settings()
 
-        self.logger = wnt.utils.setup_log(
-            'BuildingExample', self.settings.log_level)
+        self.logger = wnt.utils.setup_log("BuildingExample", self.settings.log_level)
 
-        self.client = wnt.Connections(hostname=self.settings.hostname,
-                                      logger=self.logger,
-                                      authentication_on_open=self.authentication_on_open,
-                                      authentication_on_message=self.authentication_on_message,
-                                      authentication_on_error=self.authentication_on_error,
-                                      authentication_on_close=self.authentication_on_close,
-                                      metadata_on_open=self.metadata_on_open,
-                                      metadata_on_message=self.metadata_on_message,
-                                      metadata_on_error=self.metadata_on_error,
-                                      metadata_on_close=self.metadata_on_close)
+        self.client = wnt.Connections(
+            hostname=self.settings.hostname,
+            logger=self.logger,
+            authentication_on_open=self.authentication_on_open,
+            authentication_on_message=self.authentication_on_message,
+            authentication_on_error=self.authentication_on_error,
+            authentication_on_close=self.authentication_on_close,
+            metadata_on_open=self.metadata_on_open,
+            metadata_on_message=self.metadata_on_message,
+            metadata_on_error=self.metadata_on_error,
+            metadata_on_close=self.metadata_on_close,
+        )
 
-        self.messages = BuildingMessages(self.logger,
-                                         self.settings.protocol_version)
+        self.messages = BuildingMessages(self.logger, self.settings.protocol_version)
 
     def send_request(self) -> None:
         """Send request"""
         if self.state == self.State.LOGIN:
-            self.authentication_thread.socket.send(json.dumps(
-                self.messages.message_login(self.settings.username,
-                                            self.settings.password)))
+            self.authentication_thread.socket.send(
+                json.dumps(
+                    self.messages.message_login(
+                        self.settings.username, self.settings.password
+                    )
+                )
+            )
 
         elif self.state == self.State.CREATE_BUILDING:
-            self.metadata_thread.socket.send(json.dumps(
-                self.messages.message_create_building('New building')))
+            self.metadata_thread.socket.send(
+                json.dumps(self.messages.message_create_building("New building"))
+            )
 
         elif self.state.name.startswith(self.State.GET_BUILDINGS.name):
             self.metadata_thread.socket.send(
-                json.dumps(self.messages.message_get_buildings()))
+                json.dumps(self.messages.message_get_buildings())
+            )
 
         elif self.state == self.State.UPDATE_BUILDING:
-            self.metadata_thread.socket.send(json.dumps(
-                self.messages.message_update_building(self.messages.new_building_id,
-                                                      'Updated building')))
+            self.metadata_thread.socket.send(
+                json.dumps(
+                    self.messages.message_update_building(
+                        self.messages.new_building_id, "Updated building"
+                    )
+                )
+            )
 
         elif self.state == self.State.DELETE_BUILDING:
-            self.metadata_thread.socket.send(json.dumps(
-                self.messages.message_delete_building(self.messages.new_building_id)))
+            self.metadata_thread.socket.send(
+                json.dumps(
+                    self.messages.message_delete_building(self.messages.new_building_id)
+                )
+            )
 
     def parse_response(self, message: str) -> bool:
         """Parse response
@@ -112,7 +126,7 @@ class BuildingExample(object):
         Args:
             websocket (Websocket): communication socket
         """
-        self.logger.info('Authentication socket open')
+        self.logger.info("Authentication socket open")
         self.send_request()
 
     def authentication_on_message(self, websocket, message: str) -> None:
@@ -131,7 +145,7 @@ class BuildingExample(object):
             _websocket (Websocket): communication socket
             error (str): error message
         """
-        self.logger.error('Authentication socket error: {0}'.format(error))
+        self.logger.error("Authentication socket error: {0}".format(error))
 
     def authentication_on_close(self, _websocket) -> None:
         """Websocket callback when the authentication connection closes
@@ -139,7 +153,7 @@ class BuildingExample(object):
         Args:
             _websocket (Websocket): communication socket
         """
-        self.logger.info('Authentication socket close')
+        self.logger.info("Authentication socket close")
 
     def metadata_on_open(self, _websocket) -> None:
         """Websocket callback when the metadata websocket has been opened
@@ -147,7 +161,7 @@ class BuildingExample(object):
         Args:
             websocket (Websocket): communication socket
         """
-        self.logger.info('Metadata socket open')
+        self.logger.info("Metadata socket open")
 
     def metadata_on_message(self, websocket, message: str) -> None:
         """Websocket callback when a new metadata message arrives
@@ -165,7 +179,7 @@ class BuildingExample(object):
             _websocket (Websocket): communication socket
             error (str): error message
         """
-        self.logger.error('Metadata socket error: {0}'.format(error))
+        self.logger.error("Metadata socket error: {0}".format(error))
 
     def metadata_on_close(self, _websocket) -> None:
         """Websocket callback when the metadata connection closes
@@ -173,7 +187,7 @@ class BuildingExample(object):
         Args:
             _websocket (Websocket): communication socket
         """
-        self.logger.warning('Metadata socket close')
+        self.logger.warning("Metadata socket close")
 
     def on_message(self, _websocket, message: str) -> None:
         """Called when authentication or metadata message is received
@@ -185,7 +199,7 @@ class BuildingExample(object):
             message (str): received message
         """
         if not self.parse_response(message):
-            self.logger.error('Test run failed. Exiting.')
+            self.logger.error("Test run failed. Exiting.")
             self.client.stop_metadata_thread()
             self.client.stop_authentication_thread()
         else:
@@ -216,5 +230,5 @@ class BuildingExample(object):
         return self.return_code
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     exit(BuildingExample().run())

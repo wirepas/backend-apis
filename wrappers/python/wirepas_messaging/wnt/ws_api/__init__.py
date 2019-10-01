@@ -33,5 +33,5 @@ __all__ = [
     "RealtimeSituationMessages",
     "ComponentsInformationMessages",
     "ScratchpadStatusMessages",
-    "NodeDataMessages"
+    "NodeDataMessages",
 ]
