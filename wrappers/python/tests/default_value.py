@@ -2,7 +2,7 @@
 
 import wirepas_messaging
 
-from ..otap_helper import *
+from wirepas_messaging.gateway.api import *
 
 
 # Define list of default values used during testing
@@ -22,6 +22,8 @@ INITIAL_DELAY = 12
 RX_TIME_MS_EPOCH = int(123456789)
 TRAVEL_TIME_MS = 123
 HOP_COUNT = 10
+
+IMPLEMENTED_API_VERSION = 0
 
 # Todo add more fields in config
 NODE_CONFIG_1 = dict([("sink_id", SINK_ID), ("node_address", 123)])

@@ -10,15 +10,12 @@ install:
   - sudo gem install github_changelog_generator
 
 script:
+  - ./.ci/style-check.sh
   - ./.ci/build.sh
   - ./.ci/install.sh
+  - pytest -vvv
   - ./.ci/releases.sh
   - source releases.env
-  - cd wrappers/python
-  - ./tests/run_all_examples.sh
-
-before_deploy:
-  - github_changelog_generator -t "${GH_TOKEN}"
 
 deploy:
 - provider: releases
@@ -26,7 +23,7 @@ deploy:
   file_glob: true
   file:
     - "${TRAVIS_BUILD_DIR}/wrappers/python/dist/*"
-    - "${TRAVIS_BUILD_DIR}/wrappers/python/CHANGELOG.md"
+    - "${TRAVIS_BUILD_DIR}/CHANGELOG.md"
   skip_cleanup: true
   draft: ${GH_RELEASE_DRAFT} = true
   name: ${GH_RELEASE_NAME}

@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 import wirepas_messaging
 
 
@@ -10,8 +8,3 @@ def example_mesh_data():
     meshdata.source = 1000
 
     return meshdata
-
-
-if __name__ == "__main__":
-
-    print(example_mesh_data())
