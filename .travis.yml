@@ -16,7 +16,6 @@ script:
   - pytest -vvv
   - ./.ci/releases.sh
   - source releases.env
-  - github_changelog_generator -t "${GH_TOKEN}"
 
 deploy:
 - provider: releases
