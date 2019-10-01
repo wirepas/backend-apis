@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 import wirepas_messaging
 
 
@@ -15,8 +13,3 @@ def example_neighbor():
     neighbor.no_neighbors = 1
 
     return neighbor
-
-
-if __name__ == "__main__":
-
-    print(example_neighbor())
