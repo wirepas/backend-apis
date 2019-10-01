@@ -9,8 +9,8 @@
 
 # flake8: noqa
 
-from ..error_pb2 import *
 import enum
+from ..error_pb2 import *
 
 
 class GatewayResultCode(enum.Enum):

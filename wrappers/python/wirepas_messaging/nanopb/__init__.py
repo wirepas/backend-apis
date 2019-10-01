@@ -8,4 +8,4 @@
 """
 # flake8: noqa
 
-from . import *
+from .nanopb_pb2 import *

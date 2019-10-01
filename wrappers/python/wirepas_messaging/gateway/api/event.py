@@ -6,9 +6,8 @@
         Copyright 2019 Wirepas Ltd under Apache License, Version 2.0.
         See file LICENSE for full license details.
 """
-
-import wirepas_messaging
 import random
+import wirepas_messaging
 
 
 class Event(object):
@@ -21,6 +20,7 @@ class Event(object):
         event_id(int): event unique id (random value generated if None)
     """
 
+    # pylint: disable=unused-argument
     def __init__(self, gw_id, sink_id=None, event_id=None, **kwargs):
 
         super(Event, self).__init__()
