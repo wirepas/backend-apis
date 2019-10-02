@@ -337,9 +337,10 @@ class ApplicationConfigurationExample(object):
             self.metadata_thread = self.client.start_metadata_thread()
             self.authentication_thread = self.client.start_authentication_thread()
 
-            self.realtime_situation_thread.join()
-            self.metadata_thread.join()
-            self.authentication_thread.join()
+            # Maximum wait time 30 seconds
+            self.realtime_situation_thread.join(30)
+            self.metadata_thread.join(0)
+            self.authentication_thread.join(0)
         except:
             pass
 

@@ -1,12 +1,12 @@
 # flake8: noqa
 """
-    WNT examples
-    ============
+    WNT
+    ===
 
-    WNT authentication, metadata and realtime situation data examples
+    WNT API tests
 
     .. Copyright:
-        Copyright 2018 Wirepas Ltd. All Rights Reserved.
+        Copyright 2019 Wirepas Ltd. All Rights Reserved.
         See file LICENSE.txt for full license details.
 """
 
