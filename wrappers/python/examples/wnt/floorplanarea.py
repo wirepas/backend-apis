@@ -4,9 +4,8 @@
     ========================
 
     .. Copyright:
-        Copyright 2019 Wirepas Ltd. All Rights Reserved.
-        See file LICENSE.txt for full license details.
-
+        Copyright Wirepas Ltd 2019 licensed under Apache License, Version 2.0
+        See file LICENSE for full license details.
 """
 from utils import get_settings, setup_log
 from connections import Connections
