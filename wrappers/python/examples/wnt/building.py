@@ -8,7 +8,9 @@
         See file LICENSE.txt for full license details.
 
 """
-import wnt
+from utils import get_settings, setup_log
+from connections import Connections
+
 import json
 
 from enum import Enum, auto
@@ -40,11 +42,11 @@ class BuildingExample(object):
         self.authentication_thread = None
         self.metadata_thread = None
 
-        self.settings = wnt.settings()
+        self.settings = get_settings()
 
-        self.logger = wnt.utils.setup_log("BuildingExample", self.settings.log_level)
+        self.logger = setup_log("BuildingExample", self.settings.log_level)
 
-        self.client = wnt.Connections(
+        self.client = Connections(
             hostname=self.settings.hostname,
             logger=self.logger,
             authentication_on_open=self.authentication_on_open,

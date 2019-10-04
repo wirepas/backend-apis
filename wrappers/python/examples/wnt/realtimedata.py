@@ -8,7 +8,9 @@
         See file LICENSE.txt for full license details.
 
 """
-import wnt
+from utils import get_settings, setup_log
+from connections import Connections
+
 import json
 import wirepas_messaging.wnt as wnt_proto
 
@@ -43,13 +45,11 @@ class RealtimeDataExample(object):
         self.total_node_count = 0
         self.loaded_node_count = 0
 
-        self.settings = wnt.settings()
+        self.settings = get_settings()
 
-        self.logger = wnt.utils.setup_log(
-            "RealTimeDataExample", self.settings.log_level
-        )
+        self.logger = setup_log("RealTimeDataExample", self.settings.log_level)
 
-        self.client = wnt.Connections(
+        self.client = Connections(
             hostname=self.settings.hostname,
             logger=self.logger,
             authentication_on_open=self.authentication_on_open,
