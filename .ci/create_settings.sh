@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+if [[ -f .secrets ]]
+then
+   set -o allexport
+   source .secrets
+   set +o allexport
+fi
 
 TEMPLATE=${1:-".ci/settings-template.yml"}
 OUTPUT=${2:-".settings.yml"}

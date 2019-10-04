@@ -56,7 +56,7 @@ def get_settings() -> Type[Settings]:
     return settings
 
 
-def setup_log(module: str, level: str = "debug"):
+def setup_log(module: str, level: str = "error"):
     """
     Prepares logging.
 
@@ -72,7 +72,7 @@ def setup_log(module: str, level: str = "debug"):
     try:
         logger.setLevel(ast.literal_eval("logging.{0}".format(level.upper())))
     except ValueError:
-        logger.setLevel(logging.DEBUG)
+        logger.setLevel(logging.error)
 
     formatter = logging.Formatter(
         "{"
