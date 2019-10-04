@@ -13,3 +13,4 @@ wrappers/python/docs/source/api/
 pb2.py
 wrappers/python/wirepas_messaging/**/*.proto
 
+.settings.yml

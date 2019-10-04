@@ -1,0 +1,6 @@
+---
+username: ${WNT_ADMIN_USER:-"adminuser"}
+password: ${WNT_ADMIN_PASSWORD:-"adminuserpwd"}
+operator_username: ${WNT_OPERATOR_USER:-"operatoruser"}
+operator_password: ${WNT_OPERATOR_PASSWORD:-"operatoruserpwd"}
+hostname: ${WNT_HOSTNAME:-"wnthost.com"}
