@@ -72,7 +72,7 @@ def setup_log(module: str, level: str = "error"):
     try:
         logger.setLevel(ast.literal_eval("logging.{0}".format(level.upper())))
     except ValueError:
-        logger.setLevel(logging.error)
+        logger.setLevel(logging.ERROR)
 
     formatter = logging.Formatter(
         "{"
