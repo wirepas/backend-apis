@@ -8,12 +8,14 @@
         See file LICENSE.txt for full license details.
 
 """
+from utils import get_settings, setup_log
+from connections import Connections
+from filehelper import FileHelper
+
 import os
-import wnt
 import json
 
 from enum import Enum, auto
-from filehelper import FileHelper
 from wirepas_messaging.wnt.ws_api import (
     BuildingMessages,
     FloorPlanMessages,
@@ -72,13 +74,11 @@ class FloorPlanAreaExample(object):
         self.authentication_thread = None
         self.metadata_thread = None
 
-        self.settings = wnt.settings()
+        self.settings = get_settings()
 
-        self.logger = wnt.utils.setup_log(
-            "FloorPlanAreaExample", self.settings.log_level
-        )
+        self.logger = setup_log("FloorPlanAreaExample", self.settings.log_level)
 
-        self.client = wnt.Connections(
+        self.client = Connections(
             hostname=self.settings.hostname,
             logger=self.logger,
             authentication_on_open=self.authentication_on_open,
