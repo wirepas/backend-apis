@@ -13,7 +13,8 @@ script:
   - ./.ci/style-check.sh
   - ./.ci/build.sh
   - ./.ci/install.sh
-  - pytest -vvv
+  - ./.ci/create_settings.sh
+  - pytest -v -s
   - ./.ci/releases.sh
   - source releases.env
 
