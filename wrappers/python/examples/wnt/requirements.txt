@@ -1,4 +1,4 @@
 
 protobuf==3.9.2
 websocket-client==0.48.0
-PyYAML==3.13
+PyYAML==5.1.2
