@@ -337,14 +337,15 @@ class FloorPlanAreaExample(object):
         """
         self.on_message(websocket, message)
 
-    def authentication_on_error(self, _websocket, error: str) -> None:
+    def authentication_on_error(self, websocket, error: str) -> None:
         """Websocket callback when an authentication socket error occurs
 
         Args:
-            _websocket (Websocket): communication socket
+            websocket (Websocket): communication socket
             error (str): error message
         """
-        self.logger.error("Authentication socket error: {0}".format(error))
+        if websocket.keep_running:
+            self.logger.error("Authentication socket error: {0}".format(error))
 
     def authentication_on_close(self, _websocket) -> None:
         """Websocket callback when the authentication connection closes
@@ -371,14 +372,15 @@ class FloorPlanAreaExample(object):
         """
         self.on_message(websocket, message)
 
-    def metadata_on_error(self, _websocket, error: str) -> None:
+    def metadata_on_error(self, websocket, error: str) -> None:
         """Websocket callback when a metadata socket error occurs
 
         Args:
-            _websocket (Websocket): communication socket
+            websocket (Websocket): communication socket
             error (str): error message
         """
-        self.logger.error("Metadata socket error: {0}".format(error))
+        if websocket.keep_running:
+            self.logger.error("Metadata socket error: {0}".format(error))
 
     def metadata_on_close(self, _websocket) -> None:
         """Websocket callback when the metadata connection closes
