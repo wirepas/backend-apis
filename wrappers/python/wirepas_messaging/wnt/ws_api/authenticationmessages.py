@@ -6,10 +6,9 @@
     Authentication server messages
 
     .. Copyright:
-        Copyright 2018 Wirepas Ltd. All Rights Reserved.
-        See file LICENSE.txt for full license details.
+        Copyright Wirepas Ltd 2019 licensed under Apache License, Version 2.0
+        See file LICENSE for full license details.
 """
-
 import enum
 from .messagesbase import MessagesBase
 
