@@ -100,7 +100,7 @@ def parse_args():
         "--settings",
         type=str,
         required=False,
-        default=".settings.yml",
+        default="./settings.yml",
         help="settings file.",
     )
 
