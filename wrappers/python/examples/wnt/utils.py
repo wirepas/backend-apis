@@ -8,7 +8,6 @@
         Copyright Wirepas Ltd 2019 licensed under Apache License, Version 2.0
         See file LICENSE for full license details.
 """
-import ast
 import sys
 import json
 import yaml
@@ -51,6 +50,7 @@ def get_settings() -> Type[Settings]:
             settings[key] = value
 
     settings = Settings(settings)
+
     return settings
 
 
@@ -68,7 +68,7 @@ def setup_log(module: str, level: str = "error"):
 
     logger = logging.getLogger(module)
     try:
-        logger.setLevel(ast.literal_eval("logging.{0}".format(level.upper())))
+        logger.setLevel(getattr(logging, level.upper()))
     except ValueError:
         logger.setLevel(logging.ERROR)
 
