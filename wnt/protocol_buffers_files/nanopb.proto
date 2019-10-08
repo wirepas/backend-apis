@@ -34,32 +34,32 @@ message NanoPBOptions {
   // Allocated size for 'bytes' and 'string' fields.
   // For string fields, this should include the space for null terminator.
   optional int32 max_size = 1;
-  
+
   // Maximum length for 'string' fields. Setting this is equivalent
   // to setting max_size to a value of length+1.
   optional int32 max_length = 14;
-  
+
   // Allocated number of entries in arrays ('repeated' fields)
   optional int32 max_count = 2;
-  
+
   // Size of integer fields. Can save some memory if you don't need
   // full 32 bits for the value.
   optional IntSize int_size = 7 [default = IS_DEFAULT];
 
   // Force type of field (callback or static allocation)
   optional FieldType type = 3 [default = FT_DEFAULT];
-  
+
   // Use long names for enums, i.e. EnumName_EnumValue.
   optional bool long_names = 4 [default = true];
-  
+
   // Add 'packed' attribute to generated structs.
   // Note: this cannot be used on CPUs that break on unaligned
   // accesses to variables.
   optional bool packed_struct = 5 [default = false];
-  
+
   // Add 'packed' attribute to generated enums.
   optional bool packed_enum = 10 [default = false];
-  
+
   // Skip this message
   optional bool skip_message = 6 [default = false];
 
@@ -108,5 +108,3 @@ extend google.protobuf.EnumOptions {
 extend google.protobuf.FieldOptions {
     optional NanoPBOptions nanopb = 1010;
 }
-
-

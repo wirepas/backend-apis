@@ -36,11 +36,13 @@ Afterwards, install the package from the dist folder with
 ```shell
     python install dist/wirepas_messaging-*.whl
 ```
+
 or
 
 ```shell
     python install dist/wirepas_messaging-*.tar
 ```
+
 For development mode installation use
 
 ```shell
