@@ -10,6 +10,7 @@
 
 import os
 import re
+import glob
 
 from setuptools import setup, find_packages
 
@@ -29,6 +30,7 @@ def get_list_files(root, flist=None):
     for path, subdirs, files in os.walk(root):
         for name in files:
             flist.append(os.path.join(path, name))
+    print("FLIST", flist)
     return flist
 
 
@@ -72,6 +74,26 @@ setup(
         (
             "./wirepas_messaging-extras/package",
             [readme_file, license_file, requirements_file, "setup.py"],
-        )
+        ),
+        (
+            "./wirepas_messaging-extras/protos/wnt",
+            glob.glob(get_absolute_path("wirepas_messaging/wnt/*.proto")),
+        ),
+        (
+            "./wirepas_messaging-extras/protos/gateway",
+            glob.glob(get_absolute_path("wirepas_messaging/gateway/*.proto")),
+        ),
+        (
+            "./wirepas_messaging-extras/protos/wpe",
+            glob.glob(get_absolute_path("wirepas_messaging/wpe/*.proto")),
+        ),
+        (
+            "./wirepas_messaging-extras/protos/nanopb",
+            glob.glob(get_absolute_path("wirepas_messaging/nanopb/*.proto")),
+        ),
+        (
+            "./wirepas_messaging-extras/protos/google",
+            glob.glob(get_absolute_path("wirepas_messaging/google/protobuf/*.proto")),
+        ),
     ],
 )
