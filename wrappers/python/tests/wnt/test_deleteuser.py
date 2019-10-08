@@ -190,9 +190,10 @@ class DeleteUserTest:
                 self.return_code = 0
                 self.client.stop_authentication_thread()
 
-    def authentication_on_error(self, _websocket, error) -> None:
+    def authentication_on_error(self, websocket, error) -> None:
         """Websocket callback when an error occurs"""
-        self.logger.error("Socket error: {0}".format(error))
+        if websocket.keep_running:
+            self.logger.error("Socket error: {0}".format(error))
 
     def authentication_on_close(self, _websocket) -> None:
         """Websocket callback when the connection closes"""
