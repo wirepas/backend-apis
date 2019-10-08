@@ -136,7 +136,9 @@ class Connections(object):
 
     def stop_authentication_thread(self):
         self._auth_socket.keep_running = False
-        self._auth_socket.close()
+
+        if self._auth_socket.sock.connected:
+            self._auth_socket.close()
 
     def start_metadata_thread(self):
         """Starts the metadata connection"""
@@ -150,7 +152,9 @@ class Connections(object):
 
     def stop_metadata_thread(self):
         self._metadata_socket.keep_running = False
-        self._metadata_socket.close()
+
+        if self._metadata_socket.sock.connected:
+            self._metadata_socket.close()
 
     def start_realtime_situation_thread(self):
         """Starts the realtime situation connection"""
@@ -164,7 +168,9 @@ class Connections(object):
 
     def stop_realtime_situation_thread(self):
         self._realtime_situation_socket.keep_running = False
-        self._realtime_situation_socket.close()
+
+        if self._realtime_situation_socket.sock.connected:
+            self._realtime_situation_socket.close()
 
     @staticmethod
     def run(ws: websocket.WebSocketApp):
