@@ -60,4 +60,3 @@ message ProcessScratchpadReq {
 message ProcessScratchpadResp {
     required ResponseHeader header = 1;
 }
-

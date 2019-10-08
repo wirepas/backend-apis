@@ -5,24 +5,49 @@
 *.env             text eol=lf
 *.ini             text eol=lf
 
-*.py              text eol=lf
-*.rst             text
-*.md              text
-*.txt             text
+*.rst             text eol=lf
+*.md              text eol=lf
+*.txt             text eol=lf
 *.json            text eol=lf
 *.yaml            text eol=lf
 *.yml             text eol=lf
 *.template        text eol=lf
+*.proto           text eol=lf
 
-*.dockerignore    text
-Dockerfile        text
+*.dockerignore    text eol=lf
+Dockerfile        text eol=lf
 
 *.png             binary
 *.dia             binary
 *.svg             text
 *.tar.gz          binary
 
-.renovaterc       text
-.travis           text
-.gitattributes    text
-.gitconfig        text
+.renovaterc       text eol=lf
+.travis           text eol=lf
+.gitattributes    text eol=lf
+.gitconfig        text eol=lf
+
+# Source files
+# ============
+*.pxd    text diff=python eol=lf
+*.py     text diff=python eol=lf
+*.py3    text diff=python eol=lf
+*.pyc    text diff=python eol=lf
+*.pyd    text diff=python eol=lf
+*.pyo    text diff=python eol=lf
+*.pyw    text diff=python eol=lf
+*.pyx    text diff=python eol=lf
+*.pyz    text diff=python eol=lf
+
+# Binary files
+# ============
+*.db     binary
+*.p      binary
+*.pkl    binary
+*.pickle binary
+*.pyc    binary
+*.pyd    binary
+*.pyo    binary
+
+# Jupyter notebook
+*.ipynb  text
