@@ -12,7 +12,7 @@ import "nanopb.proto";
 package com.wirepas.proto.wpe;
 
 /**
-* Stripped the services out from 
+* Stripped the services out from
 * positioning/engine.git/plain/wirepas_positioning/proto/wpe/public.proto
 **/
 
