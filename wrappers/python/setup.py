@@ -70,6 +70,7 @@ setup(
     keywords=about["__keywords__"],
     packages=find_packages(exclude=["contrib", "docs", "tests", "examples"]),
     install_requires=get_requirements(requirements_file),
+    extras_require={"examples": ["websocket-client==0.48.0"]},
     data_files=[
         (
             "./wirepas_messaging-extras/package",
@@ -94,6 +95,14 @@ setup(
         (
             "./wirepas_messaging-extras/protos/google",
             glob.glob(get_absolute_path("wirepas_messaging/google/protobuf/*.proto")),
+        ),
+        (
+            "./wirepas_messaging-extras/examples/wnt",
+            glob.glob(get_absolute_path("examples/wnt/*.py")),
+        ),
+        (
+            "./wirepas_messaging-extras/examples/wnt/assets",
+            glob.glob(get_absolute_path("examples/wnt/assets/*")),
         ),
     ],
 )

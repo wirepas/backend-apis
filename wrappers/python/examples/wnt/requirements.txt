@@ -1,4 +1,0 @@
-
-protobuf==3.10.0
-websocket-client==0.48.0
-PyYAML==5.1.2
