@@ -101,6 +101,10 @@ setup(
             glob.glob(get_absolute_path("examples/wnt/*.py")),
         ),
         (
+            "./wirepas_messaging-extras/examples/wnt/",
+            [get_absolute_path("examples/wnt/README.md")],
+        ),
+        (
             "./wirepas_messaging-extras/examples/wnt/assets",
             glob.glob(get_absolute_path("examples/wnt/assets/*")),
         ),
