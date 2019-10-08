@@ -141,9 +141,10 @@ class ApproveMultipleNodesTest:
         """Websocket callback when a new message arrives"""
         self.on_message(websocket, message)
 
-    def authentication_on_error(self, _websocket, error) -> None:
+    def authentication_on_error(self, websocket, error) -> None:
         """Websocket callback when an error occurs"""
-        self.logger.error("Authentication socket error: {0}".format(error))
+        if websocket.keep_running:
+            self.logger.error("Authentication socket error: {0}".format(error))
 
     def authentication_on_close(self, _websocket) -> None:
         """Websocket callback when the connection closes"""
@@ -158,9 +159,10 @@ class ApproveMultipleNodesTest:
         """Websocket callback when a new message arrives in the metadata ws"""
         self.on_message(websocket, message)
 
-    def metadata_on_error(self, _websocket, error) -> None:
+    def metadata_on_error(self, websocket, error) -> None:
         """Websocket callback when an error occurs with the metadata ws"""
-        self.logger.error("Metadata socket error: {0}".format(error))
+        if websocket.keep_running:
+            self.logger.error("Metadata socket error: {0}".format(error))
 
     def metadata_on_close(self, _websocket) -> None:
         """Websocket callback when the metadata ws closes"""

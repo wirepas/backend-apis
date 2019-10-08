@@ -115,14 +115,15 @@ class RealtimeDataExample(object):
         """
         self.on_message(websocket, message)
 
-    def authentication_on_error(self, _websocket, error: str) -> None:
+    def authentication_on_error(self, websocket, error: str) -> None:
         """Websocket callback when an authentication socket error occurs
 
         Args:
-            _websocket (Websocket): communication socket
+            websocket (Websocket): communication socket
             error (str): error message
         """
-        self.logger.error("Authentication socket error: {0}".format(error))
+        if websocket.keep_running:
+            self.logger.error("Authentication socket error: {0}".format(error))
 
     def authentication_on_close(self, _websocket) -> None:
         """Websocket callback when the authentication connection closes
@@ -179,14 +180,15 @@ class RealtimeDataExample(object):
 
         self.logger.info(str(wnt_message))
 
-    def realtime_situation_on_error(self, _websocket, error: str) -> None:
+    def realtime_situation_on_error(self, websocket, error: str) -> None:
         """Websocket callback when realtime situation socket error occurs
 
         Args:
-            _websocket (Websocket): communication socket
+            websocket (Websocket): communication socket
             error (str): error message
         """
-        self.logger.error("Realtime situation socket error: {0}".format(error))
+        if websocket.keep_running:
+            self.logger.error("Realtime situation socket error: {0}".format(error))
 
     def realtime_situation_on_close(self, _websocket) -> None:
         """Websocket callback when the realtime situation connection closes

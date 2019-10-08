@@ -177,14 +177,15 @@ class AuthenticationExample(object):
                 self.return_code = 0
                 self.client.stop_authentication_thread()
 
-    def authentication_on_error(self, _websocket, error: str) -> None:
+    def authentication_on_error(self, websocket, error: str) -> None:
         """Websocket callback when an authentication socket error occurs
 
         Args:
             _websocket (Websocket): communication socket
             error (str): error message
         """
-        self.logger.error("Socket error: {0}".format(error))
+        if websocket.keep_running:
+            self.logger.error("Socket error: {0}".format(error))
 
     def authentication_on_close(self, _websocket) -> None:
         """Websocket callback when the authentication connection closes
