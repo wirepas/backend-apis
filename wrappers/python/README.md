@@ -47,6 +47,16 @@ For development mode installation use
     pip install -e .
 ```
 
+If you wish to run the examples, please install with the extra requirements
+
+```shell
+    python install dist/wirepas_messaging-*.whl[examples]
+```
+## Examples
+
+For more information about Wirepas Network Tool examples please see
+[README.md][wnt_examples_readme]
+
 ## Install from PyPi
 
 This package is available from [PyPi][pypi].
@@ -57,3 +67,4 @@ Licensed under the Apache License, Version 2.0. See LICENSE for the full
 license text.
 
 [pypi]: https://pypi.org/project/wirepas-messaging/
+[wnt_examples_readme]: https://github.com/wirepas/backend-apis/blob/master/wrappers/python/examples/wnt/README.md
