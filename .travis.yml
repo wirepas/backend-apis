@@ -23,7 +23,7 @@ deploy:
   api_key: ${GH_TOKEN}
   file_glob: true
   file:
-    - "${TRAVIS_BUILD_DIR}/wrappers/python/dist/*"
+    - "${TRAVIS_BUILD_DIR}/${PYTHON_PKG_PATH}/dist/*"
     - "${TRAVIS_BUILD_DIR}/CHANGELOG.md"
   skip_cleanup: true
   draft: ${GH_RELEASE_DRAFT} = true
@@ -34,10 +34,8 @@ deploy:
     tags: true
     branch: master
 
-- provider: pypi
-  user: Wirepas
-  password: ${PYPI_PWD}
-  skip_existing: true
+- provider: script
+  script: bash .ci/deploy-pypi.sh ${TRAVIS_BUILD_DIR}/${PYTHON_PKG_PATH}/${PYTHON_PKG_NAME}*
   skip_cleanup: true
   on:
     tags: true
