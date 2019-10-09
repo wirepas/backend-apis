@@ -35,7 +35,7 @@ deploy:
     branch: master
 
 - provider: script
-  script: bash .ci/deploy-pypi.sh ${TRAVIS_BUILD_DIR}/${PYTHON_PKG_PATH}/${PYTHON_PKG_NAME}*
+  script: bash .ci/deploy-pypi.sh ${TRAVIS_BUILD_DIR}/${PYTHON_PKG_PATH}/dist/${PYTHON_PKG_NAME}*
   skip_cleanup: true
   on:
     tags: true

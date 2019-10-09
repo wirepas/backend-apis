@@ -13,6 +13,7 @@ function pypi_validate_package()
 {
     for _file in "${ARTIFACT_PATH[@]}"
     do
+        echo "checking artifact ${_file}"
         twine check "${_file}"
     done
 }
