@@ -6,3 +6,6 @@ build/
 *~
 wirepas_messaging/gateway/*.proto
 wirepas_messaging/gateway/*pb2*.py
+
+Pipfile
+Pipfile.lock
