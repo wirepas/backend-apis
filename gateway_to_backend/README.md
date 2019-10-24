@@ -65,7 +65,7 @@ its gateways to multiple backends.
 
 Wirepas has developed its own backends and especially the Wirepas
 Network Tool (WNT) to monitor the network behavior. To send data from a
-gateway to a Wirepas Backends, the gateway must be complaint with the 
+gateway to a Wirepas Backends, the gateway must be compliant with the 
 API described in this document and from now on known as backend to gateway API. 
 
 The backend to gateway API is based on a set of MQTT topics where messages are encoded encoded as [Protocol Buffers (syntax 2)][protobuf_homepage]. All the messages in the MQTT topics have the same 
