@@ -227,11 +227,11 @@ the gateway.
 
 :warning:
 
-A gateway must generate a [GetConfigsResp][message_GetConfigsResp]
+_A gateway must generate a [GetConfigsResp][message_GetConfigsResp]
 with a request id set to 0 in its header when its configuration change.
 When a sink is added or removed for example.
 It is the only way for a backend to monitor this change without
-having to frequently poll for such event.
+having to frequently poll for such event._
 
 #### Set config message
 
@@ -249,11 +249,11 @@ having to frequently poll for such event.
 
 :warning:
 
-A gateway must generate a [SetConfigResp][message_SetConfigResp]
+_A gateway must generate a [SetConfigResp][message_SetConfigResp]
 with a request id set to 0 in its header when a sink state
 change, especially if it reboots. In fact, if sink configuration
 is changed through remote api, it is the only way for a backend
-to monitor this change.
+to monitor this change._
 
 #### Get gateway info
 
@@ -271,12 +271,12 @@ to monitor this change.
 
 :warning:
 
-The API field should not be explicitly set from code and default value
-must be kept. Default value is incremented by Wirepas for each release.
+_The API field should not be explicitly set from code and default value
+must be kept. Default value is incremented by Wirepas for each release._
 
-Even if this version is increased, the API remains backward compatible.
+_Even if this version is increased, the API remains backward compatible.
 It just help backends development to identify if new features are
-present in a gateway.
+present in a gateway._
 
 ### Data module
 
@@ -309,26 +309,26 @@ publish this event with a QoS1 to avoid loading too much the broker.
 
 :warning:
 
-To take full advantage of WNT Wirepas backend and have the correct
+_To take full advantage of WNT Wirepas backend and have the correct
 visualization of network activity, all received messages must be
-published on this topic.
+published on this topic._
 
-But for security reason in some use cases, it may be required that
+_But for security reason in some use cases, it may be required that
 application payload is sent through a different channel without passing
-through the MQTT broker.
+through the MQTT broker._
 
-This is the main reason for the "payload" and "payload size" fields to
+_This is the main reason for the "payload" and "payload size" fields to
 be optional. In fact, WNT doesn't need the application payload content
-to work properly, headers are enough.
+to work properly, headers are enough._
 
-If payload is not published, setting the payload size is a good
+_If payload is not published, setting the payload size is a good
 information for WNT. And if payload is published, payload_size can be
-omitted as already available from payload field.
+omitted as already available from payload field._
 
-Even if WNT Wirepas backend can operate without the payload, it may not
-be the case for other backends implementing this API.
+_Even if WNT Wirepas backend can operate without the payload, it may not
+be the case for other backends implementing this API._
 
-Consequently, it is highly recommended to keep this field.
+_Consequently, it is highly recommended to keep this field._
 
 ### OTAP module
 
