@@ -35,22 +35,22 @@ API Version {#api-version .ListParagraph}
 
 <!-- MarkdownTOC levels="1,2,3" autolink="true"  -->
 
-1. [Introduction](#introduction)
-1. [Overview of gateway features](#overview-of-gateway-features)
-1. [Unique identifier](#unique-identifier)
-    1. [Gateway and sinks](#gateway-and-sinks)
-    1. [Request unique identifier](#request-unique-identifier)
-1. [API description](#api-description)
-    1. [Gateway status module](#gateway-status-module)
-    1. [Config module](#config-module)
-    1. [Data module](#data-module)
-    1. [OTAP module](#otap-module)
-1. [API extension](#api-extension)
-1. [Implementation and workflow example for backends](#implementation-and-workflow-example-for-backends)
-    1. [General remarks](#general-remarks)
-    1. [Backend for network configuration](#backend-for-network-configuration)
-    1. [Backend for data exchanges](#backend-for-data-exchanges)
-1. [List of all MQTT topics](#list-of-all-mqtt-topics)
+- [Introduction](#introduction)
+- [Overview of gateway features](#overview-of-gateway-features)
+- [Unique identifier](#unique-identifier)
+    - [Gateway and sinks](#gateway-and-sinks)
+    - [Request unique identifier](#request-unique-identifier)
+- [API description](#api-description)
+    - [Gateway status module](#gateway-status-module)
+    - [Config module](#config-module)
+    - [Data module](#data-module)
+    - [OTAP module](#otap-module)
+- [API extension](#api-extension)
+- [Implementation and workflow example for backends](#implementation-and-workflow-example-for-backends)
+    - [General remarks](#general-remarks)
+    - [Backend for network configuration](#backend-for-network-configuration)
+    - [Backend for data exchanges](#backend-for-data-exchanges)
+- [List of all MQTT topics](#list-of-all-mqtt-topics)
 
 <!-- /MarkdownTOC -->
 
@@ -137,10 +137,10 @@ is to avoid having further topics to subscribe and publish to.
 This section introduces the API's MQTT topics and its contents and is
 split in several subsections, one for each module:
 
-    1. [Gateway status module](#gateway-status-module)
-    1. [Config module](#config-module)
-    1. [Data module](#data-module)
-    1. [OTAP module](#otap-module)
+1. [Gateway status module](#gateway-status-module)
+1. [Config module](#config-module)
+1. [Data module](#data-module)
+1. [OTAP module](#otap-module)
 
 Each subsection contains the relevant topic and the payload carried
 by it. This sections point out the specific protocol buffer message
@@ -221,7 +221,7 @@ the gateway.
 > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[GetConfigsResp][message_GetConfigsResp]
 >              and [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[SinkReadConfig][message_SinkReadConfig]
 
-:pencil2: **NOTE** :pencil2:
+:warning:
 
 A gateway must generate a [GetConfigsResp][message_GetConfigsResp]
 with a request id set to 0 in its header when its configuration change.
@@ -243,7 +243,7 @@ having to frequently poll for such event.
 >
 > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[SetConfigResp][message_SetConfigResp]
 
-:pencil2: **NOTE** :pencil2:
+:warning:
 
 A gateway must generate a [SetConfigResp][message_SetConfigResp]
 with a request id set to 0 in its header when a sink state
@@ -265,7 +265,7 @@ to monitor this change.
 >
 > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[GetGwInfoResp][message_GetGwInfoResp] and [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[GatewayInfo][message_GatewayInfo]
 
-:pencil2: **NOTE** :pencil2:
+:warning:
 
 The API field should not be explicitly set from code and default value
 must be kept. Default value is incremented by Wirepas for each release.
@@ -301,7 +301,7 @@ present in a gateway.
 As described in the beginning of this chapter, it is recommended to
 publish this event with a QoS1 to avoid loading too much the broker.
 
-:pencil2: **NOTE** :pencil2:
+:warning:
 
 To take full advantage of WNT Wirepas backend and have the correct
 visualization of network activity, all received messages must be
