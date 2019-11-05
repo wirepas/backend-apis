@@ -212,18 +212,18 @@ the gateway.
 
 #### Get configs message
 
-**Request:**
+- **Request:**
 
-> **topic:** gw-request/get_configs/*\<gw-id\>*
->
-> **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[GetConfigsReq][message_GetConfigsReq]
+    > **topic:** gw-request/get_configs/*\<gw-id\>*
+    >
+    > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[GetConfigsReq][message_GetConfigsReq]
 
-**Response:**
+- **Response:**
 
-> **topics:** gw-response/get_configs/*\<gw-id\>*
->
-> **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[GetConfigsResp][message_GetConfigsResp]
->              and [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[SinkReadConfig][message_SinkReadConfig]
+    > **topics:** gw-response/get_configs/*\<gw-id\>*
+    >
+    > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[GetConfigsResp][message_GetConfigsResp]
+    >              and [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[SinkReadConfig][message_SinkReadConfig]
 
 :warning:
 
@@ -235,17 +235,17 @@ having to frequently poll for such event._
 
 #### Set config message
 
-**Request:**
+-  **Request:**
 
-> **topic:** gw-request/set_config/*\<gw-id\>/\<sink-id\>*
->
-> **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[SetConfigReq ][message_SetConfigReq] and [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[SinkNewConfig][message_SinkNewConfig]
+    > **topic:** gw-request/set_config/*\<gw-id\>/\<sink-id\>*
+    >
+    > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[SetConfigReq ][message_SetConfigReq] and [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[SinkNewConfig][message_SinkNewConfig]
 
-**Response:**
+- **Response:**
 
-> **topics:** gw-response/set_config/*\<gw-id\>/\<sink-id\>*
->
-> **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[SetConfigResp][message_SetConfigResp]
+    > **topics:** gw-response/set_config/*\<gw-id\>/\<sink-id\>*
+    >
+    > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[SetConfigResp][message_SetConfigResp]
 
 :warning:
 
@@ -257,17 +257,17 @@ to monitor this change._
 
 #### Get gateway info
 
-**Request:**
+- **Request:**
 
-> **topic:** gw-request/get_gateway_info/*\<gw-id\>*
->
-> **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[GetGwInfoReq][message_GetGwInfoReq]
+    > **topic:** gw-request/get_gateway_info/*\<gw-id\>*
+    >
+    > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[GetGwInfoReq][message_GetGwInfoReq]
 
-**Response:**
+- **Response:**
 
-> **topics:** gw-response/set_config/*\<gw-id\>/\<sink-id\>*
->
-> **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[GetGwInfoResp][message_GetGwInfoResp] and [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[GatewayInfo][message_GatewayInfo]
+    > **topics:** gw-response/set_config/*\<gw-id\>/\<sink-id\>*
+    >
+    > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[GetGwInfoResp][message_GetGwInfoResp] and [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[GatewayInfo][message_GatewayInfo]
 
 :warning:
 
@@ -284,17 +284,17 @@ present in a gateway._
 
 #### Send packet message
 
-**Request:**
+- **Request:**
 
-> **topic:** gw-request/send_data/*\<gw-id\>/\<sink-id\>*
->
-> **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[SendPacketReq][message_SendPacketReq]
+    > **topic:** gw-request/send_data/*\<gw-id\>/\<sink-id\>*
+    >
+    > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[SendPacketReq][message_SendPacketReq]
 
-**Response:**
+- **Response:**
 
-> **topics:** gw-response/send_data/*\<gw-id\>/\<sink-id\>*
->
-> **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[SendPacketResp][message_SendPacketResp]
+    > **topics:** gw-response/send_data/*\<gw-id\>/\<sink-id\>*
+    >
+    > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[SendPacketResp][message_SendPacketResp]
 
 #### Packet received event
 
@@ -336,45 +336,45 @@ _Consequently, it is highly recommended to keep this field._
 
 #### Get local scratchpad status
 
-**Request:**
+- **Request:**
 
-> **topic:** gw-request/otap_status/*\<gw-id\>/\<sink-id\>*
->
-> **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[GetScratchpadStatusReq][message_GetScratchpadStatusReq]
+    > **topic:** gw-request/otap_status/*\<gw-id\>/\<sink-id\>*
+    >
+    > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[GetScratchpadStatusReq][message_GetScratchpadStatusReq]
 
-**Response:**
+- **Response:**
 
-> **topics:** gw-response/otap_status/*\<gw-id\>/\<sink-id\>*
->
-> **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[GetScratchpadStatusRes][message_GetScratchpadStatusRes]
+    > **topics:** gw-response/otap_status/*\<gw-id\>/\<sink-id\>*
+    >
+    > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[GetScratchpadStatusRes][message_GetScratchpadStatusRes]
 
 #### Upload local scratchpad
 
-**Request:**
+- **Request:**
 
-> **topic:** gw-request/otap_load_scratchpad/*\<gw-id\>/\<sink-id\>*
->
-> **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[UploadScratchpadReq][message_UploadScratchpadReq]
+    > **topic:** gw-request/otap_load_scratchpad/*\<gw-id\>/\<sink-id\>*
+    >
+    > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[UploadScratchpadReq][message_UploadScratchpadReq]
 
-**Response:**
+- **Response:**
 
-> **topics:** gw-response/otap_status/*\<gw-id\>/\<sink-id\>*
->
-> **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[UploadScratchpadResp][message_UploadScratchpadResp]
+    > **topics:** gw-response/otap_status/*\<gw-id\>/\<sink-id\>*
+    >
+    > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[UploadScratchpadResp][message_UploadScratchpadResp]
 
 #### Process local scratchpad
 
-**Request:**
+- **Request:**
 
-> **topic:** gw-request/otap_process_scratchpad/*\<gw-id\>/\<sink-id\>*
->
-> **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[ProcessScratchpadReq][message_ProcessScratchpadReq]
+    > **topic:** gw-request/otap_process_scratchpad/*\<gw-id\>/\<sink-id\>*
+    >
+    > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[ProcessScratchpadReq][message_ProcessScratchpadReq]
 
-**Response:**
+- **Response:**
 
-> **topics:** gw-response/otap_status/*\<gw-id\>/\<sink-id\>*
->
-> **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[ProcessScratchpadResp][message_ProcessScratchpadResp]
+    > **topics:** gw-response/otap_status/*\<gw-id\>/\<sink-id\>*
+    >
+    > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[ProcessScratchpadResp][message_ProcessScratchpadResp]
 
 ## API extension
 
