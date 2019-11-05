@@ -235,7 +235,7 @@ having to frequently poll for such event.
 
 > **topic:** gw-request/set_config/*\<gw-id\>/\<sink-id\>*
 >
-> **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[SetConfigReq ][message_SetConfigReq] and [SinkNewConfig][message_SinkNewConfig]
+> **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[SetConfigReq ][message_SetConfigReq] and [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[SinkNewConfig][message_SinkNewConfig]
 
 **Response:**
 
