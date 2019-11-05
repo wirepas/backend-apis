@@ -160,6 +160,8 @@ To ease this filtering, each event contains a unique identifier (random
 
 ### Gateway status module
 
+---
+
 This module oversees the discovery of gateways for the different
 backends. It also allows the backends to monitor the gateways status.
 
@@ -202,6 +204,8 @@ period of a problem with a gateway connection.
 60s is a good value for the keep alive interval.
 
 ### Config module
+
+---
 
 This module oversees configuration of the different sinks attached to
 the gateway.
@@ -276,6 +280,8 @@ present in a gateway.
 
 ### Data module
 
+---
+
 #### Send packet message
 
 **Request:**
@@ -325,6 +331,8 @@ be the case for other backends implementing this API.
 Consequently, it is highly recommended to keep this field.
 
 ### OTAP module
+
+---
 
 #### Get local scratchpad status
 
