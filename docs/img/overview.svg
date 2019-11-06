@@ -1,0 +1,848 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="805.90039pt"
+   height="254.81461pt"
+   viewBox="0 0 284.30374 89.89293"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="overview.svg"
+   inkscape:export-filename="/home/silva/github/backend-apis/docs/img/backend_apis_overview.png"
+   inkscape:export-xdpi="96.199997"
+   inkscape:export-ydpi="96.199997">
+  <defs
+     id="defs2">
+    <linearGradient
+       gradientTransform="rotate(-90,0.5,0.5)"
+       y2="0"
+       x2="1"
+       y1="0"
+       x1="0"
+       id="grad0-351">
+      <stop
+         id="stop4593"
+         stop-opacity="1"
+         stop-color="#3f5765"
+         offset="0" />
+      <stop
+         id="stop4595"
+         stop-opacity="1"
+         stop-color="#3f5765"
+         offset="0.74" />
+      <stop
+         id="stop4597"
+         stop-opacity="1"
+         stop-color="#3f5765"
+         offset="0.83" />
+      <stop
+         id="stop4599"
+         stop-opacity="1"
+         stop-color="#3f5765"
+         offset="1" />
+    </linearGradient>
+    <pattern
+       patternContentUnits="objectBoundingBox"
+       height="1"
+       width="1"
+       y="0"
+       x="0"
+       id="grad11-356">
+      <path
+         id="path4602"
+         style="fill:url(#grad0-357)"
+         d="M 0 1 L 0 0 L 1 0 z" />
+      <path
+         id="path4604"
+         style="fill:url(#grad0-358)"
+         d="M 0 1 L 1 1 L 1 0 z" />
+    </pattern>
+    <linearGradient
+       gradientTransform="rotate(180,0.5,0.5)"
+       y2="0"
+       x2="1"
+       y1="0"
+       x1="0"
+       id="grad0-357">
+      <stop
+         id="stop4607"
+         stop-opacity="1"
+         stop-color="#3f5765"
+         offset="0" />
+      <stop
+         id="stop4609"
+         stop-opacity="1"
+         stop-color="#3f5765"
+         offset="0.74" />
+      <stop
+         id="stop4611"
+         stop-opacity="1"
+         stop-color="#3f5765"
+         offset="0.83" />
+      <stop
+         id="stop4613"
+         stop-opacity="1"
+         stop-color="#3f5765"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       gradientTransform="rotate(90,0.5,0.5)"
+       y2="0"
+       x2="1"
+       y1="0"
+       x1="0"
+       id="grad0-358">
+      <stop
+         id="stop4616"
+         stop-opacity="1"
+         stop-color="#3f5765"
+         offset="0" />
+      <stop
+         id="stop4618"
+         stop-opacity="1"
+         stop-color="#3f5765"
+         offset="0.74" />
+      <stop
+         id="stop4620"
+         stop-opacity="1"
+         stop-color="#3f5765"
+         offset="0.83" />
+      <stop
+         id="stop4622"
+         stop-opacity="1"
+         stop-color="#3f5765"
+         offset="1" />
+    </linearGradient>
+    <pattern
+       patternContentUnits="objectBoundingBox"
+       height="1"
+       width="1"
+       y="0"
+       x="0"
+       id="grad12-363">
+      <path
+         id="path4625"
+         style="fill:url(#grad0-358)"
+         d="M 0 0 L 0 1 L 1 1 z" />
+      <path
+         id="path4627"
+         style="fill:url(#grad0-364)"
+         d="M 0 0 L 1 0 L 1 1 z" />
+    </pattern>
+    <linearGradient
+       y2="0"
+       x2="1"
+       y1="0"
+       x1="0"
+       id="grad0-364">
+      <stop
+         id="stop4630"
+         stop-opacity="1"
+         stop-color="#3f5765"
+         offset="0" />
+      <stop
+         id="stop4632"
+         stop-opacity="1"
+         stop-color="#3f5765"
+         offset="0.74" />
+      <stop
+         id="stop4634"
+         stop-opacity="1"
+         stop-color="#3f5765"
+         offset="0.83" />
+      <stop
+         id="stop4636"
+         stop-opacity="1"
+         stop-color="#3f5765"
+         offset="1" />
+    </linearGradient>
+    <pattern
+       patternContentUnits="objectBoundingBox"
+       height="1"
+       width="1"
+       y="0"
+       x="0"
+       id="grad8-383">
+      <path
+         id="path4639"
+         style="fill:url(#grad0-351)"
+         d="M 0 0 L 1 0 L 1 1 z" />
+      <path
+         id="path4641"
+         style="fill:url(#grad0-357)"
+         d="M 0 0 L 0 1 L 1 1 z" />
+    </pattern>
+    <pattern
+       patternContentUnits="objectBoundingBox"
+       height="1"
+       width="1"
+       y="0"
+       x="0"
+       id="grad10-387">
+      <path
+         id="path4644"
+         style="fill:url(#grad0-357)"
+         d="M 0.5 0.5 L 0 0 L 0 1 z" />
+      <path
+         id="path4646"
+         style="fill:url(#grad0-364)"
+         d="M 0.5 0.5 L 1 0 L 1 1 z" />
+      <path
+         id="path4648"
+         style="fill:url(#grad0-351)"
+         d="M 0.5 0.5 L 0 0 L 1 0 z" />
+      <path
+         id="path4650"
+         style="fill:url(#grad0-358)"
+         d="M 0.5 0.5 L 0 1 L 1 1 z" />
+    </pattern>
+    <pattern
+       patternContentUnits="objectBoundingBox"
+       height="1"
+       width="1"
+       y="0"
+       x="0"
+       id="grad8-733">
+      <path
+         id="path4653"
+         style="fill:url(#grad0-734)"
+         d="M 0 0 L 1 0 L 1 1 z" />
+      <path
+         id="path4655"
+         style="fill:url(#grad0-735)"
+         d="M 0 0 L 0 1 L 1 1 z" />
+    </pattern>
+    <linearGradient
+       gradientTransform="rotate(-90,0.5,0.5)"
+       y2="0"
+       x2="1"
+       y1="0"
+       x1="0"
+       id="grad0-734">
+      <stop
+         id="stop4658"
+         stop-opacity="1"
+         stop-color="#e6e6e6"
+         offset="0" />
+      <stop
+         id="stop4660"
+         stop-opacity="1"
+         stop-color="#c0c0c0"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       gradientTransform="rotate(180,0.5,0.5)"
+       y2="0"
+       x2="1"
+       y1="0"
+       x1="0"
+       id="grad0-735">
+      <stop
+         id="stop4663"
+         stop-opacity="1"
+         stop-color="#e6e6e6"
+         offset="0" />
+      <stop
+         id="stop4665"
+         stop-opacity="1"
+         stop-color="#c0c0c0"
+         offset="1" />
+    </linearGradient>
+    <radialGradient
+       r="1.4"
+       cy="1"
+       cx="1"
+       id="grad1-743">
+      <stop
+         id="stop4668"
+         stop-opacity="1"
+         stop-color="#e6e6e6"
+         offset="0" />
+      <stop
+         id="stop4670"
+         stop-opacity="1"
+         stop-color="#9a9a9a"
+         offset="1" />
+    </radialGradient>
+    <radialGradient
+       r="1.4"
+       cy="1"
+       cx="1"
+       id="grad1-747">
+      <stop
+         id="stop4673"
+         stop-opacity="1"
+         stop-color="#9a9a9a"
+         offset="0" />
+      <stop
+         id="stop4675"
+         stop-opacity="1"
+         stop-color="#e6e6e6"
+         offset="1" />
+    </radialGradient>
+    <radialGradient
+       r="1.4"
+       cy="1"
+       cx="1"
+       id="grad1-754">
+      <stop
+         id="stop4678"
+         stop-opacity="1"
+         stop-color="#00ff00"
+         offset="0" />
+      <stop
+         id="stop4680"
+         stop-opacity="1"
+         stop-color="#ffff00"
+         offset="1" />
+    </radialGradient>
+    <pattern
+       patternContentUnits="objectBoundingBox"
+       height="1"
+       width="1"
+       y="0"
+       x="0"
+       id="grad10-760">
+      <path
+         id="path4683"
+         style="fill:url(#grad0-735)"
+         d="M 0.5 0.5 L 0 0 L 0 1 z" />
+      <path
+         id="path4685"
+         style="fill:url(#grad0-761)"
+         d="M 0.5 0.5 L 1 0 L 1 1 z" />
+      <path
+         id="path4687"
+         style="fill:url(#grad0-734)"
+         d="M 0.5 0.5 L 0 0 L 1 0 z" />
+      <path
+         id="path4689"
+         style="fill:url(#grad0-762)"
+         d="M 0.5 0.5 L 0 1 L 1 1 z" />
+    </pattern>
+    <linearGradient
+       y2="0"
+       x2="1"
+       y1="0"
+       x1="0"
+       id="grad0-761">
+      <stop
+         id="stop4692"
+         stop-opacity="1"
+         stop-color="#e6e6e6"
+         offset="0" />
+      <stop
+         id="stop4694"
+         stop-opacity="1"
+         stop-color="#c0c0c0"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       gradientTransform="rotate(90,0.5,0.5)"
+       y2="0"
+       x2="1"
+       y1="0"
+       x1="0"
+       id="grad0-762">
+      <stop
+         id="stop4697"
+         stop-opacity="1"
+         stop-color="#e6e6e6"
+         offset="0" />
+      <stop
+         id="stop4699"
+         stop-opacity="1"
+         stop-color="#c0c0c0"
+         offset="1" />
+    </linearGradient>
+    <pattern
+       patternContentUnits="objectBoundingBox"
+       height="1"
+       width="1"
+       y="0"
+       x="0"
+       id="grad10-769">
+      <path
+         id="path4702"
+         style="fill:url(#grad0-770)"
+         d="M 0.5 0.5 L 0 0 L 0 1 z" />
+      <path
+         id="path4704"
+         style="fill:url(#grad0-771)"
+         d="M 0.5 0.5 L 1 0 L 1 1 z" />
+      <path
+         id="path4706"
+         style="fill:url(#grad0-772)"
+         d="M 0.5 0.5 L 0 0 L 1 0 z" />
+      <path
+         id="path4708"
+         style="fill:url(#grad0-773)"
+         d="M 0.5 0.5 L 0 1 L 1 1 z" />
+    </pattern>
+    <linearGradient
+       gradientTransform="rotate(180,0.5,0.5)"
+       y2="0"
+       x2="1"
+       y1="0"
+       x1="0"
+       id="grad0-770">
+      <stop
+         id="stop4711"
+         stop-opacity="1"
+         stop-color="#e6e6e6"
+         offset="0" />
+      <stop
+         id="stop4713"
+         stop-opacity="1"
+         stop-color="#9a9a9a"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       y2="0"
+       x2="1"
+       y1="0"
+       x1="0"
+       id="grad0-771">
+      <stop
+         id="stop4716"
+         stop-opacity="1"
+         stop-color="#e6e6e6"
+         offset="0" />
+      <stop
+         id="stop4718"
+         stop-opacity="1"
+         stop-color="#9a9a9a"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       gradientTransform="rotate(-90,0.5,0.5)"
+       y2="0"
+       x2="1"
+       y1="0"
+       x1="0"
+       id="grad0-772">
+      <stop
+         id="stop4721"
+         stop-opacity="1"
+         stop-color="#e6e6e6"
+         offset="0" />
+      <stop
+         id="stop4723"
+         stop-opacity="1"
+         stop-color="#9a9a9a"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       gradientTransform="rotate(90,0.5,0.5)"
+       y2="0"
+       x2="1"
+       y1="0"
+       x1="0"
+       id="grad0-773">
+      <stop
+         id="stop4726"
+         stop-opacity="1"
+         stop-color="#e6e6e6"
+         offset="0" />
+      <stop
+         id="stop4728"
+         stop-opacity="1"
+         stop-color="#9a9a9a"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       y2="0"
+       x2="1"
+       y1="0"
+       x1="0"
+       id="grad0-789">
+      <stop
+         id="stop4731"
+         stop-opacity="1"
+         stop-color="#666666"
+         offset="0" />
+      <stop
+         id="stop4733"
+         stop-opacity="1"
+         stop-color="#c0c0c0"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       gradientTransform="rotate(180,0.5,0.5)"
+       y2="0"
+       x2="1"
+       y1="0"
+       x1="0"
+       id="grad0-793">
+      <stop
+         id="stop4736"
+         stop-opacity="1"
+         stop-color="#666666"
+         offset="0" />
+      <stop
+         id="stop4738"
+         stop-opacity="1"
+         stop-color="#c0c0c0"
+         offset="1" />
+    </linearGradient>
+    <g
+       id="lend5">
+      <path
+         id="path4742"
+         style="stroke:none"
+         d="M 2,1 0,0 1.98117,-0.993387 C 1.67173,-0.364515 1.67301,0.372641 1.98465,1.00043"
+         inkscape:connector-curvature="0" />
+    </g>
+    <marker
+       overflow="visible"
+       markerUnits="strokeWidth"
+       orient="auto"
+       refX="7.1500001"
+       v:setback="7.15"
+       v:arrowSize="2"
+       v:arrowType="5"
+       class="st19"
+       id="mrkr5-327"
+       style="overflow:visible;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.22935779;stroke-opacity:1">
+      <use
+         id="use4745"
+         transform="scale(4.36)"
+         xlink:href="#lend5"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%" />
+    </marker>
+    <marker
+       overflow="visible"
+       markerUnits="strokeWidth"
+       orient="auto"
+       refX="-7.6300001"
+       v:setback="7.63"
+       v:arrowSize="2"
+       v:arrowType="5"
+       class="st19"
+       id="mrkr5-329"
+       style="overflow:visible;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.22935779;stroke-opacity:1">
+      <use
+         id="use4748"
+         transform="scale(-4.36)"
+         xlink:href="#lend5"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.70710678"
+     inkscape:cx="171.53338"
+     inkscape:cy="48.509337"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1043"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     fit-margin-top="2"
+     fit-margin-left="2"
+     fit-margin-right="2"
+     fit-margin-bottom="2"
+     units="pt" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-277.6814,-130.02685)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:6.01914644px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.37619665px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="477.69592"
+       y="91.419014"
+       id="text1340"
+       transform="scale(0.93172758,1.0732751)"><tspan
+         sodipodi:role="line"
+         id="tspan1338"
+         x="477.69592"
+         y="96.744545"
+         style="font-style:italic;stroke-width:0.37619665px" /></text>
+    <g
+       id="g1395"
+       transform="translate(-1.6257938,2.6744565)">
+      <g
+         transform="translate(6.7022293,1.9318288)"
+         id="g1360">
+        <g
+           style="font-size:12px;color-interpolation-filters:sRGB;fill:none;fill-rule:evenodd;stroke-linecap:square;stroke-miterlimit:3"
+           transform="matrix(-2.160498,-9.7778358e-4,0.00296216,-0.71316101,364.55114,583.94167)"
+           v:groupContext="shape"
+           v:mID="742"
+           id="shape742-1004-2-0-2">
+          <title
+             id="title6818-7-2-7">Sheet.742</title>
+          <path
+             id="path6820-3-1-0"
+             class="st13"
+             d="M 0,595.28 H 26.53"
+             inkscape:connector-curvature="0"
+             style="stroke:#127575;stroke-width:2.5;stroke-linecap:butt" />
+        </g>
+        <text
+           id="text12039-8-7-6-5-5-4-9"
+           y="148.38289"
+           x="314.83945"
+           style="font-style:normal;font-weight:normal;font-size:4.06196737px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;color-interpolation-filters:sRGB;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.30464751;stroke-linecap:square;stroke-miterlimit:3"
+           xml:space="preserve"
+           transform="rotate(0.48575619)"><tspan
+             style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.85265088px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic';stroke-width:0.30464751"
+             y="148.38289"
+             x="314.83945"
+             sodipodi:role="line"
+             id="tspan7083-2-6">Wirepas Gateway to Backend API </tspan><tspan
+             style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.85265088px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic';stroke-width:0.30464751"
+             y="153.46034"
+             x="314.83945"
+             sodipodi:role="line"
+             id="tspan1381">Protocol buffer messages</tspan></text>
+        <path
+           style="font-size:12px;color-interpolation-filters:sRGB;fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:0.33897564;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3"
+           inkscape:connector-curvature="0"
+           d="m 381.2445,201.62066 h 124.05835 a 15.506533,9.755927 0 0 0 15.49169,-9.75777 v -33.81064 a 15.506533,9.755927 0 0 0 -15.49169,-9.75782 H 381.2445 a 15.506533,9.755927 0 0 0 -15.50953,9.75782 v 33.81064 a 15.506533,9.755927 0 0 0 15.50953,9.75777 z"
+           class="st4"
+           id="path5513-1-6-3" />
+        <g
+           id="g13178-6"
+           transform="matrix(2.6781126,0,0,2.591779,-818.1971,-310.86261)">
+          <text
+             id="text13158-7"
+             y="183.99844"
+             x="445.6452"
+             style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+             xml:space="preserve"><tspan
+               id="tspan13162-3"
+               style="stroke-width:0.26458332"
+               y="183.99844"
+               x="445.6452"
+               sodipodi:role="line">import <tspan
+   style="font-style:italic"
+   id="tspan1288">wirepas_messaging</tspan></tspan></text>
+          <text
+             id="text13168-5"
+             y="192.41743"
+             x="445.4581"
+             style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+             xml:space="preserve"><tspan
+               id="tspan13170-6"
+               style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222223px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic';stroke-width:0.26458332"
+               y="195.5387"
+               x="445.4581"
+               sodipodi:role="line" /></text>
+        </g>
+        <g
+           style="font-size:12px;color-interpolation-filters:sRGB;fill:none;fill-rule:evenodd;stroke-linecap:square;stroke-miterlimit:3"
+           transform="matrix(-2.160498,-9.7778358e-4,0.00296216,-0.71316101,364.37471,598.9301)"
+           v:groupContext="shape"
+           v:mID="742"
+           id="shape742-1004-2-0-2-6">
+          <title
+             id="title6818-7-2-7-1">Sheet.742</title>
+          <path
+             id="path6820-3-1-0-8"
+             class="st13"
+             d="M 0,595.28 H 26.53"
+             inkscape:connector-curvature="0"
+             style="stroke:#127575;stroke-width:2.5;stroke-linecap:butt" />
+        </g>
+        <text
+           id="text12039-8-7-6-5-5-4-9-7"
+           y="163.37234"
+           x="314.79007"
+           style="font-style:normal;font-weight:normal;font-size:4.06196737px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;color-interpolation-filters:sRGB;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.30464751;stroke-linecap:square;stroke-miterlimit:3"
+           xml:space="preserve"
+           transform="rotate(0.48575619)"><tspan
+             style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.85265088px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic';stroke-width:0.30464751"
+             y="163.37234"
+             x="314.79007"
+             sodipodi:role="line"
+             id="tspan7083-2-6-9">Wirepas Network Tool Client API</tspan><tspan
+             style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.85265088px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic';stroke-width:0.30464751"
+             y="168.4498"
+             x="314.79007"
+             sodipodi:role="line"
+             id="tspan1381-2">Protocol buffer messages</tspan></text>
+        <g
+           style="font-size:12px;color-interpolation-filters:sRGB;fill:none;fill-rule:evenodd;stroke-linecap:square;stroke-miterlimit:3"
+           transform="matrix(-2.160498,-9.7778358e-4,0.00296216,-0.71316101,364.10805,615.12674)"
+           v:groupContext="shape"
+           v:mID="742"
+           id="shape742-1004-2-0-2-6-0">
+          <title
+             id="title6818-7-2-7-1-2">Sheet.742</title>
+          <path
+             id="path6820-3-1-0-8-3"
+             class="st13"
+             d="M 0,595.28 H 26.53"
+             inkscape:connector-curvature="0"
+             style="stroke:#127575;stroke-width:2.5;stroke-linecap:butt" />
+        </g>
+        <text
+           id="text12039-8-7-6-5-5-4-9-7-7"
+           y="179.57063"
+           x="314.66132"
+           style="font-style:normal;font-weight:normal;font-size:4.06196737px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;color-interpolation-filters:sRGB;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.30464751;stroke-linecap:square;stroke-miterlimit:3"
+           xml:space="preserve"
+           transform="rotate(0.48575619)"><tspan
+             style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.85265088px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic';stroke-width:0.30464751"
+             y="179.57063"
+             x="314.66132"
+             sodipodi:role="line"
+             id="tspan7083-2-6-9-5">Wirepas Positioning Engine API</tspan><tspan
+             style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.85265088px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic';stroke-width:0.30464751"
+             y="184.64809"
+             x="314.66132"
+             sodipodi:role="line"
+             id="tspan1464">Protocol buffer messages</tspan></text>
+        <text
+           id="text12039-8-7-6-5-5-4-9-73"
+           y="174.89075"
+           x="387.38846"
+           style="font-style:normal;font-weight:normal;font-size:4.30731964px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;color-interpolation-filters:sRGB;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.32304892;stroke-linecap:square;stroke-miterlimit:3"
+           xml:space="preserve"
+           transform="matrix(0.9747584,0.00869717,-0.00826424,1.0258215,0,0)"><tspan
+             style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.23720932px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic';stroke-width:0.32304892"
+             y="174.89075"
+             x="387.38846"
+             sodipodi:role="line"
+             id="tspan1500">Protocol buffer to language object translation</tspan><tspan
+             style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.23720932px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic';stroke-width:0.32304892"
+             y="180.2749"
+             x="387.38846"
+             sodipodi:role="line"
+             id="tspan1504">Wirepas' public API function wrappers</tspan></text>
+      </g>
+      <rect
+         y="143.40051"
+         x="295.82901"
+         height="66.977722"
+         width="251.26012"
+         id="rect1311"
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         y="134.21948"
+         x="295.82901"
+         height="9.1810246"
+         width="47.070782"
+         id="rect1311-8"
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         id="text1330"
+         y="139.68591"
+         x="304.58856"
+         style="font-style:normal;font-weight:normal;font-size:3.17499995px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold Italic';stroke-width:0.26458332px"
+           y="139.68591"
+           x="304.58856"
+           id="tspan1328"
+           sodipodi:role="line">Application code</tspan></text>
+    </g>
+  </g>
+  <style
+     id="style4591"
+     type="text/css"><![CDATA[
+		.st1 {fill:none;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
+		.st2 {fill:#000000;font-family:Cambria;font-size:0.666664em}
+		.st3 {font-size:1em}
+		.st4 {fill:#ffffff;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
+		.st5 {fill:#000000;font-family:Cambria;font-size:0.833336em}
+		.st6 {fill:#3f5765;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st7 {fill:#19486f;stroke:none;stroke-linecap:butt;stroke-width:0.75}
+		.st8 {fill:#3f5765;stroke:none;stroke-linecap:butt;stroke-width:0.75}
+		.st9 {fill:#000000;font-family:Cambria;font-size:1.00001em}
+		.st10 {fill:#5b9bd5;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st11 {fill:#ffffff;stroke:#ffffff;stroke-linecap:butt;stroke-width:1.275}
+		.st12 {fill:#3f5765;stroke:none;stroke-linecap:butt;stroke-width:0.6375}
+		.st13 {stroke:#127575;stroke-linecap:butt;stroke-width:2.5}
+		.st14 {stroke:#127575;stroke-linecap:butt;stroke-width:1.5}
+		.st15 {fill:none;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st16 {fill:#000000;font-family:Cambria;font-size:1.5em;font-weight:bold}
+		.st17 {stroke:#127575;stroke-linecap:butt;stroke-width:11.25}
+		.st18 {marker-end:url(#mrkr5-329);marker-start:url(#mrkr5-327);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st19 {fill:#000000;fill-opacity:1;stroke:#000000;stroke-opacity:1;stroke-width:0.22935779816514}
+		.st20 {fill:#ff00ff;fill-opacity:0;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:0;stroke-width:0.72}
+		.st21 {fill:url(#grad0-351)}
+		.st22 {stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.36}
+		.st23 {fill:url(#grad11-356)}
+		.st24 {stroke:#a78450;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.36}
+		.st25 {fill:url(#grad12-363);stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.36}
+		.st26 {stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.5}
+		.st27 {fill:url(#grad12-363);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.36}
+		.st28 {stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.6}
+		.st29 {fill:#3f5765;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.36}
+		.st30 {fill:url(#grad8-383);stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.12}
+		.st31 {fill:url(#grad10-387);stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.12}
+		.st32 {fill:#3f5765;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
+		.st33 {stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.36}
+		.st34 {fill:#ffffff;stroke:#127575;stroke-linecap:round;stroke-linejoin:round;stroke-width:3.5}
+		.st35 {fill:#00b0f0;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st36 {fill:#ffffff;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st37 {fill:#ffffff;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.25}
+		.st38 {stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.25}
+		.st39 {fill:#3f5765;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st40 {stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.613151}
+		.st41 {fill:#ffffff;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st42 {fill:#3f5765;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+		.st43 {stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+		.st44 {fill:#ffffff;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+		.st45 {visibility:visible}
+		.st46 {marker-end:url(#mrkr5-329);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st47 {fill:#9a9a9a;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
+		.st48 {fill:#e6e6e6;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
+		.st49 {fill:#c0c0c0;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
+		.st50 {fill:url(#grad8-733);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
+		.st51 {fill:#c0c0c0;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.12}
+		.st52 {fill:url(#grad1-743);stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.12}
+		.st53 {fill:url(#grad1-747);stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
+		.st54 {fill:url(#grad1-754);stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
+		.st55 {fill:#9a9a9a;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st56 {fill:url(#grad10-760);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.12}
+		.st57 {fill:url(#grad10-769);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.12}
+		.st58 {fill:#dbdac6;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.12}
+		.st59 {stroke:#00ff00;stroke-linecap:butt;stroke-width:0.24}
+		.st60 {fill:url(#grad0-789);stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
+		.st61 {fill:url(#grad0-793);stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
+		.st62 {fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st63 {fill:#ffffff;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75;visibility:hidden}
+		.st64 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]></style>
+</svg>
