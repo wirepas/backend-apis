@@ -35,22 +35,22 @@ API Version {#api-version .ListParagraph}
 
 <!-- MarkdownTOC levels="1,2,3" autolink="true"  -->
 
-- [Introduction](#introduction)
-- [Overview of gateway features](#overview-of-gateway-features)
-- [Unique identifier](#unique-identifier)
-    - [Gateway and sinks](#gateway-and-sinks)
-    - [Request unique identifier](#request-unique-identifier)
-- [API description](#api-description)
-    - [Gateway status module](#gateway-status-module)
-    - [Config module](#config-module)
-    - [Data module](#data-module)
-    - [OTAP module](#otap-module)
-- [API extension](#api-extension)
-- [Implementation and workflow example for backends](#implementation-and-workflow-example-for-backends)
-    - [General remarks](#general-remarks)
-    - [Backend for network configuration](#backend-for-network-configuration)
-    - [Backend for data exchanges](#backend-for-data-exchanges)
-- [List of all MQTT topics](#list-of-all-mqtt-topics)
+1. [Introduction](#introduction)
+1. [Overview of gateway features](#overview-of-gateway-features)
+1. [Unique identifier](#unique-identifier)
+    1. [Gateway and sinks](#gateway-and-sinks)
+    1. [Request unique identifier](#request-unique-identifier)
+1. [API description](#api-description)
+    1. [Gateway status module](#gateway-status-module)
+    1. [Config module](#config-module)
+    1. [Data module](#data-module)
+    1. [OTAP module](#otap-module)
+1. [API extension](#api-extension)
+1. [Implementation and workflow example for backends](#implementation-and-workflow-example-for-backends)
+    1. [General remarks](#general-remarks)
+    1. [Backend for network configuration](#backend-for-network-configuration)
+    1. [Backend for data exchanges](#backend-for-data-exchanges)
+1. [List of all MQTT topics](#list-of-all-mqtt-topics)
 
 <!-- /MarkdownTOC -->
 
@@ -68,7 +68,7 @@ Network Tool (WNT) to monitor the network behavior. To send data from a
 gateway to a Wirepas Backends, the gateway must be compliant with the
 API described in this document and from now on known as backend to gateway API.
 
-The backend to gateway API is based on a set of MQTT topics where messages are encoded encoded as [Protocol Buffers (syntax 2)][protobuf_homepage]. All the messages in the MQTT topics have the same
+The backend to gateway API is based on a set of MQTT topics where messages are encoded as [Protocol Buffers (syntax 2)][protobuf_homepage]. All the messages in the MQTT topics have the same
 [root message][message_GenericMessage].
 
 The following diagram describes the topology of a full Wirepas solution
@@ -80,9 +80,9 @@ backends running in parallel.
 
 ## Overview of gateway features
 
-A gateway is an interface between a Wirepas mesh network and cloud services.
-The gateway exposes local capabilities to allows the cloud services
-configure and operate the network.
+A gateway is an interface between a Wirepas Mesh network and cloud services.
+The gateway exposes local capabilities that allow the cloud services to
+configure and operate a Wirepas Mesh network.
 
 The gateway services are classified in the following groups:
 
@@ -190,7 +190,7 @@ It will allow backends to easily see which gateway is offline.
 
 This API doesn't enforce the usage of a keep alive message by a gateway
 to avoid additional constraints on the gateway implementation. In fact,
-it implies the generation of a PING request to the broker if there is to
+it implies the generation of a PING request to the broker if there is no
 message generated within a keep alive interval.
 
 Nevertheless, it is recommended to use the keep alive mechanism of MQTT
