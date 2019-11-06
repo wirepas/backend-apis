@@ -165,14 +165,15 @@ class ApplicationConfigurationExample(object):
         """
         self.on_message(websocket, message)
 
-    def authentication_on_error(self, _websocket, error: str) -> None:
+    def authentication_on_error(self, websocket, error: str) -> None:
         """Websocket callback when an authentication socket error occurs
 
         Args:
-            _websocket (Websocket): communication socket
+            websocket (Websocket): communication socket
             error (str): error message
         """
-        self.logger.error("Authentication socket error: {0}".format(error))
+        if websocket.keep_running:
+            self.logger.error("Authentication socket error: {0}".format(error))
 
     def authentication_on_close(self, _websocket) -> None:
         """Websocket callback when the authentication connection closes
@@ -199,14 +200,15 @@ class ApplicationConfigurationExample(object):
         """
         self.on_message(websocket, message)
 
-    def metadata_on_error(self, _websocket, error: str) -> None:
+    def metadata_on_error(self, websocket, error: str) -> None:
         """Websocket callback when a metadata socket error occurs
 
         Args:
-            _websocket (Websocket): communication socket
+            websocket (Websocket): communication socket
             error (str): error message
         """
-        self.logger.error("Metadata socket error: {0}".format(error))
+        if websocket.keep_running:
+            self.logger.error("Metadata socket error: {0}".format(error))
 
     def metadata_on_close(self, _websocket) -> None:
         """Websocket callback when the metadata connection closes
@@ -281,14 +283,15 @@ class ApplicationConfigurationExample(object):
                 self.return_code = 0
                 self.stop_connection_threads()
 
-    def realtime_situation_on_error(self, _websocket, error: str) -> None:
+    def realtime_situation_on_error(self, websocket, error: str) -> None:
         """Websocket callback when realtime situation socket error occurs
 
         Args:
-            _websocket (Websocket): communication socket
+            websocket (Websocket): communication socket
             error (str): error message
         """
-        self.logger.error("Realtime situation socket error: {0}".format(error))
+        if websocket.keep_running:
+            self.logger.error("Realtime situation socket error: {0}".format(error))
 
     def realtime_situation_on_close(self, _websocket) -> None:
         """Websocket callback when the realtime situation connection closes

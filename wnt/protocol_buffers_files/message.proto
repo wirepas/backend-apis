@@ -20,7 +20,7 @@ package com.wirepas.proto.wnt;
 message Neighbor {
     // This equals neighbor diagnostics
     optional uint32 address = 1;
-    optional float cluster_channel_MHz = 2; 
+    optional float cluster_channel_MHz = 2;
     optional float radio_power_dB = 3;
     enum NeighborType {
         MEMBER = 1;
@@ -65,7 +65,7 @@ message DiagnosticsData {
     // This does NOT distinguish different types of diagnostics packets!
     // Info currently sent in neighbor diagnostics
     repeated Neighbor neighbors = 1 [(nanopb).max_count = 30];
-    
+
     // Info currently sent in node diagnostics
     optional float access_cycle_ms = 2;
     optional BaseRole role = 3;
@@ -368,7 +368,7 @@ message Message {
     optional uint32 source_address = 7; // Node ID
     optional uint32 destination_address = 8;
     optional float travel_time_ms = 9;
-    
+
     // Messages, uni- or bidirectional
     optional DiagnosticsData diagnostics = 50;
     optional RxData rx_data = 51;
@@ -386,7 +386,7 @@ message Message {
     optional GatewayInfo gateway_info = 63;
     optional BackendComponentInfo backend_component_info = 64;
     optional ScratchpadStatus scratchpad_status = 65;
-    
+
     // Backend internal and backend -> client
     optional BackendMessage backend_message = 70;
     optional OnlineStatus online_status = 71;
