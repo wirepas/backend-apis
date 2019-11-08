@@ -54,6 +54,12 @@ If you wish to run the examples, please install with the extra requirements
 ```shell
     python install dist/wirepas_messaging-*.whl[examples]
 ```
+
+## Services API documentation
+
+Please refer to the [backend apis repository][github_backend_apis] for
+documentation on the Wirepas' services APIs.
+
 ## Examples
 
 For more information about Wirepas Network Tool examples please see
@@ -65,8 +71,13 @@ This package is available from [PyPi][pypi].
 
 ## License
 
-Licensed under the Apache License, Version 2.0. See LICENSE for the full
-license text.
+Licensed under the Apache License, Version 2.0.
+See [LICENSE][here_license] for the full license text.
 
 [pypi]: https://pypi.org/project/wirepas-messaging/
+
 [wnt_examples_readme]: https://github.com/wirepas/backend-apis/blob/master/wrappers/python/examples/wnt/README.md
+
+[github_backend_apis]: https://github.com/wirepas/backend-apis
+
+[here_license]: https://github.com/wirepas/backend-apis/blob/master/wrappers/python/LICENSE

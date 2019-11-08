@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/wirepas/backend-apis.svg?branch=master)](https://travis-ci.com/wirepas/backend-apis)
 
-This repository contains the message definition files for the Wirepas' 
+This repository contains the message definition files for the Wirepas'
 service APIs, specifically:
 
 - [Wirepas Gateway][here_gateway]
@@ -17,7 +17,7 @@ In addition to the the message specification files, the repository contains lang
 
 ## Language wrappers
 
-- **Python**: wirepas_messaging \[[source][here_python]\] \[[PyPi][pypi_messaging]\]
+- **Python**: wirepas_messaging \[[source][here_python]\] \[[PyPi][pypi_messaging]\] \[[docs][here_python_docs]\]
 
 ## Contributing
 
@@ -32,6 +32,7 @@ Licensed under the Apache License, Version 2.0.
 See [LICENSE][here_license] for the full license text.
 
 [here_python]: https://github.com/wirepas/backend-apis/tree/master/wrappers/python
+[here_python_docs]: https://backend-apis.readthedocs.io/en/latest/index.html
 
 [here_docs_operation]: ./docs/img/overview.png
 
