@@ -26,8 +26,15 @@ message FullRole {
 }
 
 message AppConfigData {
+    enum Type {
+        NETWORK = 1;
+        SINK = 2;
+    }
+
     optional uint32 interval = 1;  // Diagnostics interval in seconds
     optional uint32 sequence = 2;
     optional bytes app_config = 3 [(nanopb).max_size = 1024];
     optional uint32 max_length = 4; // Maximum length of the app config
+    optional bool is_override_on = 5; // WNT backend will override appconfig if it is changed outside of WNT
+    optional Type type = 6;
 }

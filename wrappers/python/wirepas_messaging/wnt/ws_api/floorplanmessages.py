@@ -80,7 +80,7 @@ class FloorPlanMessages(AuthenticationMessages):
             ),
         )
 
-        if self.protocol_version == self.ProtocolVersions.VERSION_3.value:
+        if self.protocol_version >= self.ProtocolVersions.VERSION_3.value:
             floor_plan = message["data"]["buildings"][0]["floor_plans"][0]
             floor_plan["image_width"] = 1
             floor_plan["image_height"] = 1

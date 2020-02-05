@@ -126,7 +126,7 @@ def parse_args():
     )
 
     parser.add_argument(
-        "--protocol_version", type=int, default=3, help="WS API protocol version."
+        "--protocol_version", type=int, default=4, help="WS API protocol version."
     )
 
     parser.add_argument(

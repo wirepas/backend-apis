@@ -26,18 +26,24 @@ class ApplicationConfigurationMessages(AuthenticationMessages):
 
     def message_set_app_config(
         self,
-        network_id: str,
+        network_id: int,
         diagnostics_interval_in_s: int,
         application_data_in_hex: str,
+        is_override_on: bool,
+        sink_ids: [],
     ) -> dict:
         """Returns application configuration setting message
 
         For diagnostics interval values please see WP-RM-100 – Wirepas Mesh DualMCU API Reference Manual
 
         Args:
-            network_id (str): network id
+            network_id (int): network id
             diagnostics_interval_in_s (int): diagnostics interval in seconds
             application_data_in_hex (str): application data as hexadecimal string
+            is_override_on (bool): should WNT override the appconfig
+                                   if it notices that it has been changed from
+                                   outside of WNT
+            sink_ids (list of int): sink ids for which the appconfig is set
         """
         message = dict(
             version=self.protocol_version,
@@ -49,11 +55,15 @@ class ApplicationConfigurationMessages(AuthenticationMessages):
                         id=network_id,
                         diagnostics_interval=diagnostics_interval_in_s,
                         application_data=application_data_in_hex,
+                        is_override_on=is_override_on,
                     )
                 ]
             ),
             originator_token=self.originator_token,
         )
+
+        if sink_ids is not None:
+            message["data"]["networks"][0]["sink_node_ids"] = sink_ids
 
         self.logger.info(self.json_dump_pretty(message))
         return message
