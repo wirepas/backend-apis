@@ -82,6 +82,7 @@ message DiagnosticsData {
     repeated float dl_minimum_ms = 14 [packed=true, (nanopb).max_count = 16]; // By qos
     repeated float dl_maximum_ms = 15 [packed=true, (nanopb).max_count = 16]; // By qos
     repeated uint32 dl_samples = 16 [packed=true, (nanopb).max_count = 16]; // By qos
+    // Not valid for WM version >= 5.0 as there is one combined value for dropped packets
     repeated uint32 dropped = 17 [packed=true, (nanopb).max_count = 16]; // By qos
     optional uint32 sink_address = 49;
     repeated CostInfo cost = 18 [(nanopb).max_count = 16]; // By qos
@@ -123,6 +124,7 @@ message DiagnosticsData {
         FTDMA_ADJ_CHANNEL_BLACKLISTED = 54;
         FTDMA_ADJ_OTHER_REASON = 55;
         SINK_CHANGED = 56;
+        FHMA_ADJUST = 57;
         ROUTING_LOOP = 64;
         DENSE_REMOVE_SUBNODE = 72;
         DOWNLINK_TX_FAIL_COULD_NOT_SEND = 73;
@@ -182,14 +184,13 @@ message DiagnosticsData {
         EFR32XG12_512KB_64KB = 7;
         HWMAGIC_UNKNOWN = 255;
     }
+
     optional HWMagic hw_magic = 41;
     optional StackProfile stack_profile = 42;
     optional bool otap_enabled = 43;
     optional uint32 boot_line_number = 44;
     optional uint32 file_hash = 45;
     repeated uint32 stack_trace = 46 [packed=true, (nanopb).max_count = 3];
-    // Added in WM version 4.0
-    optional uint32 scratchpad_firmware_sequence = 59;
 
     // If WM version >= 3.4 Buffering Delay QoS1 is replaced by Routers in Neighborhood
     optional uint32 routers_in_neighborhood = 50;
@@ -209,6 +210,45 @@ message DiagnosticsData {
     optional uint32 blacklisted_radio_channels_17_24 = 56;
     optional uint32 blacklisted_radio_channels_25_32 = 57;
     optional uint32 blacklisted_radio_channels_33_40 = 58;
+
+    // Added in WM version 4.0
+    optional uint32 scratchpad_firmware_sequence = 59;
+
+    // New in WM 5.0
+    optional uint32 broadcast_ll_members_pending = 60;
+    optional uint32 broadcast_le_members_pending = 61;
+    optional uint32 broadcast_next_hop_pending = 62;
+    optional uint32 broadcast_unack_pending = 63;
+    optional uint32 packets_expired_pending = 64;
+    optional uint32 packets_reroute_pending = 65;
+    optional uint32 unicast_cluster_pending = 66;
+    optional uint32 unicast_members_pending = 67;
+    optional uint32 dropped_packets_combined = 68;
+    optional uint32 cbmac_rx_messages_ack = 69;
+    optional uint32 cbmac_rx_messages_unack = 70;
+    optional uint32 cbmac_rx_ack_other_reasons = 71;
+    optional uint32 cbmac_tx_ack_cca_fail = 72;
+    optional uint32 cbmac_tx_ack_not_received = 73;
+    optional uint32 cbmac_tx_messages_ack = 74;
+    optional uint32 cbmac_tx_messages_unack = 75;
+    optional uint32 cbmac_tx_cca_unack_fail = 76;
+    optional uint32 cfmac_messages_ack = 77;
+    optional uint32 cfmac_pending_broadcast_le_member = 78;
+    optional int32 next_hop_radio_power_dB = 79;
+    optional int32 next_hop_rssi_dBm = 80;
+    optional uint32 blacklisted_radio_channels_count = 81;
+    optional uint32 application_version_major = 82;
+    optional uint32 application_version_minor = 83;
+    optional uint32 application_version_maintenance = 84;
+    optional uint32 application_version_devel = 85;
+
+    enum TraceType
+    {
+        NODE_DIAGNOSTICS = 1;
+        BOOT_DIAGNOSTICS = 7;
+    }
+
+    optional TraceType trace_type = 86;
 
     optional uint64 boot_diagnostics_tx_time_ms_epoch = 100;
 }
@@ -242,7 +282,7 @@ message AppConfigResponse {
         INVALID_DATA_PAYLOAD = 14;
         INVALID_SCRATCHPAD = 15;
         INVALID_SCRATCHPAD_SIZE = 16;
-        INVLAID_SEQUENCE_NUMBER = 17;
+        INVALID_SEQUENCE_NUMBER = 17;
         INVALID_REBOOT_DELAY = 18;
         INVALID_DIAG_INTERVAL = 19;
         INVALID_APP_CONFIG = 20;

@@ -61,13 +61,19 @@ class ApplicationConfigurationExample(object):
 
         # Network id needs to point to a valid network with at least one sink
         # online
-        self.network_id = "777555"
+        self.network_id = 777555
+
+        self.sink_ids = None
+        # Uncomment the line below for setting appconfig for specific sinks only
+        # self.sink_ids = [1, 101]
 
         # When running more than once for the same network, the diagnostics interval
         # or application data needs to changed as WNT server will not try to set the
         # application configuration if it is already the same.
-        self.diagnostics_interval = 30
+        self.diagnostics_interval = 60
         self.application_data = "00112233445566778899AABBCCDDEEFF"
+
+        self.is_override_on = False
 
         self.authentication_thread = None
         self.metadata_thread = None
@@ -128,6 +134,8 @@ class ApplicationConfigurationExample(object):
                         self.network_id,
                         self.diagnostics_interval,
                         self.application_data,
+                        self.is_override_on,
+                        self.sink_ids,
                     )
                 )
             )
@@ -273,15 +281,14 @@ class ApplicationConfigurationExample(object):
                     binascii.hexlify(wnt_message.app_config.app_config), "utf-8"
                 )
                 self.logger.info(
-                    "App config message received with diagnostics interval {} and "
-                    "application data {}".format(
-                        wnt_message.app_config.interval, app_config_string
+                    "App config message received from {}:{} with diagnostics "
+                    "interval {} and application data {}".format(
+                        wnt_message.network_id,
+                        wnt_message.source_address,
+                        wnt_message.app_config.interval,
+                        app_config_string,
                     )
                 )
-
-                # Exit after we get first node app config data message
-                self.return_code = 0
-                self.stop_connection_threads()
 
     def realtime_situation_on_error(self, websocket, error: str) -> None:
         """Websocket callback when realtime situation socket error occurs
@@ -341,8 +348,8 @@ class ApplicationConfigurationExample(object):
             self.metadata_thread = self.client.start_metadata_thread()
             self.authentication_thread = self.client.start_authentication_thread()
 
-            # Maximum wait time 30 seconds
-            self.realtime_situation_thread.join(30)
+            # Maximum wait time 10 seconds
+            self.realtime_situation_thread.join(10)
             self.metadata_thread.join(0)
             self.authentication_thread.join(0)
         except:
