@@ -19,6 +19,13 @@ In addition to the the message specification files, the repository contains lang
 
 - **Python**: wirepas_messaging \[[source][here_python]\] \[[PyPi][pypi_messaging]\] \[[docs][here_python_docs]\]
 
+## Wirepas Network Tool Git tag correspondence
+
+| WNT version   | Tag           |
+| ------------- |:-------------:|
+| v2.0.0        | v1.3.0        |
+| v3.0.0        | v1.4.0        |
+
 ## Contributing
 
 We welcome your contributions!
