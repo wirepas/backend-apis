@@ -20,7 +20,7 @@ __license__ = "Apache-2"
 __pkg_name__ = "wirepas_messaging"
 __title__ = "Wirepas Messaging Wrappers"
 __url__ = "https://github.com/wirepas/backend-apis/tree/master/wrappers/python"
-__version__ = "1.4.0-rc.1"
+__version__ = "1.4.0"
 __warning_msg__ = """
 ***********************************************************************
 * WARNING:
