@@ -63,7 +63,7 @@ static double rad_to_deg(double rad)
  *          WGS84 coordinates
  * \return  ECEF coordinates
  */
-static point_3d_t wgs82_to_ecef(location_t location)
+static point_3d_t wgs84_to_ecef(location_t location)
 {
     const double a = 6378137.0;
     const double finv = 298.257223563;
@@ -197,7 +197,7 @@ static location_t get_location(double *rotation_matrix, point_3d_t reverse_trans
 static point_2d_t get_pixel_position(double *rotation_matrix, point_3d_t reverse_transformation_vector,
     double scale_pixels_per_meter, location_t location)
 {
-    point_3d_t point_ecef = wgs82_to_ecef(location);
+    point_3d_t point_ecef = wgs84_to_ecef(location);
 
     point_ecef.x -= reverse_transformation_vector.x;
     point_ecef.y -= reverse_transformation_vector.y;
