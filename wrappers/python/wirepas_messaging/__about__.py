@@ -4,6 +4,8 @@
         See file LICENSE for full license details.
 """
 
+from pkg_resources import get_distribution, DistributionNotFound
+
 __author__ = "Wirepas Ltd"
 __author_email__ = "opensource@wirepas.com"
 __classifiers__ = [
@@ -20,7 +22,6 @@ __license__ = "Apache-2"
 __pkg_name__ = "wirepas_messaging"
 __title__ = "Wirepas Messaging Wrappers"
 __url__ = "https://github.com/wirepas/backend-apis/tree/master/wrappers/python"
-__version__ = "1.4.0"
 __warning_msg__ = """
 ***********************************************************************
 * WARNING:
@@ -30,3 +31,9 @@ __warning_msg__ = """
 *     https://github.com/protocolbuffers/protobuf/tree/master/python
 ***********************************************************************
 """
+
+try:
+    __version__ = get_distribution(__pkg_name__).version
+except DistributionNotFound:
+    # package is not installed
+    pass
