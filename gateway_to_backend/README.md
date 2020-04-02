@@ -157,6 +157,11 @@ Depending on the quality of the connection between gateway and Backends,
 it can create duplicates that will have to be filtered by the backends.
 To ease this filtering, each event contains a unique identifier (random
 64 bits value) in its header.
+However, some broker are not 100% MQTT compliant and do not support some
+of the QoS values. So nothing is enforced for the QoS values. Even if it is 
+recommended to use QoS2 in some places (like with downlink traffic) the broker
+may limit this usage.
+
 
 ### Gateway status module
 
@@ -173,11 +178,17 @@ backends. It also allows the backends to monitor the gateways status.
 > **content:**
 > [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[StatusEvent][message_StatusEvent]
 
-The message must have the retained flag set to true to allow a new
+The message must have the retain flag set to true to allow a new
 backend to immediately be noticed of all the available gateways when
 subscribing to this topic.
 
 Once connected to the MQTT broker, status must be set to *ONLINE*.
+
+As some broker do not support the retain flag, sending periodically the status
+of the gateway can be implemented instead of only once with the retained flag.
+Consequently, backends will have to wait for a period time after the subscribing to
+this topic before being noticed of all gateway status.
+A period of 30s is a good tradeoff between loading the broker and reactivity for backends.
 
 #### Last will message
 
