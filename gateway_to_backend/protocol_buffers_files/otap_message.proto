@@ -3,8 +3,8 @@ syntax="proto2";
 package wirepas.proto.gateway_api;
 
 import "wp_global.proto";
-import "nanopb.proto";
 import "error.proto";
+// import "nanopb.proto";
 
 enum ScratchpadType {
     BLANK = 1;
@@ -46,7 +46,7 @@ message UploadScratchpadReq {
 
     required uint32 seq = 2;
     // If scratchpad is not set, it clears the stored scratchpad
-    optional bytes scratchpad = 3 [(nanopb).max_size = 1048576];  // 1MB
+    optional bytes scratchpad = 3 /*[(nanopb).max_size = 1048576]*/;  // 1MB
 }
 
 message UploadScratchpadResp {
