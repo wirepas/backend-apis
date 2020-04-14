@@ -3,7 +3,7 @@ syntax="proto2";
 package wirepas.proto.gateway_api;
 
 import "error.proto";
-import "nanopb.proto";
+// import "nanopb.proto";
 
 // Global request header
 // NB: Gateway id is not present in header as gateway will only subscribe to their id
@@ -11,25 +11,25 @@ message RequestHeader {
     // Unique request id
     required uint64 req_id = 1;
     // Sink id if relevant for request
-    optional string sink_id = 2 [(nanopb).max_size = 128];
+    optional string sink_id = 2 /*[(nanopb).max_size = 128]*/;
 }
 
 message ResponseHeader {
     // Same as in Request
     required uint64 req_id = 1;
     // Gw id that handled the request
-    required string gw_id = 2 [(nanopb).max_size = 128];
+    required string gw_id = 2 /*[(nanopb).max_size = 128]*/;
     // Sink id if relevant for request
-    optional string sink_id = 3 [(nanopb).max_size = 128];
+    optional string sink_id = 3 /*[(nanopb).max_size = 128]*/;
     // Global result of request
     required ErrorCode res = 4;
 }
 
 message EventHeader {
     // Gw id that generated the event
-    required string gw_id = 1 [(nanopb).max_size = 128];
+    required string gw_id = 1 /*[(nanopb).max_size = 128]*/;
     // Sink id if relevant for event
-    optional string sink_id = 2 [(nanopb).max_size = 128];
+    optional string sink_id = 2 /*[(nanopb).max_size = 128]*/;
     // Random event id to help duplicate event filtering
     required uint64 event_id = 3;
 }

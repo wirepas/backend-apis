@@ -2,8 +2,8 @@ syntax="proto2";
 
 package wirepas.proto.gateway_api;
 
-import "nanopb.proto";
 import "wp_global.proto";
+// import "nanopb.proto";
 
 message NodeRole {
     enum BaseRole {
@@ -16,7 +16,7 @@ message NodeRole {
         LOW_LATENCY = 1;
         AUTOROLE = 2;
     }
-    repeated RoleFlags flags = 2 [(nanopb).max_count = 16];
+    repeated RoleFlags flags = 2 /*[(nanopb).max_count = 16]*/;
 }
 
 message AccessCycleRange {
@@ -31,18 +31,18 @@ message ChannelRange {
 
 message AppConfigData {
     required uint32 diag_interval_s = 1; // Diagnostics interval in seconds
-    required bytes app_config_data = 2 [(nanopb).max_size = 1024]; // App config data
+    required bytes app_config_data = 2 /*[(nanopb).max_size = 1024]*/; // App config data
     required uint32 seq = 3;
 }
 
 message NetworkKeys {
-    required bytes cipher = 1 [(nanopb).max_size = 1024];
-    required bytes authentication = 2 [(nanopb).max_size = 1024];
+    required bytes cipher = 1 /*[(nanopb).max_size = 1024]*/;
+    required bytes authentication = 2 /*[(nanopb).max_size = 1024]*/;
 }
 
 message SinkReadConfig {
     // Local id to uniquely identify a sink on gateway
-    required string sink_id = 1 [(nanopb).max_size = 128];
+    required string sink_id = 1 /*[(nanopb).max_size = 128]*/;
 
     // Sink minimal config
     optional NodeRole node_role = 2;
@@ -69,7 +69,7 @@ message SinkReadConfig {
 
 message SinkNewConfig {
     // Local id to uniquely identify a sink on gateway
-    required string sink_id = 1 [(nanopb).max_size = 128];
+    required string sink_id = 1 /*[(nanopb).max_size = 128]*/;
 
     // Node minimal config
     optional NodeRole node_role = 2;
@@ -92,10 +92,10 @@ message GatewayInfo {
     required uint64 current_time_s_epoch = 1;
 
     // Optional gateway name (gateway manufacturer specific)
-    optional string gw_model = 2 [(nanopb).max_size = 256];
+    optional string gw_model = 2 /*[(nanopb).max_size = 256]*/;
 
     // Optional gateway version (gateway manufacturer specific)
-    optional string gw_version = 3 [(nanopb).max_size = 128];
+    optional string gw_version = 3 /*[(nanopb).max_size = 128]*/;
 
     // API version implemented in the gateway
     // This field must be explicitely set from code and must be
@@ -121,7 +121,7 @@ message GetConfigsReq {
 message GetConfigsResp {
     required ResponseHeader header = 1;
 
-    repeated SinkReadConfig configs = 2 [(nanopb).max_count = 16]; // Gateway may have multiple sinks
+    repeated SinkReadConfig configs = 2 /*[(nanopb).max_count = 16]*/; // Gateway may have multiple sinks
 }
 
 message SetConfigReq {
