@@ -184,11 +184,12 @@ subscribing to this topic.
 
 Once connected to the MQTT broker, status must be set to *ONLINE*.
 
-As some broker do not support the retain flag, sending periodically the status
-of the gateway can be implemented instead of only once with the retained flag.
-Consequently, backends will have to wait for a period time after the subscribing to
-this topic before being noticed of all gateway status.
-A period of 30s is a good tradeoff between loading the broker and reactivity for backends.
+As some broker do not support the retain flag, the status of gateway can be requested
+through [gw-request/get_gw_status topic](#get-gateway-status). If the broker do not support the retain flag,
+gateway will have to send their status each time they receive a message on this topic
+regardless of the content.
+If retain flag is supported, it is better to use it as it will allow backends to see
+offline gateway thanks to their retained status.
 
 #### Last will message
 
@@ -196,6 +197,8 @@ Same message with a status set to *OFFLINE* must be set by the gateway as
 a **last will message**.
 
 It will allow backends to easily see which gateway is offline.
+This last will message should use the retain flag if available for
+backends to see offline gateways asynchronously.
 
 #### Keep alive message
 
@@ -269,13 +272,13 @@ to monitor this change._
 
 - **Request:**
 
-    > **topic:** gw-request/get_gateway_info/*\<gw-id\>*
+    > **topic:** gw-request/get_gw_info/*\<gw-id\>*
     >
     > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[GetGwInfoReq][message_GetGwInfoReq]
 
 - **Response:**
 
-    > **topics:** gw-response/get_gateway_info/*\<gw-id\>/\<sink-id\>*
+    > **topics:** gw-response/get_gw_info/*\<gw-id\>/\<sink-id\>*
     >
     > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[GetGwInfoResp][message_GetGwInfoResp]
 
@@ -287,6 +290,18 @@ must be kept. Default value is incremented by Wirepas for each release._
 _Even if this version is increased, the API remains backward compatible.
 It just help backends development to identify if new features are
 present in a gateway._
+
+#### Get gateway status
+
+- **Request:**
+
+    > **topic:** gw-request/get_gw_status
+    >
+    > **content:** NA
+
+This request should be handled by Gateways only if retain flag is not supported.
+When receiving a message on this topic, a gateway must resend its status as described
+in [Status message](#status_message)
 
 ### Data module
 
@@ -512,6 +527,8 @@ definition)
     gw-request/otap_load_scratchpad/<gw-id>/<sink-id>
 
     gw-request/otap_process_scratchpad/<gw-id>/<sink-id>
+    
+    gw-request/get_gw_status
 ```
 
 *Response* from a gateway to a backend:
