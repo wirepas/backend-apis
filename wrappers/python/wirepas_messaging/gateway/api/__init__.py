@@ -16,6 +16,7 @@ from .get_configs import *
 from .get_gw_info import *
 from .set_config import *
 from .received_data import *
+from .received_multi_data import *
 from .status import *
 from .send_data import *
 from .upload_scratchpad import *

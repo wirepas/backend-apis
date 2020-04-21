@@ -23,6 +23,7 @@ message WirepasMessage {
     optional ProcessScratchpadResp process_scratchpad_resp = 14;
     optional GetGwInfoReq get_gateway_info_req = 15;
     optional GetGwInfoResp get_gateway_info_resp = 16;
+    optional MultiPacketReceivedEvent multi_packet_received_event = 17;
 }
 
 message CustomerMessage {

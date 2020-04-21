@@ -86,6 +86,11 @@ message SinkNewConfig {
     optional OnOffState sink_state = 10;
 }
 
+enum GatewayOptionalFeature {
+    // Gateway is able to send multiple packets
+    MULTI_PACKET = 1;
+}
+
 message GatewayInfo {
     // Current timestamp when GatewayInfo is generated
     // It is a unix timestamp in s since epoch
@@ -102,6 +107,9 @@ message GatewayInfo {
     // the one defined in each released verion.
     // Current version is 1
     optional uint32 implemented_api_version = 4;
+
+    // List of optional features implemented by the gateway
+    repeated GatewayOptionalFeature feature = 5 /*[packed=true, (nanopb).max_count = 20]*/;
 }
 
 /*
