@@ -70,7 +70,7 @@ setup(
     keywords=about["__keywords__"],
     packages=find_packages(exclude=["contrib", "docs", "tests", "examples"]),
     install_requires=get_requirements(requirements_file),
-    extras_require={"examples": ["websocket-client==0.48.0", "PyYAML==5.1.2"]},
+    extras_require={"examples": ["websocket-client==0.48.0", "PyYAML==5.3.1"]},
     data_files=[
         (
             "./wirepas_messaging-extras/package",
