@@ -47,4 +47,5 @@ message PacketReceivedEvent {
     optional uint32 payload_size = 10;
 
     optional uint32 hop_count = 11;
+    optional uint64 network_address = 12;
 }
