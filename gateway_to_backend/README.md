@@ -258,13 +258,13 @@ to monitor this change._
 
 - **Request:**
 
-    > **topic:** gw-request/get_gateway_info/*\<gw-id\>*
+    > **topic:** gw-request/get_gw_info/*\<gw-id\>*
     >
     > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[GetGwInfoReq][message_GetGwInfoReq]
 
 - **Response:**
 
-    > **topics:** gw-response/get_gateway_info/*\<gw-id\>/\<sink-id\>*
+    > **topics:** gw-response/get_gw_info/*\<gw-id\>/\<sink-id\>*
     >
     > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[GetGwInfoResp][message_GetGwInfoResp]
 
