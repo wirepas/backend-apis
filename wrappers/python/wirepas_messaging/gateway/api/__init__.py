@@ -24,3 +24,4 @@ from .get_scratchpad_status import *
 from .gateway_result_code import *
 from .otap_helper import *
 from .wirepas_exceptions import *
+from .generic_collection import *
