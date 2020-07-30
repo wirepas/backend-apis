@@ -11,7 +11,6 @@ import enum
 import wirepas_messaging
 
 from .event import Event
-from .wirepas_exceptions import GatewayAPIParsingException
 
 # This API should never be changes in future (prupose of protobuf)
 API_VERSION = 1
@@ -49,15 +48,7 @@ class StatusEvent(Event):
         self.version = version
 
     @classmethod
-    def from_payload(cls, payload):
-        """ Converts a protobuff message into a python object """
-        message = wirepas_messaging.gateway.GenericMessage()
-        try:
-            message.ParseFromString(payload)
-        except Exception:
-            # Any Exception is promoted to Generic API exception
-            raise GatewayAPIParsingException("Cannot parse StatusEvent payload")
-
+    def from_generic_message(cls, message):
         event = message.wirepas.status_event
 
         if event.state == wirepas_messaging.gateway.ON:
@@ -72,7 +63,7 @@ class StatusEvent(Event):
         return cls(d["gw_id"], online, event_id=d["event_id"])
 
     @property
-    def payload(self):
+    def generic_message(self):
         """ Returns a proto serialization of itself """
 
         message = wirepas_messaging.gateway.GenericMessage()
@@ -86,4 +77,4 @@ class StatusEvent(Event):
         else:
             status.state = wirepas_messaging.gateway.OFF
 
-        return message.SerializeToString()
+        return message

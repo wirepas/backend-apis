@@ -9,8 +9,10 @@
 import random
 import wirepas_messaging
 
+from .generic_message import GenericMessage
 
-class Event(object):
+
+class Event(GenericMessage):
     """
     Event
 
@@ -29,14 +31,6 @@ class Event(object):
         if event_id is None:
             event_id = random.getrandbits(64)
         self.event_id = event_id
-
-    def __str__(self):
-        return str(self.__dict__)
-
-    @property
-    def payload(self):
-        """ Implement how to serialize child Event classes """
-        raise NotImplementedError()
 
     def _make_event_header(self):
         """ Creates the generic messaging header """
