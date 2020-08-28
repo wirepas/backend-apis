@@ -454,7 +454,7 @@ receive the answer from a specific gateway or
 #### Sink(s) configuration
 
 Each sink can be configured and started/stopped by publishing a message
-on *gw-request/\<gw-id>/\<sink-id\>/set_config*.
+on *gw-request/set_config/\<gw-id>/\<sink-id\>*.
 
 The gateway will publish back a message on
 *gw-response/set_config/\<gw-id\>/\<sink-id\>* topic with the result of
