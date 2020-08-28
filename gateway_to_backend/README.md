@@ -157,6 +157,11 @@ Depending on the quality of the connection between gateway and Backends,
 it can create duplicates that will have to be filtered by the backends.
 To ease this filtering, each event contains a unique identifier (random
 64 bits value) in its header.
+However, some broker are not 100% MQTT compliant and do not support some
+of the QoS values. So nothing is enforced for the QoS values. Even if it is 
+recommended to use QoS2 in some places (like with downlink traffic) the broker
+may limit this usage.
+
 
 ### Gateway status module
 
@@ -173,11 +178,18 @@ backends. It also allows the backends to monitor the gateways status.
 > **content:**
 > [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[StatusEvent][message_StatusEvent]
 
-The message must have the retained flag set to true to allow a new
+The message must have the retain flag set to true to allow a new
 backend to immediately be noticed of all the available gateways when
 subscribing to this topic.
 
 Once connected to the MQTT broker, status must be set to *ONLINE*.
+
+As some broker do not support the retain flag, the status of gateway can be requested
+through [gw-request/get_gw_status topic](#get-gateway-status). If the broker do not support the retain flag,
+gateway will have to send their status each time they receive a message on this topic
+regardless of the content.
+If retain flag is supported, it is better to use it as it will allow backends to see
+offline gateway thanks to their retained status.
 
 #### Last will message
 
@@ -185,6 +197,8 @@ Same message with a status set to *OFFLINE* must be set by the gateway as
 a **last will message**.
 
 It will allow backends to easily see which gateway is offline.
+This last will message should use the retain flag if available for
+backends to see offline gateways asynchronously.
 
 #### Keep alive message
 
@@ -276,6 +290,18 @@ must be kept. Default value is incremented by Wirepas for each release._
 _Even if this version is increased, the API remains backward compatible.
 It just help backends development to identify if new features are
 present in a gateway._
+
+#### Get gateway status
+
+- **Request:**
+
+    > **topic:** gw-request/get_gw_status
+    >
+    > **content:** NA
+
+This request should be handled by Gateways only if retain flag is not supported.
+When receiving a message on this topic, a gateway must resend its status as described
+in [Status message](#status_message)
 
 ### Data module
 
@@ -501,6 +527,8 @@ definition)
     gw-request/otap_load_scratchpad/<gw-id>/<sink-id>
 
     gw-request/otap_process_scratchpad/<gw-id>/<sink-id>
+    
+    gw-request/get_gw_status
 ```
 
 *Response* from a gateway to a backend:
