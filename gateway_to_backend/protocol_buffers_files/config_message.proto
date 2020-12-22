@@ -98,9 +98,12 @@ message GatewayInfo {
     optional string gw_version = 3 /*[(nanopb).max_size = 128]*/;
 
     // API version implemented in the gateway
-    // This field must be explicitely set from code and must be
-    // the one defined in each released verion.
-    // Current version is 1
+    // This field must be explicitly set from code and must be
+    // the one defined in each released version.
+    // Current version is 2
+    // Version 1: Initial release
+    // Version 2: Addition of setScratchpadTargetAndAction
+    // It should be replaced by a feature list
     optional uint32 implemented_api_version = 4;
 }
 
