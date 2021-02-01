@@ -23,6 +23,8 @@ message WirepasMessage {
     optional ProcessScratchpadResp process_scratchpad_resp = 14;
     optional GetGwInfoReq get_gateway_info_req = 15;
     optional GetGwInfoResp get_gateway_info_resp = 16;
+    optional SetScratchpadTargetAndActionReq set_scratchpad_target_and_action_req = 17;
+    optional SetScratchpadTargetAndActionResp set_scratchpad_target_and_action_resp = 18;
 }
 
 message CustomerMessage {

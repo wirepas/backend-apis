@@ -371,9 +371,23 @@ _Consequently, it is highly recommended to keep this field._
 
 - **Response:**
 
-    > **topics:** gw-response/otap_status/*\<gw-id\>/\<sink-id\>*
+    > **topics:** gw-response/otap_process_scratchpad/*\<gw-id\>/\<sink-id\>*
     >
     > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[ProcessScratchpadResp][message_ProcessScratchpadResp]
+
+#### Set target scratchpad and action
+
+- **Request:**
+
+    > **topic:** gw-request/otap_set_target_scratchpad/*\<gw-id\>/\<sink-id\>*
+    >
+    > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[SetScratchpadTargetAndActionReq][message_SetScratchpadTargetAndActionReq]
+
+- **Response:**
+
+    > **topics:** gw-response/otap_set_target_scratchpad/*\<gw-id\>/\<sink-id\>*
+    >
+    > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[SetScratchpadTargetAndActionResp][message_SetScratchpadTargetAndActionResp]
 
 ## API extension
 
@@ -501,6 +515,9 @@ definition)
     gw-request/otap_load_scratchpad/<gw-id>/<sink-id>
 
     gw-request/otap_process_scratchpad/<gw-id>/<sink-id>
+
+    gw-request/otap_set_target_scratchpad/<gw-id>/<sink-id>
+
 ```
 
 *Response* from a gateway to a backend:
@@ -519,6 +536,8 @@ definition)
     gw-response/otap_load_scratchpad/<gw-id>/<sink-id>
 
     gw-response/otap_process_scratchpad/<gw-id>/<sink-id>
+
+    gw-response/otap_set_target_scratchpad/<gw-id>/<sink-id>
 ```
 
 *Asynchronous* event from a gateway:
@@ -555,11 +574,6 @@ definition)
 
 [message_GetConfigsResp]: https://github.com/wirepas/backend-apis/blob/982974eb6069d89aef527862cb7b5f1b2e2c4385/gateway_to_backend/protocol_buffers_files/config_message.proto#L121-L125
 
-
-
-
-
-
 [message_SetConfigReq]: https://github.com/wirepas/backend-apis/blob/8580ee52eb71dbef3afce6b0207d3312153ced42/gateway_to_backend/protocol_buffers_files/config_message.proto#L127-L131
 
 [message_SetConfigResp]: https://github.com/wirepas/backend-apis/blob/8580ee52eb71dbef3afce6b0207d3312153ced42/gateway_to_backend/protocol_buffers_files/config_message.proto#L133-L138
@@ -591,5 +605,9 @@ definition)
 [message_CustomerMessage]: https://github.com/wirepas/backend-apis/blob/3a9fbfc18fb8bb6b36e0b2263c8987a17a0117e9/gateway_to_backend/protocol_buffers_files/generic_message.proto#L28-L32
 
 [message_WirepasMessage]: https://github.com/wirepas/backend-apis/blob/127f4a0025078aa7b118a6b10661461a50aaf33e/gateway_to_backend/protocol_buffers_files/generic_message.proto#L9-L26
+
+[message_SetScratchpadTargetAndActionReq]:
+
+[message_SetScratchpadTargetAndActionRsp]:
 
 [protobuf_homepage]: https://developers.google.com/protocol-buffers
