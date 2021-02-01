@@ -606,8 +606,8 @@ definition)
 
 [message_WirepasMessage]: https://github.com/wirepas/backend-apis/blob/127f4a0025078aa7b118a6b10661461a50aaf33e/gateway_to_backend/protocol_buffers_files/generic_message.proto#L9-L26
 
-[message_SetScratchpadTargetAndActionReq]:
+[message_SetScratchpadTargetAndActionReq]: https://github.com/wirepas/backend-apis/blob/34ac8bc7b99cfa976ca9f0ec7015051e1c67209a/gateway_to_backend/protocol_buffers_files/otap_message.proto#L103-L107
 
-[message_SetScratchpadTargetAndActionRsp]:
+[message_SetScratchpadTargetAndActionResp]: https://github.com/wirepas/backend-apis/blob/34ac8bc7b99cfa976ca9f0ec7015051e1c67209a/gateway_to_backend/protocol_buffers_files/otap_message.proto#L109-L111
 
 [protobuf_homepage]: https://developers.google.com/protocol-buffers
