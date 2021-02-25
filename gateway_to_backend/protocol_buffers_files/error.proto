@@ -3,6 +3,7 @@ syntax="proto2";
 package wirepas.proto.gateway_api;
 
 enum ErrorCode {
+    option allow_alias = true;
     OK = 0;
     INTERNAL_ERROR = 1;
     INVALID_SINK_ID = 2;
@@ -20,7 +21,10 @@ enum ErrorCode {
     INVALID_DATA_PAYLOAD = 14;
     INVALID_SCRATCHPAD = 15;
     INVALID_SCRATCHPAD_SIZE = 16;
+    // Typo in error code, here to avoid breaking
+    // backward compatibility
     INVLAID_SEQUENCE_NUMBER = 17;
+    INVALID_SEQUENCE_NUMBER = 17;
     INVALID_REBOOT_DELAY = 18;
     INVALID_DIAG_INTERVAL = 19;
     INVALID_APP_CONFIG = 20;
