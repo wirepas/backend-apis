@@ -4,6 +4,14 @@ package wirepas.proto.gateway_api;
 
 enum ErrorCode {
     option allow_alias = true;
+    // First enum code is the one returned in case error code
+    // is unknown on the other side (new added values in future)
+    // To avoid having OK as default code, better to use an explicit UNKNOWN_ERROR_CODE.
+    // It will become the default only for the one using a protobuf file that has this
+    // error code defined.
+    // This unknown error code should never be explicitly set from a gateway but used
+    // only by parser when the error code set is unknown
+    UNKNOWN_ERROR_CODE = -1;
     OK = 0;
     INTERNAL_ERROR = 1;
     INVALID_SINK_ID = 2;
