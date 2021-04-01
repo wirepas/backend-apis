@@ -460,7 +460,7 @@ the backend will immediately know the list of gateways connected to this
 broker.
 
 Backend can ask each gateway, its list of attached sinks by publishing a
-message on *gw-request/\<gw-id\>/get_configs* topic and the backend
+message on *gw-request/get_configs/\<gw-id\>* topic and the backend
 should subscribe to *gw-response/get_configs/\<gw-id\>* topic to
 receive the answer from a specific gateway or
 *gw-response/get_configs/+* topic for all gateways.
