@@ -7,24 +7,55 @@
 */
 syntax="proto2";
 
-import "nanopb.proto";
+import "commons.proto";
 
 package com.wirepas.proto.wnt;
 
-message LoadScratchpad {
-    optional uint32 network_id = 1;
-    optional bytes scratchpad_bytes = 2 [(nanopb).max_size = 1048576]; // 1MB
-    optional uint32 rerun_interval_s = 3;
-    optional bool is_cancel = 4;
-    optional bool is_close = 5;
-    optional bool is_sink_only = 6;
-
-    optional uint32 start_time_s_epoch = 10;
-    optional uint32 activation_time_s_epoch = 11;
-    optional uint32 cancel_time_s_epoch = 12;
+enum OTAPState {
+    OTAP_STATE_NONE = 0;
+    OTAP_STATE_WAIT_FOR_START = 1;  // For UI only
+    OTAP_STATE_SCRATCHPAD_STATUS_QUERY = 2;
+    OTAP_STATE_LOAD_SCRATCHPAD = 3;
+    OTAP_STATE_ACTIVATE = 4;
+    OTAP_STATE_NPAD_LOAD_AND_ACTIVATE = 5;
+    OTAP_STATE_WAIT_FOR_ACTIVATION = 6; // For backend only
+    OTAP_STATE_CLOSE = 7;
 }
 
-message OTAPResponse {
+enum OTAPMethod {
+    OTAP_METHOD_NONE = 0;
+    OTAP_METHOD_LEGACY = 1;
+    OTAP_METHOD_NPAD = 2;
+}
+
+enum OTAPNPADDelay {
+    OTAP_NPAD_DELAY_NONE = 0;
+    OTAP_NPAD_DELAY_TEN_MINUTES = 1;
+    OTAP_NPAD_DELAY_THIRTY_MINUTES = 2;
+    OTAP_NPAD_DELAY_ONE_HOUR = 3;
+    OTAP_NPAD_DELAY_SIX_HOURS = 4;
+    OTAP_NPAD_DELAY_ONE_DAY = 5;
+    OTAP_NPAD_DELAY_TWO_DAYS = 6;
+    OTAP_NPAD_DELAY_FIVE_DAYS = 7;
+}
+
+message SetOTAPState {
+    optional OTAPState state = 1;
+    optional uint32 network_id = 2;
+    optional bytes scratchpad_bytes = 3;
+    optional uint32 resend_interval_s = 4;
+    optional bool is_sink_only = 5;
+    optional uint32 sequence_number = 6;
+    optional OTAPMethod method = 7;
+    optional uint32 scratchpad_crc = 8;
+    optional OTAPNPADDelay npad_delay = 9;
+
+    optional uint32 start_time_s_epoch = 10;
+    optional uint32 loading_time_s_epoch = 11;
+    optional uint32 activation_time_s_epoch = 12;
+}
+
+message SetOTAPStateResponse {
     enum OTAPResponseId { // Same as gateway ErrorCode
         OK = 0;
         INTERNAL_ERROR = 1;
@@ -43,7 +74,7 @@ message OTAPResponse {
         INVALID_DATA_PAYLOAD = 14;
         INVALID_SCRATCHPAD = 15;
         INVALID_SCRATCHPAD_SIZE = 16;
-        INVLAID_SEQUENCE_NUMBER = 17;
+        INVALID_SEQUENCE_NUMBER = 17;
         INVALID_REBOOT_DELAY = 18;
         INVALID_DIAG_INTERVAL = 19;
         INVALID_APP_CONFIG = 20;
@@ -54,12 +85,12 @@ message OTAPResponse {
         INVALID_MAX_HOP_COUNT = 25;
     }
 
-    optional uint32 start_time_s_epoch = 1;
-    optional uint32 activation_time_s_epoch = 2;
-    optional uint32 cancel_time_s_epoch = 3;
+    optional OTAPState state = 1;
 
-    optional uint32 new_scratchpad_sequence = 10;
+    optional uint32 start_time_s_epoch = 2;
+    optional uint32 activation_time_s_epoch = 3;
 
-    optional OTAPResponseId load_scratchpad_response = 20;
-    optional OTAPResponseId activate_scratchpad_response = 21;
+    optional OTAPResponseId load_scratchpad_response = 10;
+    optional OTAPResponseId activate_scratchpad_response = 11;
+    optional uint32 load_scratchpad_response_time_s_epoch = 12;
 }

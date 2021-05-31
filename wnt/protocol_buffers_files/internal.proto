@@ -7,7 +7,6 @@
 */
 syntax="proto2";
 
-import "nanopb.proto";
 import "commons.proto";
 
 package com.wirepas.proto.wnt;
@@ -70,6 +69,9 @@ message BackendMessage { // Used for backend internal messaging
         RTSituationSendPositioningData = 9;
         RTSituationComponentInformation = 10;
         RTSituationQueryNodeMetadata = 11;
+        RTSituationQueryNetworkMetadata = 12;
+        RTSituationQueryBuildingAndFloorPlanMetadata = 13;
+        RTSituationQueryAreaMetadata = 14;
     }
 
     optional MessageType message = 1;
@@ -88,6 +90,7 @@ message OnlineStatus { // Node online status
     optional Status status = 1;
     optional uint32 update_time = 2; // Epoch
     optional uint32 last_time_series_write = 3; // Epoch
+    optional Status previous_status = 4;
 
     optional bool is_sink_online_in_gateway = 10;
 }
@@ -140,6 +143,7 @@ message Network {
     optional uint32 id = 1;
     optional string name = 2;
     optional uint32 update_time = 3;
+    optional bool is_delete_nodes = 4;
 }
 
 message User {
@@ -262,12 +266,12 @@ message MetadataUpdateMessage {
 }
 
 message SinkPseudoIdMap {
-    optional string pseudo_id = 1 [(nanopb).max_size = 1024];
+    optional string pseudo_id = 1;
 
     optional uint32 network_id = 10;
     optional uint32 address = 11; // Node id
-    optional string gateway_id = 12 [(nanopb).max_size = 128];
-    optional string gateway_sink_id = 13 [(nanopb).max_size = 128];
+    optional string gateway_id = 12;
+    optional string gateway_sink_id = 13;
 
     optional AppConfigData app_config = 20;
     optional uint32 stored_scratchpad_sequence = 21;

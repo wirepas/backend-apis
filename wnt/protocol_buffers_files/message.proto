@@ -24,13 +24,17 @@ message Neighbor {
     optional float radio_power_dB = 3;
     enum NeighborType {
         MEMBER = 1;
-        SYNC_CLUSTER = 2;
-        ASSOCIATED_CLUSTER = 3;
+        SYNC_CLUSTER = 2;           // Alternative route
+        ASSOCIATED_CLUSTER = 3;     // Next hop
+        UNSYNCED = 4;               // Heard from scan/SNDP
         NEIGHBOR_TYPE_UNKNOWN = 255;
     }
     optional NeighborType neighbor_type = 4;
     optional float rssi_dBm = 5;
     optional bool no_neighbors = 6; // This is special value to create 1-size list when no neighbors exist
+    optional uint32 cluster_channel = 7;
+    optional uint32 amount_of_cluster_beacon_reception_attempts = 8;
+    optional uint32 amount_of_failed_cluster_beacon_reception_attempts = 9;
 }
 
 message CostInfo {
@@ -60,11 +64,15 @@ enum StackProfile {
     PROFILE_UNKNOWN = 255;
 }
 
+message CalculatedValuesFromDiagnostics {
+    optional float low_energy_transmission_load_percentage = 1;
+}
+
 message DiagnosticsData {
     // This message is general purpose container.
     // This does NOT distinguish different types of diagnostics packets!
     // Info currently sent in neighbor diagnostics
-    repeated Neighbor neighbors = 1 [(nanopb).max_count = 30];
+    repeated Neighbor neighbors = 1 [(nanopb).max_count = 32];
 
     // Info currently sent in node diagnostics
     optional float access_cycle_ms = 2;
@@ -76,23 +84,17 @@ message DiagnosticsData {
     optional float max_buffer_usage = 8; // Percentage
     optional float average_buffer_usage = 9; // Percentage
     optional uint32 mem_alloc_fails = 10;
-    repeated float buf_delay_ms = 11 [packed=true, (nanopb).max_count = 16]; // By qos
+    // WM FW 3.x not supported anymore - repeated float buf_delay_ms = 11 [packed=true, (nanopb).max_count = 2]; // By qos
     optional uint32 scans = 12;
-    repeated float dl_average_ms = 13 [packed=true, (nanopb).max_count = 16]; // By qos
-    repeated float dl_minimum_ms = 14 [packed=true, (nanopb).max_count = 16]; // By qos
-    repeated float dl_maximum_ms = 15 [packed=true, (nanopb).max_count = 16]; // By qos
-    repeated uint32 dl_samples = 16 [packed=true, (nanopb).max_count = 16]; // By qos
-    // Not valid for WM version >= 5.0 as there is one combined value for dropped packets
-    repeated uint32 dropped = 17 [packed=true, (nanopb).max_count = 16]; // By qos
-    optional uint32 sink_address = 49;
-    repeated CostInfo cost = 18 [(nanopb).max_count = 16]; // By qos
-    // If WM version >= 4.0 values below are not valid
-    // float buf_delay_ms = 11
-    // float dl_average_ms = 13;
-    // float dl_minimum_ms = 14;
-    // float dl_maximum_ms = 15;
-    // uint32 dl_samples = 16;
+    // WM FW 3.x not supported anymore - repeated float dl_average_ms = 13 [packed=true, (nanopb).max_count = 2]; // By qos
+    // WM FW 3.x not supported anymore - repeated float dl_minimum_ms = 14 [packed=true, (nanopb).max_count = 2]; // By qos
+    // WM FW 3.x not supported anymore - repeated float dl_maximum_ms = 15 [packed=true, (nanopb).max_count = 2]; // By qos
+    // WM FW 3.x not supported anymore - repeated uint32 dl_samples = 16 [packed=true, (nanopb).max_count = 2]; // By qos
 
+    // Not valid for WM version >= 5.0 as there is one combined value for dropped packets
+    repeated uint32 dropped = 17 [packed=true, (nanopb).max_count = 2]; // By qos
+    optional uint32 sink_address = 49;
+    repeated CostInfo cost = 18 [(nanopb).max_count = 2]; // By qos
     enum Events {
         ROLE_NO_EVENTS = 0; // This is special value to create 1-size list when no events occurred
         ROLE_CHANGE_TO_SUBNODE = 8;
@@ -139,32 +141,21 @@ message DiagnosticsData {
     optional float duty_cycle = 20; // Percentage
     optional uint32 antenna = 21;
 
-    // Info currently in traffic diagnostics, not sent by subnodes
-    optional uint32 access_cycles = 22;
+    // WM FW 3.x not supported anymore - optional uint32 access_cycles = 22;
     optional float cluster_channel_MHz = 23;
     optional float channel_reliability = 24; // Percentage
-    optional uint32 rx_amount = 25;
-    optional uint32 tx_amount = 26;
+    // WM FW 3.x not supported anymore - optional uint32 rx_amount = 25;
+    // WM FW 3.x not supported anymore - optional uint32 tx_amount = 26;
     optional float aloha_rx_ratio = 27; // Percentage
-    optional float reserved_rx_success_ratio = 28; // Percentage
-    optional float data_rx_ratio = 47; // Percentage
-    optional float rx_duplicate_ratio = 29; // Percentage
-    optional float cca_success_ratio = 30; // Percentage
-    optional float broadcast_ratio = 31; // Percentage
-    optional float failed_unicast_ratio = 32; // Percentage
+    // WM FW 3.x not supported anymore - optional float reserved_rx_success_ratio = 28; // Percentage
+    // WM FW 3.x not supported anymore - optional float data_rx_ratio = 47; // Percentage
+    // WM FW 3.x not supported anymore - optional float rx_duplicate_ratio = 29; // Percentage
+    // WM FW 3.x not supported anymore - optional float cca_success_ratio = 30; // Percentage
+    // WM FW 3.x not supported anymore - optional float broadcast_ratio = 31; // Percentage
+    // WM FW 3.x not supported anymore - optional float failed_unicast_ratio = 32; // Percentage
     optional float max_reserved_slot_usage = 33; // Percentage
     optional float avg_reserved_slot_usage = 48; // Percentage
     optional float max_aloha_slot_usage = 34; // Percentage
-    // If WM version >= 4.0 values below are not valid
-    // uint32 access_cycles = 22;
-    // uint32 rx_amount = 25;
-    // uint32 tx_amount = 26;
-    // float aloha_rx_ratio = 27;
-    // float reserved_rx_success_ratio = 28;
-    // float data_rx_ratio = 47;
-    // float rx_duplicate_ratio = 29;
-    // float cca_success_ratio = 30;
-    // float failed_unicast_ratio = 32;
 
     // Info currently in boot diagnostics
     optional uint32 boot_count = 35;
@@ -182,6 +173,13 @@ message DiagnosticsData {
         EFR32XG12_1024KB_128KB = 5;
         NRF52840_1024KB_256KB = 6;
         EFR32XG12_512KB_64KB = 7;
+        EFR32XG13_512KB = 8;
+        NRF52833 = 9;
+        EFR32XG21 = 10;
+        EFR32XG22 = 11;
+        BGM210PA22JIA = 12;
+        BGM220PC22HNA = 13;
+        BGM220SC22HNA = 14;
         HWMAGIC_UNKNOWN = 255;
     }
 
@@ -245,21 +243,63 @@ message DiagnosticsData {
     enum TraceType
     {
         NODE_DIAGNOSTICS = 1;
-        BOOT_DIAGNOSTICS = 7;
+        NEIGHBOR_DIAGNOSTICS = 2;
+        SCAN_DIAGNOSTICS = 3;
+        BOOT_DIAGNOSTICS = 4;
+        BOOT_DIAGNOSTICS_WM_FW_5_0 = 7;
     }
 
     optional TraceType trace_type = 86;
+    optional uint32 packet_sequence_number = 87;
 
+    // New in 5.1
+    optional uint32 cluster_channel = 88;
+    optional uint32 sleep_time_s = 89;
+
+    enum BootReason
+    {
+        NORMAL_POWER_ON_RESET_STARTUP = 0;
+        REBOOT_REQUESTED_AS_PART_OF_NORMAL_OPERATION = 1;
+        SOFTWARE_ASSERT_FAILURE = 2;
+        MCU_FAULT = 3;
+        WATCHDOG_RESET = 4;
+        UNKNOWN_RESET_REASON = 5;
+    }
+
+    optional BootReason boot_reason = 90;
+    optional int32 rx_gain = 91;
+    repeated int32 tx_powers = 92 [packed=true, (nanopb).max_count = 16];
+    optional uint32 scratchpad_transfers = 93;
+
+    enum InstallationQualityError
+    {
+        NO_ROUTE_TO_SINK = 0;
+        NOT_ENOUGH_NEIGHBORS = 1;
+        BAD_RSSI = 2;
+    }
+
+    optional float installation_quality = 94;
+    // Max_count should be the same as InstallationQualityError enum item count
+    repeated InstallationQualityError installation_quality_errors = 95 [packed=true, (nanopb).max_count = 3];
+    optional uint32 dropped_unack_broadcast_packets = 96;
+    optional uint32 unacknowledged_broadcast_transmissions_channel_count = 97;
+    optional int32 wide_band_noise_rssi_correction_dBm = 98;
+    optional float network_channel_packet_error_rate_percent = 99;
+
+    // Old value before 5.1
     optional uint64 boot_diagnostics_tx_time_ms_epoch = 100;
+
+    // New in 5.1 continues
+    optional int32 cca_limit_dBm = 101;
 }
 
 message RxData {
     optional uint32 source_endpoint = 2;
     optional uint32 destination_endpoint = 4;
     optional uint32 qos = 5 [default = 0];
-    optional bytes payload = 7 [(nanopb).max_size = 1024];
+    optional bytes payload = 7;
 
-    // If WM version >= 4.0 QoS is divided to QoS and Hop count
+    // If WM FW version >= 4.0 QoS is divided to QoS and Hop count
     optional uint32 hop_count = 10;
 }
 
@@ -311,8 +351,8 @@ message GatewayHeartbeat {
 
 message GatewayInfo {
     optional uint32 current_time_s_epoch = 1;
-    optional string model = 2 [(nanopb).max_size = 256];
-    optional string version = 3 [(nanopb).max_size = 64];
+    optional string model = 2;
+    optional string version = 3;
     optional uint32 api_version = 4;
 }
 
@@ -338,13 +378,14 @@ message NodeMessage {
     optional uint32 source_end_point = 3;
     optional uint32 destination_end_point = 4;
     optional uint32 qos = 5;
-    optional bytes payload = 6 [(nanopb).max_size = 1024];
+    optional bytes payload = 6;
 }
 
 message GetScratchpadStatus {
     optional uint32 network_id = 1;
-    optional uint32 rerun_interval_s = 2;
+    optional uint32 resend_interval_s = 2;
     optional bool is_close = 3;
+    optional bool is_sink_only = 4;
 }
 
 enum ScratchpadType {
@@ -365,6 +406,15 @@ enum ScratchpadWriteStatus {
     SCRATCHPAD_WRITE_STATUS_INVALID_NULL_BYTES = 7;
     SCRATCHPAD_WRITE_STATUS_FLASH_ERROR = 8;
     SCRATCHPAD_WRITE_STATUS_UNKNOWN = 9;
+}
+
+enum ScratchpadAction {
+    SCRATCHPAD_ACTION_UNKNOWN = 0;
+    SCRATCHPAD_ACTION_NO_OTAP = 1;
+    SCRATCHPAD_ACTION_PROPAGATE_ONLY = 2;
+    SCRATCHPAD_ACTION_PROPAGATE_AND_PROCESS = 3;
+    SCRATCHPAD_ACTION_PROPAGATE_AND_PROCESS_WITH_DELAY = 4;
+    SCRATCHPAD_ACTION_LEGACY = 5;
 }
 
 message ScratchpadStatus {
@@ -394,6 +444,17 @@ message ScratchpadStatus {
     optional uint32 processed_application_version_minor = 45;
     optional uint32 processed_application_version_maintenance = 46;
     optional uint32 processed_application_version_devel = 47;
+
+    optional ScratchpadAction scratchpad_action = 60;
+    optional uint32 target_sequence = 61;
+    optional uint32 target_crc = 62;
+    optional uint32 target_delay_minutes = 63;
+    optional uint32 remaining_time_minutes = 64;
+}
+
+message SetScratchpadAction {
+    optional uint32 network_id = 1;
+    optional ScratchpadAction scratchpad_action = 2;
 }
 
 // This is the main message that base of every Protocol Buffer message
@@ -401,7 +462,7 @@ message Message {
     // Message overhead
     repeated uint32 id = 1 [packed=true]; // Message ID. Not kept as uint64!
     optional uint32 network_id = 2;
-    optional string gateway_id = 3 [(nanopb).max_size = 256];
+    optional string gateway_id = 3;
     optional uint64 tx_time = 4; // Generation time of the message: epoch ms
     optional uint64 rx_time = 5; // Reception time of the message; epoch ms
 
@@ -420,7 +481,7 @@ message Message {
     optional uint32 channel_map = 57;
     optional uint32 network_channel = 58;
     optional bool security_enabled = 59;
-    repeated ChannelIdToFreqMap channel_info = 60 [(nanopb).max_count = 256];
+    repeated ChannelIdToFreqMap channel_info = 60;
     optional AppConfigResponse app_config_response = 61;
     optional AccessCycleLimits access_cycle_limits = 62;
     optional GatewayInfo gateway_info = 63;
@@ -435,7 +496,7 @@ message Message {
     optional RTSituationMetadata rtsituation_metadata = 74;
     optional BackendHeartbeat backend_heartbeat = 75;
     optional MetadataUpdateMessage metadata_update_message = 76;
-    repeated SinkPseudoIdMap sink_pseudo_id_map = 77 [(nanopb).max_count = 4096];
+    repeated SinkPseudoIdMap sink_pseudo_id_map = 77;
     optional BackendComponentStatus backend_component_status = 78;
 
     // Remote API procedures
@@ -443,19 +504,23 @@ message Message {
     optional RemoteApiResponse remoteapi_response = 81;
 
     // Messages to network
-    repeated NodeMessage node_messages = 90 [(nanopb).max_count = 8];
-    repeated GetScratchpadStatus get_scratchpad_status = 91 [(nanopb).max_count = 8];
+    repeated NodeMessage node_messages = 90;
+    repeated GetScratchpadStatus get_scratchpad_status = 91;
 
     // OTAP
-    optional LoadScratchpad load_scratchpad = 100;
-    optional OTAPResponse otap_response = 101;
+    optional SetOTAPState set_otap_state = 100;
+    optional SetOTAPStateResponse set_otap_state_response = 101;
+    optional SetScratchpadAction set_scratchpad_action = 102;
 
     // Positioning
     optional com.wirepas.proto.wpe.MeshData positioning_mesh_data = 130;
     optional com.wirepas.proto.wpe.Status positioning_status_data = 131;
+
+    // Other
+    optional CalculatedValuesFromDiagnostics calculated_values_from_diagnostics = 160;
 }
 
-// This is container of multiple messages at the same time ( Not used at the moment )
+// This is container of multiple messages at the same time
 message MessageCollection {
-    repeated Message message = 1 [(nanopb).max_count = 256];
+    repeated Message message_collection = 1;
 }
