@@ -249,18 +249,21 @@ class ComponentsInformationExample(object):
                 self.send_request()
 
         else:
-            wnt_message = wnt_proto.Message()
-            wnt_message.ParseFromString(message)
+            wnt_message_collection = wnt_proto.MessageCollection()
+            wnt_message_collection.ParseFromString(message)
+            if wnt_message_collection.message_collection:
+                for wnt_message in wnt_message_collection.message_collection:
+                    if wnt_message.HasField("gateway_info"):
+                        self.logger.info(
+                            "gateway_info:\n{}".format(wnt_message.gateway_info)
+                        )
 
-            if wnt_message.HasField("gateway_info"):
-                self.logger.info("gateway_info:\n{}".format(wnt_message.gateway_info))
-
-            if wnt_message.HasField("backend_component_info"):
-                self.logger.info(
-                    "backend_component_info:\n{}".format(
-                        wnt_message.backend_component_info
-                    )
-                )
+                    if wnt_message.HasField("backend_component_info"):
+                        self.logger.info(
+                            "backend_component_info:\n{}".format(
+                                wnt_message.backend_component_info
+                            )
+                        )
 
     def realtime_situation_on_error(self, websocket, error: str) -> None:
         """Websocket callback when realtime situation socket error occurs
