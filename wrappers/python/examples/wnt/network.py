@@ -98,7 +98,9 @@ class NetworkExample(object):
 
         elif self.state == self.State.DELETE_NETWORK:
             self.metadata_thread.socket.send(
-                json.dumps(self.messages.message_delete_network(self.new_network_id))
+                json.dumps(
+                    self.messages.message_delete_network(self.new_network_id, False)
+                )
             )
 
     def parse_response(self, message: str) -> bool:
@@ -153,11 +155,15 @@ class NetworkExample(object):
         if websocket.keep_running:
             self.logger.error("Authentication socket error: {0}".format(error))
 
-    def authentication_on_close(self, _websocket) -> None:
+    def authentication_on_close(
+        self, _websocket, close_status_code: int, reason: str
+    ) -> None:
         """Websocket callback when the authentication connection closes
 
         Args:
             _websocket (Websocket): communication socket
+            close_status_code (int): status code for close operation
+            reason (str): close reason
         """
         self.logger.info("Authentication socket close")
 
@@ -188,11 +194,15 @@ class NetworkExample(object):
         if websocket.keep_running:
             self.logger.error("Metadata socket error: {0}".format(error))
 
-    def metadata_on_close(self, _websocket) -> None:
+    def metadata_on_close(
+        self, _websocket, close_status_code: int, reason: str
+    ) -> None:
         """Websocket callback when the metadata connection closes
 
         Args:
             _websocket (Websocket): communication socket
+            close_status_code (int): status code for close operation
+            reason (str): close reason
         """
         self.logger.warning("Metadata socket close")
 

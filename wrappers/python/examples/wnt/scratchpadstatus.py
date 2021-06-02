@@ -46,7 +46,7 @@ class ComponentsInformationExample(object):
         REALTIME_SITUATION_LOGIN = auto()
 
         WAIT_FOR_STARTUP_SITUATION = auto()
-        QUERY_SCRATCHPAD_STATUS = auto()
+        GET_SCRATCHPAD_STATUS = auto()
         WAIT_FOREVER = auto()
 
         END = auto()
@@ -106,10 +106,10 @@ class ComponentsInformationExample(object):
                 )
             )
 
-        elif self.state == self.State.QUERY_SCRATCHPAD_STATUS:
+        elif self.state == self.State.GET_SCRATCHPAD_STATUS:
             self.metadata_thread.socket.send(
                 json.dumps(
-                    self.messages.message_query_scratchpad_status(777555, 0, False)
+                    self.messages.message_get_scratchpad_status(777555, 0, False, False)
                 )
             )
 
@@ -125,8 +125,8 @@ class ComponentsInformationExample(object):
         if self.state == self.State.LOGIN:
             return self.messages.parse_login(json.loads(message))
 
-        elif self.state == self.state.QUERY_SCRATCHPAD_STATUS:
-            return self.messages.parse_query_scratchpad_status(json.loads(message))
+        elif self.state == self.state.GET_SCRATCHPAD_STATUS:
+            return self.messages.parse_get_scratchpad_status(json.loads(message))
 
     def authentication_on_open(self, _websocket) -> None:
         """Websocket callback when the authentication websocket has been opened
@@ -156,11 +156,15 @@ class ComponentsInformationExample(object):
         if websocket.keep_running:
             self.logger.error("Authentication socket error: {0}".format(error))
 
-    def authentication_on_close(self, _websocket) -> None:
+    def authentication_on_close(
+        self, _websocket, close_status_code: int, reason: str
+    ) -> None:
         """Websocket callback when the authentication connection closes
 
         Args:
             _websocket (Websocket): communication socket
+            close_status_code (int): status code for close operation
+            reason (str): close reason
         """
         self.logger.info("Authentication socket close")
 
@@ -191,11 +195,15 @@ class ComponentsInformationExample(object):
         if websocket.keep_running:
             self.logger.error("Metadata socket error: {0}".format(error))
 
-    def metadata_on_close(self, _websocket) -> None:
+    def metadata_on_close(
+        self, _websocket, close_status_code: int, reason: str
+    ) -> None:
         """Websocket callback when the metadata connection closes
 
         Args:
             _websocket (Websocket): communication socket
+            close_status_code (int): status code for close operation
+            reason (str): close reason
         """
         self.logger.warning("Metadata socket close")
 
@@ -242,17 +250,18 @@ class ComponentsInformationExample(object):
                 self.state = self.State(self.state.value + 1)
                 self.send_request()
 
-        wnt_message = wnt_proto.Message()
-        wnt_message.ParseFromString(message)
-
-        if wnt_message.HasField("scratchpad_status"):
-            self.logger.info(
-                "scratchpad_status:\nnetwork id: {}\nnode id: {}\n{}".format(
-                    wnt_message.network_id,
-                    wnt_message.source_address,
-                    wnt_message.scratchpad_status,
-                )
-            )
+        wnt_message_collection = wnt_proto.MessageCollection()
+        wnt_message_collection.ParseFromString(message)
+        if wnt_message_collection.message_collection:
+            for wnt_message in wnt_message_collection.message_collection:
+                if wnt_message.HasField("scratchpad_status"):
+                    self.logger.info(
+                        "scratchpad_status:\nnetwork id: {}\nnode id: {}\n{}".format(
+                            wnt_message.network_id,
+                            wnt_message.source_address,
+                            wnt_message.scratchpad_status,
+                        )
+                    )
 
     def realtime_situation_on_error(self, websocket, error: str) -> None:
         """Websocket callback when realtime situation socket error occurs
@@ -264,11 +273,15 @@ class ComponentsInformationExample(object):
         if websocket.keep_running:
             self.logger.error("Realtime situation socket error: {0}".format(error))
 
-    def realtime_situation_on_close(self, _websocket) -> None:
+    def realtime_situation_on_close(
+        self, _websocket, close_status_code: int, reason: str
+    ) -> None:
         """Websocket callback when the realtime situation connection closes
 
         Args:
             _websocket (Websocket): communication socket
+            close_status_code (int): status code for close operation
+            reason (str): close reason
         """
         self.logger.warning("Realtime situation socket close")
 

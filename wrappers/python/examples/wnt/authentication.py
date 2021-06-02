@@ -187,13 +187,17 @@ class AuthenticationExample(object):
         if websocket.keep_running:
             self.logger.error("Socket error: {0}".format(error))
 
-    def authentication_on_close(self, _websocket) -> None:
+    def authentication_on_close(
+        self, _websocket, close_status_code: int, reason: str
+    ) -> None:
         """Websocket callback when the authentication connection closes
 
         Args:
             _websocket (Websocket): communication socket
+            close_status_code (int): status code for close operation
+            reason (str): close reason
         """
-        self.logger.info("Socket close")
+        self.logger.info("Authentication socket close")
 
     def run(self) -> int:
         """Run method which starts and waits the communication thread(s)

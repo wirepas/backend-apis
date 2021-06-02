@@ -125,11 +125,15 @@ class RealtimeDataExample(object):
         if websocket.keep_running:
             self.logger.error("Authentication socket error: {0}".format(error))
 
-    def authentication_on_close(self, _websocket) -> None:
+    def authentication_on_close(
+        self, _websocket, close_status_code: int, reason: str
+    ) -> None:
         """Websocket callback when the authentication connection closes
 
         Args:
             _websocket (Websocket): communication socket
+            close_status_code (int): status code for close operation
+            reason (str): close reason
         """
         self.logger.info("Authentication socket close")
 
@@ -175,10 +179,13 @@ class RealtimeDataExample(object):
                 # Initial nodes' data loaded
                 self.state = self.State(self.state.value + 1)
 
-        wnt_message = wnt_proto.Message()
-        wnt_message.ParseFromString(message)
-
-        self.logger.info(str(wnt_message))
+        # Received message is either message collection or a single (heartbeat) message
+        # but here only the message collections are of interest
+        wnt_message_collection = wnt_proto.MessageCollection()
+        wnt_message_collection.ParseFromString(message)
+        if wnt_message_collection.message_collection:
+            for wnt_message in wnt_message_collection.message_collection:
+                self.logger.info(str(wnt_message))
 
     def realtime_situation_on_error(self, websocket, error: str) -> None:
         """Websocket callback when realtime situation socket error occurs
@@ -190,11 +197,15 @@ class RealtimeDataExample(object):
         if websocket.keep_running:
             self.logger.error("Realtime situation socket error: {0}".format(error))
 
-    def realtime_situation_on_close(self, _websocket) -> None:
+    def realtime_situation_on_close(
+        self, _websocket, close_status_code: int, reason: str
+    ) -> None:
         """Websocket callback when the realtime situation connection closes
 
         Args:
             _websocket (Websocket): communication socket
+            close_status_code (int): status code for close operation
+            reason (str): close reason
         """
         self.logger.warning("Realtime situation socket close")
 

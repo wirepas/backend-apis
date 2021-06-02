@@ -183,11 +183,15 @@ class ApplicationConfigurationExample(object):
         if websocket.keep_running:
             self.logger.error("Authentication socket error: {0}".format(error))
 
-    def authentication_on_close(self, _websocket) -> None:
+    def authentication_on_close(
+        self, _websocket, close_status_code: int, reason: str
+    ) -> None:
         """Websocket callback when the authentication connection closes
 
         Args:
             _websocket (Websocket): communication socket
+            close_status_code (int): status code for close operation
+            reason (str): close reason
         """
         self.logger.info("Authentication socket close")
 
@@ -218,11 +222,15 @@ class ApplicationConfigurationExample(object):
         if websocket.keep_running:
             self.logger.error("Metadata socket error: {0}".format(error))
 
-    def metadata_on_close(self, _websocket) -> None:
+    def metadata_on_close(
+        self, _websocket, close_status_code: int, reason: str
+    ) -> None:
         """Websocket callback when the metadata connection closes
 
         Args:
             _websocket (Websocket): communication socket
+            close_status_code (int): status code for close operation
+            reason (str): close reason
         """
         self.logger.warning("Metadata socket close")
 
@@ -273,22 +281,57 @@ class ApplicationConfigurationExample(object):
             self.state == self.state.WAIT_FOR_APPLICATION_CONFIGURATION
             or self.state == self.State.SET_APPLICATION_CONFIGURATION
         ):
-            wnt_message = wnt_proto.Message()
-            wnt_message.ParseFromString(message)
+            wnt_message_collection = wnt_proto.MessageCollection()
+            wnt_message_collection.ParseFromString(message)
+            if wnt_message_collection.message_collection:
+                for wnt_message in wnt_message_collection.message_collection:
+                    if wnt_message.HasField("app_config"):
+                        app_config_string = "<N/A>"
+                        app_config_sequence = "<N/A>"
+                        app_config_max_length = "<N/A>"
+                        app_config_interval = "<N/A>"
+                        app_config_is_override_on = "<N/A>"
+                        app_config_selection_type = "<N/A>"
+                        if wnt_message.app_config.HasField("app_config"):
+                            app_config_string = str(
+                                binascii.hexlify(wnt_message.app_config.app_config),
+                                "utf-8",
+                            )
+                        if wnt_message.app_config.HasField("sequence"):
+                            app_config_sequence = str(wnt_message.app_config.sequence)
+                        if wnt_message.app_config.HasField("interval"):
+                            app_config_interval = str(wnt_message.app_config.interval)
+                        if wnt_message.app_config.HasField("is_override_on"):
+                            app_config_is_override_on = str(
+                                wnt_message.app_config.is_override_on
+                            )
+                        if wnt_message.app_config.HasField("selection_type"):
+                            app_config_selection_type = str(
+                                wnt_message.app_config.selection_type
+                            )
+                        if wnt_message.app_config.HasField("max_length"):
+                            app_config_max_length = str(
+                                wnt_message.app_config.max_length
+                            )
 
-            if wnt_message.HasField("app_config"):
-                app_config_string = str(
-                    binascii.hexlify(wnt_message.app_config.app_config), "utf-8"
-                )
-                self.logger.info(
-                    "App config message received from {}:{} with diagnostics "
-                    "interval {} and application data {}".format(
-                        wnt_message.network_id,
-                        wnt_message.source_address,
-                        wnt_message.app_config.interval,
-                        app_config_string,
-                    )
-                )
+                        self.logger.info(
+                            "App config message received from {}:{} with:\n"
+                            "  sequence: {}\n"
+                            "  diagnostics interval: {}\n"
+                            "  is_override_on: {}\n"
+                            "  selection type: {}\n"
+                            "  max length: {}\n"
+                            "  application data: {}".format(
+                                wnt_message.network_id,
+                                wnt_message.source_address,
+                                app_config_sequence,
+                                app_config_interval,
+                                app_config_is_override_on,
+                                app_config_selection_type,
+                                app_config_max_length,
+                                app_config_string,
+                            )
+                        )
 
     def realtime_situation_on_error(self, websocket, error: str) -> None:
         """Websocket callback when realtime situation socket error occurs
@@ -300,11 +343,15 @@ class ApplicationConfigurationExample(object):
         if websocket.keep_running:
             self.logger.error("Realtime situation socket error: {0}".format(error))
 
-    def realtime_situation_on_close(self, _websocket) -> None:
+    def realtime_situation_on_close(
+        self, _websocket, close_status_code: int, reason: str
+    ) -> None:
         """Websocket callback when the realtime situation connection closes
 
         Args:
             _websocket (Websocket): communication socket
+            close_status_code (int): status code for close operation
+            reason (str): close reason
         """
         self.logger.warning("Realtime situation socket close")
 
