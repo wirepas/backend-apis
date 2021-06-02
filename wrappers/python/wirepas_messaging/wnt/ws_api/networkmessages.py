@@ -127,24 +127,26 @@ class NetworkMessages(AuthenticationMessages):
             self.validate(message)
             self.logger.info(self.json_dump_pretty(message))
         except ValueError:
-            self.logger.error("Cannot delete network")
+            self.logger.error("Cannot get networks")
             self.logger.error(self.json_dump_pretty(message))
             return False
 
         return True
 
-    def message_delete_network(self, network_id: str) -> dict:
+    def message_delete_network(self, network_id: str, is_delete_nodes: bool) -> dict:
         """Returns network delete message
 
         Args:
             network_id (str): network id
+            is_detete_nodes (bool): flag controlling whether to delete also nodes in the deleted network
         """
         message = dict(
             version=self.protocol_version,
             session_id=self.session_id,
             type=AuthenticationMessages.MessageTypes.DELETE_NETWORK.value,
             data=dict(
-                networks=[dict(id=network_id)], originator_token=self.originator_token
+                networks=[dict(id=network_id, is_delete_nodes=is_delete_nodes)],
+                originator_token=self.originator_token,
             ),
         )
 

@@ -23,27 +23,33 @@ class ScratchpadStatusMessages(AuthenticationMessages):
         """
         super(ScratchpadStatusMessages, self).__init__(logger, protocol_version)
 
-    def message_query_scratchpad_status(
-        self, network_id: int, rerun_interval_s: int, is_close: bool
+    def message_get_scratchpad_status(
+        self,
+        network_id: int,
+        resend_interval_s: int,
+        is_close: bool,
+        is_sink_only: bool,
     ) -> dict:
-        """Returns query scratchpad status message
+        """Returns get scratchpad status message
 
         Args:
             network_id (int): network id
-            rerun_interval_s (int): how often the query should be sent
-            is_close (bool): set to true to stop repeated querying
+            resend_interval_s (int): how often the get scratchpad should be run
+            is_close (bool): set to true to stop repeated gets
+            is_sink_only (bool): set to true to get scratchpad status only from sink nodes
         """
 
         message = dict(
             version=self.protocol_version,
             session_id=self.session_id,
-            type=AuthenticationMessages.MessageTypes.QUERY_SCRATCHPAD_STATUS.value,
+            type=AuthenticationMessages.MessageTypes.GET_SCRATCHPAD_STATUS.value,
             data=dict(
                 networks=[
                     dict(
                         id=network_id,
-                        rerun_interval_s=rerun_interval_s,
+                        resend_interval_s=resend_interval_s,
                         is_close=is_close,
+                        is_sink_only=is_sink_only,
                     )
                 ]
             ),
@@ -52,11 +58,11 @@ class ScratchpadStatusMessages(AuthenticationMessages):
         self.logger.info(self.json_dump_pretty(message))
         return message
 
-    def parse_query_scratchpad_status(self, message: dict) -> bool:
-        """Parses query scratchpad status response
+    def parse_get_scratchpad_status(self, message: dict) -> bool:
+        """Parses get scratchpad status response
 
         Args:
-            message (dict): the query scratchpad status response
+            message (dict): the get scratchpad status response
 
         Returns:
             bool: True if message validation succeeded, else False
