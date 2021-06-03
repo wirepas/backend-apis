@@ -126,7 +126,7 @@ class RealtimeDataExample(object):
             self.logger.error("Authentication socket error: {0}".format(error))
 
     def authentication_on_close(
-        self, _websocket, close_status_code: int, reason: str
+        self, _websocket, close_status_code: int = None, reason: str = None
     ) -> None:
         """Websocket callback when the authentication connection closes
 
@@ -179,8 +179,9 @@ class RealtimeDataExample(object):
                 # Initial nodes' data loaded
                 self.state = self.State(self.state.value + 1)
 
-        # Received message is either message collection or a single (heartbeat) message
-        # but here only the message collections are of interest
+        # Received message is either message collection or a single
+        # (heartbeat) message. In this case, only the message collections
+        # are of interest
         wnt_message_collection = wnt_proto.MessageCollection()
         wnt_message_collection.ParseFromString(message)
         if wnt_message_collection.message_collection:
@@ -198,7 +199,7 @@ class RealtimeDataExample(object):
             self.logger.error("Realtime situation socket error: {0}".format(error))
 
     def realtime_situation_on_close(
-        self, _websocket, close_status_code: int, reason: str
+        self, _websocket, close_status_code: int = None, reason: str = None
     ) -> None:
         """Websocket callback when the realtime situation connection closes
 
