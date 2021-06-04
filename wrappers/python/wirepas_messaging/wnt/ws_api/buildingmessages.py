@@ -121,7 +121,7 @@ class BuildingMessages(AuthenticationMessages):
             version=self.protocol_version,
             session_id=self.session_id,
             type=AuthenticationMessages.MessageTypes.GET_BUILDINGS.value,
-            data=dict(originator_token=self.originator_token),
+            data=dict(),
         )
 
         self.logger.info(self.json_dump_pretty(message))

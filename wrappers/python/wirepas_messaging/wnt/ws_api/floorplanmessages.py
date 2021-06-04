@@ -176,7 +176,7 @@ class FloorPlanMessages(AuthenticationMessages):
             session_id=self.session_id,
             type=AuthenticationMessages.MessageTypes.GET_BUILDINGS_FLOOR_PLANS.value,
             data=dict(
-                buildings=[dict(id=building_id)], originator_token=self.originator_token
+                buildings=[dict(id=building_id)],
             ),
         )
 
@@ -253,7 +253,7 @@ class FloorPlanMessages(AuthenticationMessages):
             version=self.protocol_version,
             session_id=self.session_id,
             type=AuthenticationMessages.MessageTypes.GET_FLOOR_PLAN_IMAGE_DATA.value,
-            data=dict(image_id=image_id, originator_token=self.originator_token),
+            data=dict(image_id=image_id),
         )
 
         self.logger.info(self.json_dump_pretty(message))
