@@ -347,11 +347,15 @@ class FloorPlanAreaExample(object):
         if websocket.keep_running:
             self.logger.error("Authentication socket error: {0}".format(error))
 
-    def authentication_on_close(self, _websocket) -> None:
+    def authentication_on_close(
+        self, _websocket, close_status_code: int = None, reason: str = None
+    ) -> None:
         """Websocket callback when the authentication connection closes
 
         Args:
             _websocket (Websocket): communication socket
+            close_status_code (int): status code for close operation
+            reason (str): close reason
         """
         self.logger.info("Authentication socket close")
 
@@ -382,11 +386,15 @@ class FloorPlanAreaExample(object):
         if websocket.keep_running:
             self.logger.error("Metadata socket error: {0}".format(error))
 
-    def metadata_on_close(self, _websocket) -> None:
+    def metadata_on_close(
+        self, _websocket, close_status_code: int = None, reason: str = None
+    ) -> None:
         """Websocket callback when the metadata connection closes
 
         Args:
             _websocket (Websocket): communication socket
+            close_status_code (int): status code for close operation
+            reason (str): close reason
         """
         self.logger.warning("Metadata socket close")
 

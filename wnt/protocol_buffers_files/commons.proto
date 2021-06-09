@@ -7,8 +7,6 @@
 */
 syntax="proto2";
 
-import "nanopb.proto";
-
 package com.wirepas.proto.wnt;
 
 enum BaseRole {
@@ -16,6 +14,16 @@ enum BaseRole {
     HEADNODE = 2;
     SINK = 4;
     ROLE_UNKNOWN = 255;
+}
+
+enum MessageSendingType {
+    MESSAGE_SENDING_TYPE_INSTANT = 1;
+    MESSAGE_SENDING_TYPE_DISTRIBUTED = 2;
+}
+
+enum SelectionType {
+    SELECTION_TYPE_NETWORK = 1;
+    SELECTION_TYPE_SINK = 2;
 }
 
 message FullRole {
@@ -26,15 +34,10 @@ message FullRole {
 }
 
 message AppConfigData {
-    enum Type {
-        NETWORK = 1;
-        SINK = 2;
-    }
-
     optional uint32 interval = 1;  // Diagnostics interval in seconds
     optional uint32 sequence = 2;
-    optional bytes app_config = 3 [(nanopb).max_size = 1024];
+    optional bytes app_config = 3;
     optional uint32 max_length = 4; // Maximum length of the app config
     optional bool is_override_on = 5; // WNT backend will override appconfig if it is changed outside of WNT
-    optional Type type = 6;
+    optional SelectionType selection_type = 6;
 }

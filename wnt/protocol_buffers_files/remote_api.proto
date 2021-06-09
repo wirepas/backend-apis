@@ -7,14 +7,13 @@
 */
 syntax="proto2";
 
-import "nanopb.proto";
 import "commons.proto";
 
 package com.wirepas.proto.wnt;
 
 message RemoteApiRequest {
     // To which devices this request stands for
-    repeated uint32 addresses = 1 [(nanopb).max_count = 1024];
+    repeated uint32 addresses = 1;
 
     // Sink address to use when sendind data via unicast
     optional uint32 sink_address = 2;
@@ -26,8 +25,8 @@ message RemoteApiRequest {
 
     optional uint32 network_address = 13;
     optional uint32 network_channel = 14;
-    optional bytes cipher_key = 15 [(nanopb).max_size = 32];
-    optional bytes authentication_key = 16 [(nanopb).max_size = 32];
+    optional bytes cipher_key = 15;
+    optional bytes authentication_key = 16;
     optional uint32 channel_map = 17;
     optional uint32 node_address = 18;
 }
@@ -39,12 +38,13 @@ enum RemoteApiRequestType {
 
 // This is a collection of remote messages currently undergoing
 message RemoteApiRequestCollection {
-    optional string id = 1 [(nanopb).max_size = 64]; // UUID
+    optional string id = 1; // UUID
     optional RemoteApiRequestType type = 2;
-    repeated RemoteApiRequest messages = 3 [(nanopb).max_count = 32];
-    optional uint32 rerun_interval_s = 4; // Interval to resend the requests
+    repeated RemoteApiRequest messages = 3;
+    optional uint32 resend_interval_s = 4; // Interval to resend the requests
     optional bool is_cancel = 5;
     optional bool is_close = 6;
+    optional MessageSendingType message_sending_type = 7;
 
     optional uint32 start_time_s_epoch = 10;
     optional uint32 activation_time_s_epoch = 11;

@@ -154,11 +154,15 @@ class ComponentsInformationExample(object):
         if websocket.keep_running:
             self.logger.error("Authentication socket error: {0}".format(error))
 
-    def authentication_on_close(self, _websocket) -> None:
+    def authentication_on_close(
+        self, _websocket, close_status_code: int = None, reason: str = None
+    ) -> None:
         """Websocket callback when the authentication connection closes
 
         Args:
             _websocket (Websocket): communication socket
+            close_status_code (int): status code for close operation
+            reason (str): close reason
         """
         self.logger.info("Authentication socket close")
 
@@ -189,11 +193,15 @@ class ComponentsInformationExample(object):
         if websocket.keep_running:
             self.logger.error("Metadata socket error: {0}".format(error))
 
-    def metadata_on_close(self, _websocket) -> None:
+    def metadata_on_close(
+        self, _websocket, close_status_code: int = None, reason: str = None
+    ) -> None:
         """Websocket callback when the metadata connection closes
 
         Args:
             _websocket (Websocket): communication socket
+            close_status_code (int): status code for close operation
+            reason (str): close reason
         """
         self.logger.warning("Metadata socket close")
 
@@ -241,18 +249,21 @@ class ComponentsInformationExample(object):
                 self.send_request()
 
         else:
-            wnt_message = wnt_proto.Message()
-            wnt_message.ParseFromString(message)
+            wnt_message_collection = wnt_proto.MessageCollection()
+            wnt_message_collection.ParseFromString(message)
+            if wnt_message_collection.message_collection:
+                for wnt_message in wnt_message_collection.message_collection:
+                    if wnt_message.HasField("gateway_info"):
+                        self.logger.info(
+                            "gateway_info:\n{}".format(wnt_message.gateway_info)
+                        )
 
-            if wnt_message.HasField("gateway_info"):
-                self.logger.info("gateway_info:\n{}".format(wnt_message.gateway_info))
-
-            if wnt_message.HasField("backend_component_info"):
-                self.logger.info(
-                    "backend_component_info:\n{}".format(
-                        wnt_message.backend_component_info
-                    )
-                )
+                    if wnt_message.HasField("backend_component_info"):
+                        self.logger.info(
+                            "backend_component_info:\n{}".format(
+                                wnt_message.backend_component_info
+                            )
+                        )
 
     def realtime_situation_on_error(self, websocket, error: str) -> None:
         """Websocket callback when realtime situation socket error occurs
@@ -264,11 +275,15 @@ class ComponentsInformationExample(object):
         if websocket.keep_running:
             self.logger.error("Realtime situation socket error: {0}".format(error))
 
-    def realtime_situation_on_close(self, _websocket) -> None:
+    def realtime_situation_on_close(
+        self, _websocket, close_status_code: int = None, reason: str = None
+    ) -> None:
         """Websocket callback when the realtime situation connection closes
 
         Args:
             _websocket (Websocket): communication socket
+            close_status_code (int): status code for close operation
+            reason (str): close reason
         """
         self.logger.warning("Realtime situation socket close")
 

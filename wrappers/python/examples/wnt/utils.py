@@ -29,7 +29,7 @@ class Settings(object):
 
 
 def print_to_tty(message: dict) -> None:
-    """ send message to stdout"""
+    """send message to stdout"""
     print(str(message))
 
 
@@ -126,7 +126,7 @@ def parse_args():
     )
 
     parser.add_argument(
-        "--protocol_version", type=int, default=4, help="WS API protocol version."
+        "--protocol_version", type=int, default=5, help="WS API protocol version."
     )
 
     parser.add_argument(

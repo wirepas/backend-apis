@@ -35,6 +35,7 @@ class NodeMessages(AuthenticationMessages):
         altitude: float,
         is_approved: bool,
         is_virtual: bool,
+        is_anchor: bool,
     ) -> dict:
         """Returns set node metadata message
 
@@ -48,6 +49,7 @@ class NodeMessages(AuthenticationMessages):
             altitude (float): node's altitude
             is_approved (bool): is node approved
             is_virtual (bool): is node used for planning
+            is_anchor (bool): is node an anchor in positioning use case
         """
         message = dict(
             version=self.protocol_version,
@@ -65,6 +67,7 @@ class NodeMessages(AuthenticationMessages):
                         altitude=altitude,
                         is_approved=is_approved,
                         is_virtual=is_virtual,
+                        is_anchor=is_anchor,
                     )
                 ],
                 originator_token=self.originator_token,
@@ -183,20 +186,19 @@ class NodeMessages(AuthenticationMessages):
 
         return True
 
-    def message_delete_node(self, node_id: int, network_id: int, is_sink: bool) -> dict:
+    def message_delete_node(self, node_id: int, network_id: int) -> dict:
         """Returns delete node message
 
         Args:
             node_id (int): node id
             network_id (int): node's network id
-            is_sink (bool): is node sink
         """
         message = dict(
             version=self.protocol_version,
             session_id=self.session_id,
             type=AuthenticationMessages.MessageTypes.DELETE_NODE.value,
             data=dict(
-                nodes=[dict(id=node_id, network_id=network_id, is_sink=is_sink)],
+                nodes=[dict(id=node_id, network_id=network_id)],
                 originator_token=self.originator_token,
             ),
         )

@@ -38,7 +38,6 @@ class AreaMessages(AuthenticationMessages):
             type=AuthenticationMessages.MessageTypes.GET_MAP_AREAS.value,
             data=dict(
                 buildings=[dict(floor_plans=[dict(id=floor_plan_id)])],
-                originator_token=self.originator_token,
             ),
         )
 

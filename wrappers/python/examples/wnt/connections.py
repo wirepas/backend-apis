@@ -85,7 +85,7 @@ class Connections(object):
         self._realtime_situation_socket = self._create_realtime_situation_socket()
 
     # socket establishment
-    def _create_auth_socket(self, with_trace=True) -> websocket.WebSocketApp:
+    def _create_auth_socket(self, with_trace=False) -> websocket.WebSocketApp:
         websocket.enableTrace(with_trace)
         ws = websocket.WebSocketApp(
             self.endpoints["auth"],
@@ -97,7 +97,7 @@ class Connections(object):
 
         return ws
 
-    def _create_meta_socket(self, with_trace=True) -> websocket.WebSocketApp:
+    def _create_meta_socket(self, with_trace=False) -> websocket.WebSocketApp:
         websocket.enableTrace(with_trace)
         ws = websocket.WebSocketApp(
             self.endpoints["meta"],
@@ -110,7 +110,7 @@ class Connections(object):
         return ws
 
     def _create_realtime_situation_socket(
-        self, with_trace=True
+        self, with_trace=False
     ) -> websocket.WebSocketApp:
         websocket.enableTrace(with_trace)
         ws = websocket.WebSocketApp(
