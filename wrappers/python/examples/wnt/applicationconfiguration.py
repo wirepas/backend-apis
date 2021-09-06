@@ -12,10 +12,10 @@ from connections import Connections
 
 import json
 import binascii
-import wirepas_messaging.wnt as wnt_proto
+import wirepas-networktool-messaging-python as wnt_proto
 
 from enum import Enum, auto
-from wirepas_messaging.wnt.ws_api import (
+from ws_api import (
     ApplicationConfigurationMessages,
     RealtimeSituationMessages,
 )

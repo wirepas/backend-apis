@@ -16,7 +16,7 @@ import json
 import time
 
 from enum import Enum, auto
-from wirepas_messaging.wnt.ws_api import (
+from ws_api import (
     BuildingMessages,
     FloorPlanMessages,
     NodeMessages,

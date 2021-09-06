@@ -15,7 +15,7 @@ import os
 import json
 
 from enum import Enum, auto
-from wirepas_messaging.wnt.ws_api import BuildingMessages, FloorPlanMessages
+from ws_api import BuildingMessages, FloorPlanMessages
 
 
 class Messages(BuildingMessages, FloorPlanMessages):
