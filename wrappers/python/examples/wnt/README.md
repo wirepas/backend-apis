@@ -9,7 +9,7 @@ as the examples about the message flow and content.
 ## Requirements
 
 Before running the examples please ensure that the
-[wirepas_messaging](https://github.com/wirepas/backend-apis/tree/master/wrappers/python)
+[wirepas_networktool_messaging_python](https://github.com/wirepas/wirepas-networktool-messaging-python)
 package is installed.
 
 ## WNT backend settings
