@@ -11,7 +11,7 @@ from utils import get_settings, setup_log
 from connections import Connections
 
 import json
-import wirepas-networktool-messaging-python as wnt_proto
+import wirepas_networktool_messaging as wnt_proto
 
 from enum import Enum, auto
 from ws_api import (
