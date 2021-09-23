@@ -127,6 +127,7 @@ message DiagnosticsData {
         FTDMA_ADJ_OTHER_REASON = 55;
         SINK_CHANGED = 56;
         FHMA_ADJUST = 57;
+        TDMA_ADJUST_CCSTAT = 58;
         ROUTING_LOOP = 64;
         DENSE_REMOVE_SUBNODE = 72;
         DOWNLINK_TX_FAIL_COULD_NOT_SEND = 73;
@@ -197,7 +198,8 @@ message DiagnosticsData {
     optional float cb_mac_load = 51;
 
     // If WM version >= 4.0 Access cycles from traffic diagnostics
-    // is replaced by cluster node amounts
+    // is replaced by cluster node amounts.
+    // Back in WM FW 5.2
     optional uint32 cluster_member_amount = 52;
     optional uint32 cluster_router_node_amount = 53;
 
@@ -291,6 +293,9 @@ message DiagnosticsData {
 
     // New in 5.1 continues
     optional int32 cca_limit_dBm = 101;
+
+    // New in WM 5.2
+    optional uint32 address_clashes = 102;
 }
 
 message RxData {
@@ -386,6 +391,8 @@ message GetScratchpadStatus {
     optional uint32 resend_interval_s = 2;
     optional bool is_close = 3;
     optional bool is_sink_only = 4;
+    optional MessageSendingType message_sending_type = 5;
+    optional uint32 message_distribution_interval_s = 6;
 }
 
 enum ScratchpadType {
