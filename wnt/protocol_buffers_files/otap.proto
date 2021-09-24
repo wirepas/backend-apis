@@ -53,6 +53,8 @@ message SetOTAPState {
     optional uint32 start_time_s_epoch = 10;
     optional uint32 loading_time_s_epoch = 11;
     optional uint32 activation_time_s_epoch = 12;
+
+    optional MessageSendingType message_sending_type = 20;
 }
 
 message SetOTAPStateResponse {
