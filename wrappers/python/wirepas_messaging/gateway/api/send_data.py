@@ -12,8 +12,6 @@ import wirepas_messaging
 from .request import Request
 from .response import Response
 
-from .wirepas_exceptions import GatewayAPIParsingException
-
 
 class SendDataRequest(Request):
     """
@@ -57,14 +55,7 @@ class SendDataRequest(Request):
         self.hop_limit = hop_limit
 
     @classmethod
-    def from_payload(cls, payload):
-        message = wirepas_messaging.gateway.GenericMessage()
-        try:
-            message.ParseFromString(payload)
-        except Exception:
-            # Any Exception is promoted to Generic API exception
-            raise GatewayAPIParsingException("Cannot parse SendDataRequest payload")
-
+    def from_generic_message(cls, message):
         req = message.wirepas.send_packet_req
         d = Request._parse_request_header(req.header)
 
@@ -101,7 +92,7 @@ class SendDataRequest(Request):
         )
 
     @property
-    def payload(self):
+    def generic_message(self):
         message = wirepas_messaging.gateway.GenericMessage()
 
         # Fill the request header
@@ -124,7 +115,7 @@ class SendDataRequest(Request):
         if self.hop_limit > 0:
             req.hop_limit = self.hop_limit
 
-        return message.SerializeToString()
+        return message
 
 
 class SendDataResponse(Response):
@@ -142,14 +133,7 @@ class SendDataResponse(Response):
         super(SendDataResponse, self).__init__(req_id, gw_id, res, sink_id, **kwargs)
 
     @classmethod
-    def from_payload(cls, payload):
-        message = wirepas_messaging.gateway.GenericMessage()
-        try:
-            message.ParseFromString(payload)
-        except Exception:
-            # Any Exception is promoted to Generic API exception
-            raise GatewayAPIParsingException("Cannot parse SendDataResponse payload")
-
+    def from_generic_message(cls, message):
         response = message.wirepas.send_packet_resp
 
         d = Response._parse_response_header(response.header)
@@ -157,10 +141,10 @@ class SendDataResponse(Response):
         return cls(d["req_id"], d["gw_id"], d["res"], d["sink_id"])
 
     @property
-    def payload(self):
+    def generic_message(self):
         message = wirepas_messaging.gateway.GenericMessage()
 
         response = message.wirepas.send_packet_resp
         response.header.CopyFrom(self._make_response_header())
 
-        return message.SerializeToString()
+        return message

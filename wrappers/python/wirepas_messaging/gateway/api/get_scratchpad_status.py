@@ -19,7 +19,6 @@ from .otap_helper import (
     ScratchpadType,
 )
 from .gateway_result_code import GatewayResultCode
-from .wirepas_exceptions import GatewayAPIParsingException
 
 
 class GetScratchpadStatusRequest(Request):
@@ -35,16 +34,7 @@ class GetScratchpadStatusRequest(Request):
         super(GetScratchpadStatusRequest, self).__init__(sink_id, req_id, **kwargs)
 
     @classmethod
-    def from_payload(cls, payload):
-        message = wirepas_messaging.gateway.GenericMessage()
-        try:
-            message.ParseFromString(payload)
-        except Exception:
-            # Any Exception is promoted to Generic API exception
-            raise GatewayAPIParsingException(
-                "Cannot parse GetScratchpadStatusRequest payload"
-            )
-
+    def from_generic_message(cls, message):
         req = message.wirepas.get_scratchpad_status_req
 
         d = Request._parse_request_header(req.header)
@@ -52,13 +42,13 @@ class GetScratchpadStatusRequest(Request):
         return cls(d["sink_id"], d["req_id"])
 
     @property
-    def payload(self):
+    def generic_message(self):
         message = wirepas_messaging.gateway.GenericMessage()
         # Fill the request header
         req = message.wirepas.get_scratchpad_status_req
         req.header.CopyFrom(self._make_request_header())
 
-        return message.SerializeToString()
+        return message
 
 
 class GetScratchpadStatusResponse(Response):
@@ -98,16 +88,7 @@ class GetScratchpadStatusResponse(Response):
         self.firmware_area_id = firmware_area_id
 
     @classmethod
-    def from_payload(cls, payload):
-        message = wirepas_messaging.gateway.GenericMessage()
-        try:
-            message.ParseFromString(payload)
-        except Exception:
-            # Any Exception is promoted to Generic API exception
-            raise GatewayAPIParsingException(
-                "Cannot parse GetScratchpadStatusResponse payload"
-            )
-
+    def from_generic_message(cls, message):
         response = message.wirepas.get_scratchpad_status_resp
 
         d = Response._parse_response_header(response.header)
@@ -148,7 +129,7 @@ class GetScratchpadStatusResponse(Response):
         )
 
     @property
-    def payload(self):
+    def generic_message(self):
         message = wirepas_messaging.gateway.GenericMessage()
 
         response = message.wirepas.get_scratchpad_status_resp
@@ -175,4 +156,4 @@ class GetScratchpadStatusResponse(Response):
         if self.firmware_area_id is not None:
             response.firmware_area_id = self.firmware_area_id
 
-        return message.SerializeToString()
+        return message

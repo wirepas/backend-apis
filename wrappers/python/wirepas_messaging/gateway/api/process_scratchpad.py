@@ -11,7 +11,6 @@ import wirepas_messaging
 
 from .request import Request
 from .response import Response
-from .wirepas_exceptions import GatewayAPIParsingException
 
 
 class ProcessScratchpadRequest(Request):
@@ -27,16 +26,7 @@ class ProcessScratchpadRequest(Request):
         super(ProcessScratchpadRequest, self).__init__(sink_id, req_id, **kwargs)
 
     @classmethod
-    def from_payload(cls, payload):
-        message = wirepas_messaging.gateway.GenericMessage()
-        try:
-            message.ParseFromString(payload)
-        except Exception:
-            # Any Exception is promoted to Generic API exception
-            raise GatewayAPIParsingException(
-                "Cannot parse ProcessScratchpadRequest payload"
-            )
-
+    def from_generic_message(cls, message):
         req = message.wirepas.process_scratchpad_req
 
         d = Request._parse_request_header(req.header)
@@ -44,13 +34,13 @@ class ProcessScratchpadRequest(Request):
         return cls(d["sink_id"], d["req_id"])
 
     @property
-    def payload(self):
+    def generic_message(self):
         message = wirepas_messaging.gateway.GenericMessage()
         # Fill the request header
         req = message.wirepas.process_scratchpad_req
         req.header.CopyFrom(self._make_request_header())
 
-        return message.SerializeToString()
+        return message
 
 
 class ProcessScratchpadResponse(Response):
@@ -70,16 +60,7 @@ class ProcessScratchpadResponse(Response):
         )
 
     @classmethod
-    def from_payload(cls, payload):
-        message = wirepas_messaging.gateway.GenericMessage()
-        try:
-            message.ParseFromString(payload)
-        except Exception:
-            # Any Exception is promoted to Generic API exception
-            raise GatewayAPIParsingException(
-                "Cannot parse ProcessScratchpadResponse payload"
-            )
-
+    def from_generic_message(cls, message):
         response = message.wirepas.process_scratchpad_resp
 
         d = Response._parse_response_header(response.header)
@@ -87,10 +68,10 @@ class ProcessScratchpadResponse(Response):
         return cls(d["req_id"], d["gw_id"], d["res"], d["sink_id"])
 
     @property
-    def payload(self):
+    def generic_message(self):
         message = wirepas_messaging.gateway.GenericMessage()
 
         response = message.wirepas.process_scratchpad_resp
         response.header.CopyFrom(self._make_response_header())
 
-        return message.SerializeToString()
+        return message

@@ -10,8 +10,10 @@
 import wirepas_messaging
 from .gateway_result_code import GatewayResultCode
 
+from .generic_message import GenericMessage
 
-class Response(object):
+
+class Response(GenericMessage):
     """
     Response
 
@@ -29,14 +31,6 @@ class Response(object):
         self.sink_id = sink_id
         self.req_id = req_id
         self.res = res
-
-    def __str__(self):
-        return str(self.__dict__)
-
-    @property
-    def payload(self):
-        """ Implement how to serialize child Event classes """
-        raise NotImplementedError()
 
     def _make_response_header(self):
         """ Creates the generic messaging header """

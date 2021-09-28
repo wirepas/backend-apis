@@ -10,7 +10,6 @@
 import wirepas_messaging
 
 from .event import Event
-from .wirepas_exceptions import GatewayAPIParsingException
 
 
 class ReceivedDataEvent(Event):
@@ -70,14 +69,7 @@ class ReceivedDataEvent(Event):
         self.hop_count = hop_count
 
     @classmethod
-    def from_payload(cls, payload):
-        message = wirepas_messaging.gateway.GenericMessage()
-        try:
-            message.ParseFromString(payload)
-        except Exception:
-            # Any Exception is promoted to Generic API exception
-            raise GatewayAPIParsingException("Cannot parse ReceivedDataEvent payload")
-
+    def from_generic_message(cls, message):
         event = message.wirepas.packet_received_event
         d = Event._parse_event_header(event.header)
 
@@ -118,7 +110,7 @@ class ReceivedDataEvent(Event):
         )
 
     @property
-    def payload(self):
+    def generic_message(self):
         message = wirepas_messaging.gateway.GenericMessage()
         # Fill the event header
         event = message.wirepas.packet_received_event
@@ -141,4 +133,4 @@ class ReceivedDataEvent(Event):
         if self.hop_count > 0:
             event.hop_count = self.hop_count
 
-        return message.SerializeToString()
+        return message
