@@ -9,3 +9,4 @@ wirepas_messaging/gateway/*pb2*.py
 
 Pipfile
 Pipfile.lock
+version.py
