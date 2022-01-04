@@ -1,2 +1,0 @@
-m2r==0.2.1
-sphinxcontrib.apidoc==0.3.0

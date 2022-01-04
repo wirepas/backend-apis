@@ -1,6 +1,0 @@
-{
-  "extends": [
-    "config:base"
-  ],
-  "ignorePaths": ["wrappers/python/docs/requirements.txt"]
-}
