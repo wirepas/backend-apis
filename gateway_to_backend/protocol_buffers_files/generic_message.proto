@@ -37,3 +37,11 @@ message GenericMessage {
     optional WirepasMessage wirepas = 1;
     optional CustomerMessage customer = 2;
 }
+
+// This Generic Message collection allows a gateway, or a backend
+// to group multiple message together to be transmitted as single mqtt
+// message.
+// Collection message are sent on dedicated endpoints
+message GenericMessageCollection {
+    repeated GenericMessage generic = 1;
+}

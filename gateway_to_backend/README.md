@@ -45,6 +45,7 @@ API Version {#api-version .ListParagraph}
     - [Config module](#config-module)
     - [Data module](#data-module)
     - [OTAP module](#otap-module)
+- [Collection messages](#collection-of-messages)
 - [API extension](#api-extension)
 - [Implementation and workflow example for backends](#implementation-and-workflow-example-for-backends)
     - [General remarks](#general-remarks)
@@ -388,6 +389,31 @@ _Consequently, it is highly recommended to keep this field._
     > **topics:** gw-response/otap_set_target_scratchpad/*\<gw-id\>/\<sink-id\>*
     >
     > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[SetScratchpadTargetAndActionResp][message_SetScratchpadTargetAndActionResp]
+
+## Collection of messages
+
+Collection of messages can be used to group multiple requests toward a gateway or multiple event and response from a gateway in a single packet.
+
+It reduces the load on the broker as the size of an MQTT packet influence less the load than the number of packets.
+
+But as multiple requests, responses or events will be published in a single MQTT packet on a single topic, the topic is more generic and contains less information. It allows less flexibility on backend side to filter for all data from a given endpoint. All traffic must be received and filtering must be done based on protobuf content.
+
+### To gateway
+
+> **topics:** gw-request/collection/*\<gw-id\>/
+>
+> **content:** [GenericMessageCollection](protocol_buffers_files/generic_message.proto#L45-L47)
+
+Collection can contain list of any requests as listed in previous chapter.
+
+
+### From gateway
+
+> **topics:** gw-response-event/collection/*\<gw-id\>/
+>
+> **content:** [GenericMessageCollection](protocol_buffers_files/generic_message.proto#L45-L47)
+
+Collection can contain list of any response or event as listed in previous chapter.
 
 ## API extension
 
