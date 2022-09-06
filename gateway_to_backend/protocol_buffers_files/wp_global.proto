@@ -12,6 +12,8 @@ message RequestHeader {
     required uint64 req_id = 1;
     // Sink id if relevant for request
     optional string sink_id = 2 /*[(nanopb).max_size = 128]*/;
+    // Timestamp for the request generation
+    optional uint64 time_ms_epoch = 3;
 }
 
 message ResponseHeader {
@@ -23,6 +25,8 @@ message ResponseHeader {
     optional string sink_id = 3 /*[(nanopb).max_size = 128]*/;
     // Global result of request
     required ErrorCode res = 4;
+    // Timestamp for the response generation
+    optional uint64 time_ms_epoch = 5;
 }
 
 message EventHeader {
@@ -32,6 +36,8 @@ message EventHeader {
     optional string sink_id = 2 /*[(nanopb).max_size = 128]*/;
     // Random event id to help duplicate event filtering
     required uint64 event_id = 3;
+    // Timestamp for the event generation
+    optional uint64 time_ms_epoch = 4;
 }
 
 enum OnOffState {
