@@ -113,6 +113,11 @@ message GatewayInfo {
  message StatusEvent {
     required EventHeader header = 1;
 
+    // Wirepas Gateway's protobuff message definition version
+    // This field is used to represent the version of the 
+    // protobuff messages as a whole implemented by the 
+    // gateway. Any breaking change in the message definition 
+    // must lead to an increment of the version's value reported
     required uint32 version = 2;
     required OnOffState state = 3;
 }
