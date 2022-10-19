@@ -25,6 +25,8 @@ message WirepasMessage {
     optional GetGwInfoResp get_gateway_info_resp = 16;
     optional SetScratchpadTargetAndActionReq set_scratchpad_target_and_action_req = 17;
     optional SetScratchpadTargetAndActionResp set_scratchpad_target_and_action_resp = 18;
+    optional GetGwStatusReq get_gateway_status_req = 19;
+    optional GetGwStatusResp get_gateway_status_resp = 20;
 }
 
 message CustomerMessage {

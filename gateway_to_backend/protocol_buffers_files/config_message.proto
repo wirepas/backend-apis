@@ -107,6 +107,16 @@ message GatewayInfo {
     optional uint32 implemented_api_version = 4;
 }
 
+message GatewayStatus {
+    // Wirepas Gateway's protobuff message definition version
+    // This field is used to represent the version of the 
+    // protobuff messages as a whole implemented by the 
+    // gateway. Any breaking change in the message definition 
+    // must lead to an increment of the version's value reported
+    required uint32 version = 2;
+    required OnOffState state = 3;
+}
+
 /*
  * Commands definition
  */
@@ -153,4 +163,14 @@ message GetGwInfoResp {
     required ResponseHeader header = 1;
 
     required GatewayInfo info = 2;
+}
+
+message GetGwStatusReq {
+    required RequestHeader header = 1;
+}
+
+message GetGwStatusResp {
+    required ResponseHeader header = 1;
+
+    required GatewayStatus status = 2;
 }
