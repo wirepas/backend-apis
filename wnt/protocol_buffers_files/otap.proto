@@ -58,7 +58,8 @@ message SetOTAPState {
 }
 
 message SetOTAPStateResponse {
-    enum OTAPResponseId { // Same as gateway ErrorCode
+    enum OTAPResponseId {  // Same as gateway ErrorCode
+        UNKNOWN_ERROR_CODE = -1;
         OK = 0;
         INTERNAL_ERROR = 1;
         INVALID_SINK_ID = 2;
@@ -85,6 +86,8 @@ message SetOTAPStateResponse {
         ACCESS_DENIED = 23;
         REQUEST_NEEDS_SINK_ID = 24;
         INVALID_MAX_HOP_COUNT = 25;
+        SINK_OUT_OF_MEMORY = 26;
+        SINK_TIMEOUT = 27;
     }
 
     optional OTAPState state = 1;
