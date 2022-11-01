@@ -57,7 +57,7 @@ enum StackProfile {
     PROFILE_EFR32_24 = 9;
     PROFILE_RESERVED_3 = 10;
     PROFILE_EFR32_915_AUSTRALIA = 11;
-    PROFILE_EFR32_24_19DBM = 12;
+    PROFILE_DECT_NR = 12;
     PROFILE_NRF52_24_4DBM = 13;
     PROFILE_NRF52_24_8DBM = 14;
     PROFILE_BLE_EFR32_DMP = 15;
@@ -78,7 +78,7 @@ message DiagnosticsData {
     optional float access_cycle_ms = 2;
     optional BaseRole role = 3;
     optional bool cb_mac = 4; // True = low latency, false = low energy
-    optional bool is_relay = 5;
+    // Not supported - optional bool is_relay = 5;
     optional bool is_autorole = 6;
     optional float voltage = 7; // Volts
     optional float max_buffer_usage = 8; // Percentage
@@ -181,6 +181,8 @@ message DiagnosticsData {
         BGM210PA22JIA = 12;
         BGM220PC22HNA = 13;
         BGM220SC22HNA = 14;
+        NRF9160 = 15;
+        EFR32XG23 = 16;
         HWMAGIC_UNKNOWN = 255;
     }
 
@@ -293,8 +295,21 @@ message DiagnosticsData {
     // New in 5.1 continues
     optional int32 cca_limit_dBm = 101;
 
-    // New in WM 5.2
+    // New in 5.2
     optional uint32 address_clashes = 102;
+    optional uint32 ll_device_count = 103;
+
+    // New in 5.3
+    optional bool is_ble_scan_active = 104;
+    optional uint32 cost_compensation_throughput = 105;
+    optional uint32 cost_compensation_bad_link = 106;
+    optional uint32 cost_compensation_bad_channel = 107;
+    optional uint32 cost_compensation_price_of_association = 108;
+    optional uint32 cost_compensation_high_buffer_usage = 109;
+    optional uint32 cost_compensation_high_energy_consumption = 110;
+    optional bool is_joining_beacon_active = 111;
+    optional uint32 amount_of_flooding_messages = 112;
+    optional uint32 amount_of_dropped_reassembled_packets = 113;
 }
 
 message RxData {
@@ -302,13 +317,20 @@ message RxData {
     optional uint32 destination_endpoint = 4;
     optional uint32 qos = 5 [default = 0];
     optional bytes payload = 7;
+    optional uint32 payload_size = 8;
+    optional uint32 sink_address = 9;
 
     // If WM FW version >= 4.0 QoS is divided to QoS and Hop count
     optional uint32 hop_count = 10;
+
+    optional uint64 gateway_rx_time_ms_epoch = 11;
+    optional uint64 backend_rx_time_ms_epoch = 12;
+    optional int32 gateway_backend_rx_time_delta_ms = 13;
 }
 
 message AppConfigResponse {
-    enum AppConfigResult {
+    enum AppConfigResult {  // Same as gateway ErrorCode
+        UNKNOWN_ERROR_CODE = -1;
         OK = 0;
         INTERNAL_ERROR = 1;
         INVALID_SINK_ID = 2;
@@ -330,11 +352,14 @@ message AppConfigResponse {
         INVALID_REBOOT_DELAY = 18;
         INVALID_DIAG_INTERVAL = 19;
         INVALID_APP_CONFIG = 20;
-        NO_SCRATCHPAD_PRESENT = 21;
-        ACCESS_DENIED = 22;
-        REQUEST_NEEDS_SINK_ID = 23;
-        FIRST_INVALID_ENUM_VALUE = 24;
-        ERROR_UNKNOWN = 255;
+        INVALID_PARAM = 21;
+        NO_SCRATCHPAD_PRESENT = 22;
+        ACCESS_DENIED = 23;
+        REQUEST_NEEDS_SINK_ID = 24;
+        INVALID_MAX_HOP_COUNT = 25;
+        SINK_OUT_OF_MEMORY = 26;
+        SINK_TIMEOUT = 27;
+        FIRST_INVALID_ENUM_VALUE = 28;
     }
 
     optional AppConfigResult result = 1;
@@ -484,7 +509,7 @@ message Message {
     repeated Measurement measurement = 54;
     optional GatewayHeartbeat gw_heartbeat = 55;
     optional RxData tx_data = 56;
-    optional uint32 channel_map = 57;
+    // optional uint32 channel_map = 57;  Not supported anymore as for WM FW 3.x
     optional uint32 network_channel = 58;
     optional bool security_enabled = 59;
     repeated ChannelIdToFreqMap channel_info = 60;

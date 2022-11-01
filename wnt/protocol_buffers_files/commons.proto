@@ -29,7 +29,7 @@ enum SelectionType {
 message FullRole {
     optional BaseRole base_role = 1;
     optional bool cb_mac = 2; // True = low latency, false = low energy
-    optional bool is_relay = 3;
+    // Not supported - optional bool is_relay = 3;
     optional bool is_autorole = 4;
 }
 

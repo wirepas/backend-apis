@@ -27,7 +27,7 @@ message RemoteApiRequest {
     optional uint32 network_channel = 14;
     optional bytes cipher_key = 15;
     optional bytes authentication_key = 16;
-    optional uint32 channel_map = 17;
+    // optional uint32 channel_map = 17;  Not supported anymore as for WM FW 3.x
     optional uint32 node_address = 18;
 }
 
