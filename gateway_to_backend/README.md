@@ -357,7 +357,7 @@ _Consequently, it is highly recommended to keep this field._
 
 - **Response:**
 
-    > **topics:** gw-response/otap_status/*\<gw-id\>/\<sink-id\>*
+    > **topics:** gw-response/otap_load_scratchpad/*\<gw-id\>/\<sink-id\>*
     >
     > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[UploadScratchpadResp][message_UploadScratchpadResp]
 
