@@ -12,7 +12,6 @@ import "nanopb.proto";
 
 option java_package = "com.wirepas.wpe";
 option optimize_for = SPEED;
-option cc_enable_arenas = true;
 
 package wirepas.wpe;
 
