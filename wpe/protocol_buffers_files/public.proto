@@ -8,7 +8,7 @@
 
 syntax = "proto2";
 
-import "wirepas_positioning/proto/nanopb/nanopb.proto";
+import "nanopb.proto";
 
 option java_package = "com.wirepas.wpe";
 option optimize_for = SPEED;
@@ -22,7 +22,7 @@ package wirepas.wpe;
 *   Flow manager's service definition.
 *
 *   This is _the_ public interface for WPE and the one to
-*   be versioned and mantained.
+*   be versioned and maintained.
 */
 service flow_manager
 {
@@ -65,7 +65,7 @@ service flow_manager
     Receives updates on nodes and areas, storing it in the local memory.
 
     Note that if a Node or Area is already cached, its configuration will be
-    updated.
+    updated not replaced, but initial data must contain coordinates.
 
     Args:
         Stream(ConfigurationData.network): network id.
@@ -181,7 +181,6 @@ service log_manager
         Status: provides status and runtime information about the process.
     */
     rpc record(stream Log) returns (Status);
-
 }
 
 
@@ -258,7 +257,7 @@ message MeshData
 */
 message MeasurementData
 {
-    enum DOMAIN{ // Measurement domains.
+    enum DOMAIN { // Measurement domains.
         POWER_SR = 0; // RSS domain - subnodes scanning (values in dbm).
         POWER_HR = 1; // RSS domain - Not supported (values in dbm).
         TIME = 2; // Time domain - Not supported.
@@ -288,13 +287,15 @@ message ConfigurationData
     repeated Node nodes = 2 ; // node with their set of measurements.
     repeated Area areas = 3 ; // collection of geographic areas.
 
+    optional string request_id = 100; // request id to map request(s) with response
+
     optional string sender = 200; // engine id who sent the answer.
 }
 
 
 
 /**
-*   Node represents an infrastruture device
+*   Node represents an infrastructure device
 *   the given address at a particular point in time.
 *   It will get translated into a Node instance.
 */
@@ -323,7 +324,6 @@ message Node
     optional string map_identifier = 100;  // map where it is located
     optional string sender = 200; // engine id who sent the answer.
     optional float measurement_offset = 500; // offset added to all measurement
-
 }
 
 
@@ -331,7 +331,7 @@ message Node
 /**
 *   Representation of a closed geographic Area.
 *
-*   A set of points that define the geogrphic polygon that defines a given area.
+*   A set of points that define the geographic polygon that defines a given area.
 *   This area contains more metadata regarding building, floor and type of
 *   security clearance required to remain in it.
 *
@@ -367,20 +367,21 @@ message Point
         WGS84 = 0; // WGS84 as default.
     }
 
-    optional GEOID geoid = 1 ; // to which geoid the lla corresponds to.
+    optional GEOID geoid = 1; // to which geoid the lla corresponds to.
     repeated float lla = 2; // latitude, longitude, altitude.
+    repeated double lla_precise = 3; // latitude, longitude, altitude.
 }
 
 
 /**
-* Represnts the status of a service.
+* Represents the status of a service.
 */
 message Status
 {
     enum CODE { // Error code values.
         UNKNOWN = 0; // default value - no return provided.
         SUCCESS = 1; // call succeeded.
-        ERROR = 2; // an error occured - see message for details.
+        ERROR = 2; // an error occurred - see message for details.
         INSDATA = 3; // insufficient data - see message for details.
         STARTED = 4; // service has started
         STOPPED = 5; // service has stopped
@@ -391,6 +392,8 @@ message Status
     optional string service_id = 3; // subscriber id.
     optional uint64 timestamp = 5; // when it was sent - unix epoch time.
     optional string message = 10; // readable text message.
+
+    repeated string request_id = 100; // request id to map request(s) with response
 
     optional string sender = 200; // engine id who sent the answer.
 }
