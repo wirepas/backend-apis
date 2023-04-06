@@ -26,6 +26,15 @@ enum SelectionType {
     SELECTION_TYPE_SINK = 2;
 }
 
+enum ScratchpadAction {
+    SCRATCHPAD_ACTION_UNKNOWN = 0;
+    SCRATCHPAD_ACTION_NO_OTAP = 1;
+    SCRATCHPAD_ACTION_PROPAGATE_ONLY = 2;
+    SCRATCHPAD_ACTION_PROPAGATE_AND_PROCESS = 3;
+    SCRATCHPAD_ACTION_PROPAGATE_AND_PROCESS_WITH_DELAY = 4;
+    SCRATCHPAD_ACTION_LEGACY = 5;
+}
+
 message FullRole {
     optional BaseRole base_role = 1;
     optional bool cb_mac = 2; // True = low latency, false = low energy

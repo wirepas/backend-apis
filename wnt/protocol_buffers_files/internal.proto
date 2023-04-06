@@ -276,4 +276,8 @@ message SinkPseudoIdMap {
     optional AppConfigData app_config = 20;
     optional uint32 stored_scratchpad_sequence = 21;
     optional uint64 stored_scratchpad_sequence_update_time_ms_epoch = 22;
+    optional ScratchpadAction scratchpad_action = 23;
+    optional uint32 target_sequence = 24;
+    optional uint32 target_crc = 25;
+    optional uint32 target_delay_minutes = 26;
 }

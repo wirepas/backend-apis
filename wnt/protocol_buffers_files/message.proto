@@ -183,6 +183,7 @@ message DiagnosticsData {
         BGM220SC22HNA = 14;
         NRF9160 = 15;
         EFR32XG23 = 16;
+        EFR32XG24 = 17;
         HWMAGIC_UNKNOWN = 255;
     }
 
@@ -310,6 +311,12 @@ message DiagnosticsData {
     optional bool is_joining_beacon_active = 111;
     optional uint32 amount_of_flooding_messages = 112;
     optional uint32 amount_of_dropped_reassembled_packets = 113;
+
+    // DECT
+    optional uint32 modem_version_devel = 114;
+    optional uint32 modem_version_maintenance = 115;
+    optional uint32 modem_version_minor = 116;
+    optional uint32 modem_version_major = 117;
 }
 
 message RxData {
@@ -437,15 +444,6 @@ enum ScratchpadWriteStatus {
     SCRATCHPAD_WRITE_STATUS_INVALID_NULL_BYTES = 7;
     SCRATCHPAD_WRITE_STATUS_FLASH_ERROR = 8;
     SCRATCHPAD_WRITE_STATUS_UNKNOWN = 9;
-}
-
-enum ScratchpadAction {
-    SCRATCHPAD_ACTION_UNKNOWN = 0;
-    SCRATCHPAD_ACTION_NO_OTAP = 1;
-    SCRATCHPAD_ACTION_PROPAGATE_ONLY = 2;
-    SCRATCHPAD_ACTION_PROPAGATE_AND_PROCESS = 3;
-    SCRATCHPAD_ACTION_PROPAGATE_AND_PROCESS_WITH_DELAY = 4;
-    SCRATCHPAD_ACTION_LEGACY = 5;
 }
 
 message ScratchpadStatus {
