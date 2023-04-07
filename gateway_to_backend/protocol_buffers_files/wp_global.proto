@@ -14,6 +14,8 @@ message RequestHeader {
     optional string sink_id = 2 /*[(nanopb).max_size = 128]*/;
     // Timestamp for the request generation
     optional uint64 time_ms_epoch = 3;
+    // Optional tag for the request to ease identifying requester
+    optional string requester_tag = 4;
 }
 
 message ResponseHeader {
@@ -38,6 +40,8 @@ message EventHeader {
     required uint64 event_id = 3;
     // Timestamp for the event generation
     optional uint64 time_ms_epoch = 4;
+    // Optional tag for the event to ease identifying the source
+    optional string event_tag = 5;
 }
 
 enum OnOffState {
