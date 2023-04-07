@@ -49,3 +49,22 @@ message PacketReceivedEvent {
     optional uint32 hop_count = 11;
     optional uint64 network_address = 12;
 }
+
+message PacketSentEvent {
+    required EventHeader header = 1;
+
+    // Similar fields as SendPacketReq
+    required uint32 destination_address = 2;
+    required uint32 source_endpoint = 3;
+    required uint32 destination_endpoint = 4;
+    required uint32 qos = 5;
+    required bytes payload = 6;
+    optional uint32 initial_delay_ms = 7;
+    optional bool is_unack_csma_ca = 8;
+    optional uint32 hop_limit = 9;
+
+    // Result of the operation.
+    // If res is different than OK, it means that it was
+    // an attempt to send data that has failed
+    required ErrorCode res = 10;
+}

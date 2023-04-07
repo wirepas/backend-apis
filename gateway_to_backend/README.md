@@ -301,6 +301,20 @@ present in a gateway._
 >
 > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[PacketReceivedEvent][message_PacketReceivedEvent]
 
+#### Packet sent event
+
+> **topic:** gw-event/sent_data/*\<gw-id\>/\<sink-id\>/\<net_id\>/\<src_ep\>/\<dst_ep\>*
+>
+> **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[PacketSentEvent][message_PacketSentEvent]
+
+:warning:
+
+This event is generated **only** if the sent packet was not requested on this MQTT broker.
+It can be the case if the gateway is connected to two different brokers or if another service
+also generate downlink traffic.
+Generating an event for packet sent from the same broker would generate additionnal traffic.
+
+
 ##### QoS
 
 As described in the beginning of this chapter, it is recommended to
@@ -546,6 +560,8 @@ definition)
     gw-event/status/<gw_id>
 
     gw-event/received_data/<gw-id>/<sink-id>/<net_id>/<src_ep>/<dst_ep>
+
+    gw-event/sent_data/<gw-id>/<sink-id>/<net_id>/<src_ep>/<dst_ep>
 ```
 
 <!-- Unused definitions -->
@@ -609,5 +625,8 @@ definition)
 [message_SetScratchpadTargetAndActionReq]: https://github.com/wirepas/backend-apis/blob/34ac8bc7b99cfa976ca9f0ec7015051e1c67209a/gateway_to_backend/protocol_buffers_files/otap_message.proto#L103-L107
 
 [message_SetScratchpadTargetAndActionResp]: https://github.com/wirepas/backend-apis/blob/34ac8bc7b99cfa976ca9f0ec7015051e1c67209a/gateway_to_backend/protocol_buffers_files/otap_message.proto#L109-L111
+
+# Todo: to be updated
+[message_PacketSentEvent]: https://github.com/wirepas/backend-apis/blob/xxxxxx/gateway_to_backend/protocol_buffers_files/data_message.proto#L53-L70
 
 [protobuf_homepage]: https://developers.google.com/protocol-buffers
