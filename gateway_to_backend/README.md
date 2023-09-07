@@ -584,7 +584,7 @@ definition)
 
 [message_SendPacketReq]: https://github.com/wirepas/backend-apis/blob/8580ee52eb71dbef3afce6b0207d3312153ced42/gateway_to_backend/protocol_buffers_files/data_message.proto#L11-L26
 
-[message_SendPacketResp]: https://github.com/wirepas/backend-apis/blob/8580ee52eb71dbef3afce6b0207d3312153ced42/gateway_to_backend/protocol_\buffers_files/data_message.proto#L28-L30
+[message_SendPacketResp]: https://github.com/wirepas/backend-apis/blob/8580ee52eb71dbef3afce6b0207d3312153ced42/gateway_to_backend/protocol_buffers_files/data_message.proto#L28-L30
 
 [message_PacketReceivedEvent]: https://github.com/wirepas/backend-apis/blob/8580ee52eb71dbef3afce6b0207d3312153ced42/gateway_to_backend/protocol_buffers_files/data_message.proto#L35-L50
 
