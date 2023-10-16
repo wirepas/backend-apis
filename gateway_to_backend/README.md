@@ -548,66 +548,47 @@ definition)
     gw-event/received_data/<gw-id>/<sink-id>/<net_id>/<src_ep>/<dst_ep>
 ```
 
-<!-- Unused definitions -->
-<!--
-[message_NodeRole]: https://github.com/wirepas/backend-apis/blob/8580ee52eb71dbef3afce6b0207d3312153ced42/gateway_to_backend/protocol_buffers_files/config_message.proto#L8-L20
 
-[message_AccessCycleRange]: https://github.com/wirepas/backend-apis/blob/8580ee52eb71dbef3afce6b0207d3312153ced42/gateway_to_backend/protocol_buffers_files/config_message.proto#L22-L25
+[message_StatusEvent]: gateway_to_backend/protocol_buffers_files/config_message.proto
 
+[message_GetConfigsReq]: gateway_to_backend/protocol_buffers_files/config_message.proto
 
-[message_ChannelRange]: https://github.com/wirepas/backend-apis/blob/8580ee52eb71dbef3afce6b0207d3312153ced42/gateway_to_backend/protocol_buffers_files/config_message.proto#L27-L30
+[message_GetConfigsResp]: gateway_to_backend/protocol_buffers_files/config_message.proto
 
-[message_AppConfigData]: https://github.com/wirepas/backend-apis/blob/8580ee52eb71dbef3afce6b0207d3312153ced42/gateway_to_backend/protocol_buffers_files/config_message.proto#L32-L36
+[message_SetConfigReq]: gateway_to_backend/protocol_buffers_files/config_message.proto
 
-[message_NetworkKeys]: https://github.com/wirepas/backend-apis/blob/8580ee52eb71dbef3afce6b0207d3312153ced42/gateway_to_backend/protocol_buffers_files/config_message.proto#L38-L41
+[message_SetConfigResp]: gateway_to_backend/protocol_buffers_files/config_message.proto
 
-[message_SinkReadConfig]: https://github.com/wirepas/backend-apis/blob/982974eb6069d89aef527862cb7b5f1b2e2c4385/gateway_to_backend/protocol_buffers_files/config_message.proto#L43-L68
-[message_SinkNewConfig]: https://github.com/wirepas/backend-apis/blob/e984911e4c070583dfbc55f71adf1e52fcf2391a/gateway_to_backend/protocol_buffers_files/config_message.proto#L70-L87
+[message_GetGwInfoReq]: gateway_to_backend/protocol_buffers_files/config_message.proto
 
-[message_GatewayInfo]: https://github.com/wirepas/backend-apis/blob/8580ee52eb71dbef3afce6b0207d3312153ced42/gateway_to_backend/protocol_buffers_files/config_message.proto#L89-L105
+[message_GetGwInfoResp]: gateway_to_backend/protocol_buffers_files/config_message.proto
 
--->
+[message_SendPacketReq]: gateway_to_backend/protocol_buffers_files/data_message.proto
 
-[message_StatusEvent]: https://github.com/wirepas/backend-apis/blob/982974eb6069d89aef527862cb7b5f1b2e2c4385/gateway_to_backend/protocol_buffers_files/config_message.proto#L110-L115
+[message_SendPacketResp]: gateway_to_backend/protocol_buffers_files/data_message.proto
 
-[message_GetConfigsReq]: https://github.com/wirepas/backend-apis/blob/982974eb6069d89aef527862cb7b5f1b2e2c4385/gateway_to_backend/protocol_buffers_files/config_message.proto#L117-L119
+[message_PacketReceivedEvent]: gateway_to_backend/protocol_buffers_files/data_message.proto
 
-[message_GetConfigsResp]: https://github.com/wirepas/backend-apis/blob/982974eb6069d89aef527862cb7b5f1b2e2c4385/gateway_to_backend/protocol_buffers_files/config_message.proto#L121-L125
+[message_GetScratchpadStatusReq]: gateway_to_backend/protocol_buffers_files/otap_message.proto
 
-[message_SetConfigReq]: https://github.com/wirepas/backend-apis/blob/8580ee52eb71dbef3afce6b0207d3312153ced42/gateway_to_backend/protocol_buffers_files/config_message.proto#L127-L131
+[message_GetScratchpadStatusRes]: gateway_to_backend/protocol_buffers_files/otap_message.proto
 
-[message_SetConfigResp]: https://github.com/wirepas/backend-apis/blob/8580ee52eb71dbef3afce6b0207d3312153ced42/gateway_to_backend/protocol_buffers_files/config_message.proto#L133-L138
+[message_UploadScratchpadReq]: gateway_to_backend/protocol_buffers_files/otap_message.proto
 
-[message_GetGwInfoReq]: https://github.com/wirepas/backend-apis/blob/8580ee52eb71dbef3afce6b0207d3312153ced42/gateway_to_backend/protocol_buffers_files/config_message.proto#L140-L142
+[message_UploadScratchpadResp]: gateway_to_backend/protocol_buffers_files/config_message.proto
 
-[message_GetGwInfoResp]: https://github.com/wirepas/backend-apis/blob/8580ee52eb71dbef3afce6b0207d3312153ced42/gateway_to_backend/protocol_buffers_files/config_message.proto#L144-L148
+[message_ProcessScratchpadReq]: gateway_to_backend/protocol_buffers_files/otap_message.proto
 
-[message_SendPacketReq]: https://github.com/wirepas/backend-apis/blob/8580ee52eb71dbef3afce6b0207d3312153ced42/gateway_to_backend/protocol_buffers_files/data_message.proto#L11-L26
+[message_ProcessScratchpadResp]: gateway_to_backend/protocol_buffers_files/otap_message.proto
 
-[message_SendPacketResp]: https://github.com/wirepas/backend-apis/blob/8580ee52eb71dbef3afce6b0207d3312153ced42/gateway_to_backend/protocol_buffers_files/data_message.proto#L28-L30
+[message_GenericMessage]: gateway_to_backend/protocol_buffers_files/generic_message.proto
 
-[message_PacketReceivedEvent]: https://github.com/wirepas/backend-apis/blob/8580ee52eb71dbef3afce6b0207d3312153ced42/gateway_to_backend/protocol_buffers_files/data_message.proto#L35-L50
+[message_CustomerMessage]: gateway_to_backend/protocol_buffers_files/generic_message.proto
 
-[message_GetScratchpadStatusReq]: https://github.com/wirepas/backend-apis/blob/8580ee52eb71dbef3afce6b0207d3312153ced42/gateway_to_backend/protocol_buffers_files/otap_message.proto#L30-L32
+[message_WirepasMessage]: gateway_to_backend/protocol_buffers_files/generic_message.proto
 
-[message_GetScratchpadStatusRes]: https://github.com/wirepas/backend-apis/blob/8580ee52eb71dbef3afce6b0207d3312153ced42/gateway_to_backend/protocol_buffers_files/otap_message.proto#L34-L42
+[message_SetScratchpadTargetAndActionReq]: gateway_to_backend/protocol_buffers_files/otap_message.proto
 
-[message_UploadScratchpadReq]: https://github.com/wirepas/backend-apis/blob/8580ee52eb71dbef3afce6b0207d3312153ced42/gateway_to_backend/protocol_buffers_files/otap_message.proto#L44-L50
-
-[message_UploadScratchpadResp]: https://github.com/wirepas/backend-apis/blob/982974eb6069d89aef527862cb7b5f1b2e2c4385/gateway_to_backend/protocol_buffers_files/config_message.proto#L43-L68
-
-[message_ProcessScratchpadReq]: https://github.com/wirepas/backend-apis/blob/8580ee52eb71dbef3afce6b0207d3312153ced42/gateway_to_backend/protocol_buffers_files/otap_message.proto#L56-L58
-
-[message_ProcessScratchpadResp]: https://github.com/wirepas/backend-apis/blob/8580ee52eb71dbef3afce6b0207d3312153ced42/gateway_to_backend/protocol_buffers_files/otap_message.proto#L60-L62
-
-[message_GenericMessage]: https://github.com/wirepas/backend-apis/blob/3a9fbfc18fb8bb6b36e0b2263c8987a17a0117e9/gateway_to_backend/protocol_buffers_files/generic_message.proto#L34-L37
-
-[message_CustomerMessage]: https://github.com/wirepas/backend-apis/blob/3a9fbfc18fb8bb6b36e0b2263c8987a17a0117e9/gateway_to_backend/protocol_buffers_files/generic_message.proto#L28-L32
-
-[message_WirepasMessage]: https://github.com/wirepas/backend-apis/blob/127f4a0025078aa7b118a6b10661461a50aaf33e/gateway_to_backend/protocol_buffers_files/generic_message.proto#L9-L26
-
-[message_SetScratchpadTargetAndActionReq]: https://github.com/wirepas/backend-apis/blob/34ac8bc7b99cfa976ca9f0ec7015051e1c67209a/gateway_to_backend/protocol_buffers_files/otap_message.proto#L103-L107
-
-[message_SetScratchpadTargetAndActionResp]: https://github.com/wirepas/backend-apis/blob/34ac8bc7b99cfa976ca9f0ec7015051e1c67209a/gateway_to_backend/protocol_buffers_files/otap_message.proto#L109-L111
+[message_SetScratchpadTargetAndActionResp]: gateway_to_backend/protocol_buffers_files/otap_message.proto
 
 [protobuf_homepage]: https://developers.google.com/protocol-buffers
