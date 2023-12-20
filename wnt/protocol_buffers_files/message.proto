@@ -97,9 +97,17 @@ message DiagnosticsData {
     repeated CostInfo cost = 18 [(nanopb).max_count = 2]; // By qos
     enum Events {
         ROLE_NO_EVENTS = 0; // This is special value to create 1-size list when no events occurred
+        SCAN_REASON_INITIAL_SCAN = 1;
+        SCAN_REASON_RESTRICTED_CHANNEL = 2;
+        SCAN_REASON_MAJOR_BOUNDARY = 3;
+        SCAN_REASON_NO_CHANNEL = 4;
+        SCAN_REASON_BLACKLIST = 5;
         ROLE_CHANGE_TO_SUBNODE = 8;
         ROLE_CHANGE_TO_HEADNODE = 9;
         ROUTE_CHANGE = 16;
+        SCAN_REASON_NEXT_HOP_LOST = 20;
+        SCAN_REASON_BOUNDARY_CHANGE = 21;
+        SCAN_REASON_HIGH_PER = 22;
         SCANNING_REQ_BY_APPLICATION = 23;
         SCANNING_NO_CHANNEL_SELECTED = 24;
         SCANNING_FTDMA_CONF_WITH_NEIGHBOR = 25;
@@ -135,6 +143,23 @@ message DiagnosticsData {
         UPLINK_TX_FAIL_COULD_NOT_SEND = 75;
         TOO_MANY_ROUTERS_DURING_SCAN = 76;
         TIMING_LATE_FOR_SCHEDULING_MAC_OPERATION = 77;
+        SCAN_REASON_ADVERTISER = 78;
+        SCAN_REASON_APC = 79;
+        RESET_NEW_BASE = 200;
+        RESET_MODEM = 206;
+        RESET_MODEM_INIT = 207;
+        RESET_SOFT_WDT = 208;
+        RESET_NMI = 209;
+        RESET_HARD_FAULT = 210;
+        RESET_BUS_FAULT = 211;
+        RESET_USAGE_FAULT = 212;
+        RESET_MEM_MANAGE_FAULT = 213;
+        RESET_PIN = 214;
+        RESET_CPU_LOCKUP = 215;
+        RESET_SYSTEM_OFF_WAKEUP = 216;
+        RESET_BROWNOUT = 217;
+        RESET_SECURITY = 218;
+        RESET_REQUEST = 219;
         EVENT_UNKNOWN = 255;
     }
 
