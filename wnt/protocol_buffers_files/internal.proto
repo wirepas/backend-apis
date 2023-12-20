@@ -45,6 +45,10 @@ message NodeMetadata {
 
     optional uint32 update_time = 60; // Epoch
 
+    optional double anchor_calculated_latitude = 70;
+    optional double anchor_calculated_longitude = 71;
+    optional double anchor_calculated_altitude = 72;
+
     optional string originator_token = 255;
 }
 
