@@ -257,13 +257,17 @@ message MeshData
 message MeasurementData
 {
     enum DOMAIN { // Measurement domains.
-        POWER_SR = 0; // RSS domain - subnodes scanning (values in dbm).
-        POWER_HR = 1; // RSS domain - Not supported (values in dbm).
-        TIME = 2; // Time domain - Not supported.
-        SPACE = 3; // Space domain - Not supported.
-        POWER_SR_RSSI = 10; // RSS domain - subnodes scanning (values in RSSi).
-        POWER_HR_RSSI = 11; // RSS domain - Not supported (values in RSSi).
-        IGNORE = 0xF0; // no operation - ignores the measurement data
+        option allow_alias = true;
+        POWER_SR = 0; // RSS domain (values in dbm) - tag scanning, 24bit address.
+        POWER_HR = 1; // RSS domain (values in dbm) - not supported.
+        TIME = 2; // Time domain - not supported.
+        SPACE = 3; // Space domain - not supported.
+        POWER_SR_32BIT_ADDRESS = 5; // RSS domain (values in dbm) - tag scanning, 32bit address.
+        POWER_SR_RSSI = 10; // RSS domain (values in RSSi) - not supported.
+        POWER_HR_RSSI = 11; // RSS domain (values in RSSi) - not supported.
+        IGNORE = 0xF0; // (OLD) no operation - ignores the measurement data
+        POWER_SR_ANCHOR = 0xF0; // RSS domain (values in dbm) - anchor opportunistic scanning, 24bit address.
+        POWER_SR_ANCHOR_32BIT_ADDRESS = 0xF5; // RSS domain (values in dbm) - anchor opportunistic scanning, 32bit address.
     }
 
     optional DOMAIN type = 1; // measurement domain - use 0.
@@ -369,6 +373,9 @@ message Point
     optional GEOID geoid = 1; // to which geoid the lla corresponds to.
     repeated float lla = 2; // latitude, longitude, altitude.
     repeated double lla_precise = 3; // latitude, longitude, altitude.
+
+    // own field for calculated locations for anchors using opportunistic scan
+    repeated double lla_precise_anchor = 4;
 }
 
 
