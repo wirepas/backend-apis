@@ -44,26 +44,6 @@ message CostInfo {
     optional float quality = 4; // Percentage
 }
 
-enum StackProfile {
-    // Stack profile definition
-    PROFILE_24 = 1;
-    PROFILE_868 = 2;
-    PROFILE_915 = 3;
-    PROFILE_870 = 4;
-    PROFILE_917 = 5;
-    PROFILE_RESERVED_1 = 6;
-    PROFILE_RESERVED_2 = 7;
-    PROFILE_865 = 8;
-    PROFILE_EFR32_24 = 9;
-    PROFILE_RESERVED_3 = 10;
-    PROFILE_EFR32_915_AUSTRALIA = 11;
-    PROFILE_DECT_NR = 12;
-    PROFILE_NRF52_24_4DBM = 13;
-    PROFILE_NRF52_24_8DBM = 14;
-    PROFILE_BLE_EFR32_DMP = 15;
-    PROFILE_UNKNOWN = 255;
-}
-
 message CalculatedValuesFromDiagnostics {
     optional float low_energy_transmission_load_percentage = 1;
 }
@@ -145,6 +125,7 @@ message DiagnosticsData {
         TIMING_LATE_FOR_SCHEDULING_MAC_OPERATION = 77;
         SCAN_REASON_ADVERTISER = 78;
         SCAN_REASON_APC = 79;
+        SHORT_ADDRESS_RESET = 80;
         RESET_NEW_BASE = 200;
         RESET_MODEM = 206;
         RESET_MODEM_INIT = 207;
@@ -209,6 +190,7 @@ message DiagnosticsData {
         NRF9160 = 15;
         EFR32XG23 = 16;
         EFR32XG24 = 17;
+        NRF9120 = 18;
         HWMAGIC_UNKNOWN = 255;
     }
 
@@ -358,6 +340,9 @@ message RxData {
     optional uint64 gateway_rx_time_ms_epoch = 11;
     optional uint64 backend_rx_time_ms_epoch = 12;
     optional int32 gateway_backend_rx_time_delta_ms = 13;
+
+    // Used to determine endpoints in diagnostics injector
+    optional bool is_dect_network = 14;
 }
 
 message AppConfigResponse {

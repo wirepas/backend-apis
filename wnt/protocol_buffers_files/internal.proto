@@ -273,9 +273,10 @@ message SinkPseudoIdMap {
     optional string pseudo_id = 1;
 
     optional uint32 network_id = 10;
-    optional uint32 address = 11; // Node id
+    optional uint32 address = 11;
     optional string gateway_id = 12;
     optional string gateway_sink_id = 13;
+    optional StackProfile stack_profile = 14;
 
     optional AppConfigData app_config = 20;
     optional uint32 stored_scratchpad_sequence = 21;
