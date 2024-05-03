@@ -35,6 +35,22 @@ enum ScratchpadAction {
     SCRATCHPAD_ACTION_LEGACY = 5;
 }
 
+enum StackProfile {
+    PROFILE_24 = 1;
+    PROFILE_868 = 2;
+    PROFILE_915 = 3;
+    PROFILE_870 = 4;
+    PROFILE_917 = 5;
+    PROFILE_RESERVED_1 = 6;
+    PROFILE_RESERVED_2 = 7;
+    PROFILE_865 = 8;
+    PROFILE_EFR32_24 = 9;
+    PROFILE_RESERVED_3 = 10;
+    PROFILE_EFR32_915_AUSTRALIA = 11;
+    PROFILE_DECT_NR = 12;
+    PROFILE_UNKNOWN = 255;
+}
+
 message FullRole {
     optional BaseRole base_role = 1;
     optional bool cb_mac = 2; // True = low latency, false = low energy
