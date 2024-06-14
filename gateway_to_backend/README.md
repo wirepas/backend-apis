@@ -277,6 +277,24 @@ _Even if this version is increased, the API remains backward compatible.
 It just help backends development to identify if new features are
 present in a gateway._
 
+#### Get gateway status
+
+- **Request:**
+
+    > **topic:** gw-request/get_gw_status
+    >
+    > **content:** NA
+
+- **Response:**
+
+    > **topics:** gw-response/get_gw_status/*\<gw-id\>/\<sink-id\>*
+    >
+    > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[GetGwInfoResp][message_GetGwInfoResp]
+
+This request should be handled by Gateways only if retain flag is not supported.
+When receiving a message on this topic, a gateway must resend its status as described
+in [Status message](#status_message)
+
 ### Data module
 
 ---
@@ -518,6 +536,7 @@ definition)
 
     gw-request/otap_set_target_scratchpad/<gw-id>/<sink-id>
 
+    gw-request/get_gw_status
 ```
 
 *Response* from a gateway to a backend:
@@ -538,6 +557,8 @@ definition)
     gw-response/otap_process_scratchpad/<gw-id>/<sink-id>
 
     gw-response/otap_set_target_scratchpad/<gw-id>/<sink-id>
+
+    gw-response/get_gw_status/<gw-id>/<sink-id>
 ```
 
 *Asynchronous* event from a gateway:
