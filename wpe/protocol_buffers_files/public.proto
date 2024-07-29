@@ -319,8 +319,10 @@ message Node
     optional BASEROLE role = 4; // represents the node's mesh role.
     optional Point coordinates = 5; // Last or currently known coordinates.
 
-    repeated uint64 area_identifier = 6;  // list of areas where it is located.
-    repeated string geo_identifier = 7;  // list of areas where it is located.
+    repeated uint64 area_identifier = 6; // list of areas where it is located.
+    repeated string geo_identifier = 7; // list of areas where it is located.
+
+    optional uint64 sink = 8; // sink's address which relayed the measurement
 
     optional uint64 timestamp = 10; // when it was sent from the node - unix epoch time.
 
