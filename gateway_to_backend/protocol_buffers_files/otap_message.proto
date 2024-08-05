@@ -3,7 +3,6 @@ syntax="proto2";
 package wirepas.proto.gateway_api;
 
 import "wp_global.proto";
-import "error.proto";
 
 /*
  * Request/Responses definition
