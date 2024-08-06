@@ -112,6 +112,12 @@ message GatewayInfo {
     // Version 2: Addition of setScratchpadTargetAndAction
     // It should be replaced by a feature list
     optional uint32 implemented_api_version = 4;
+
+    // Maximun scratchpad size supported by gateway
+    // If scratchpad is bigger than the size specified,
+    // it must be sent as chunk. If not set, it means that
+    // scratchpad can be sent in a single request
+    optional uint32 max_scratchpad_size = 5;
 }
 
 /*
@@ -137,6 +143,9 @@ message GatewayInfo {
 
     // Optional gateway version (gateway manufacturer specific)
     optional string gw_version = 6;
+
+    // See GatewayInfo for details of this field
+    optional uint32 max_scratchpad_size = 7;
 }
 
 message GetConfigsReq {
