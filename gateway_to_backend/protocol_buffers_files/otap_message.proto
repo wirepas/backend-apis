@@ -24,11 +24,23 @@ message GetScratchpadStatusResp {
 }
 
 message UploadScratchpadReq {
+    message ChunkInfo {
+        // Id of the scratchpad this chunk belongs to
+        required uint32 scratchpad_unique_id = 1;
+        // Full size of the scratchpad this chunk belongs to
+        required uint32 scratchpad_full_size = 2;
+        // Offset in bytes of the chunk in the full scratchpad
+        // NB: Chunk must be sent in order
+        required uint32 start_offset = 3;
+    }
     required RequestHeader header = 1;
 
     required uint32 seq = 2;
     // If scratchpad is not set, it clears the stored scratchpad
     optional bytes scratchpad = 3;
+
+    // If ChunkInfo is present, then above scratchpad is a chunk
+    optional ChunkInfo chunk_info = 4;
 }
 
 message UploadScratchpadResp {
