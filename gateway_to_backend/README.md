@@ -277,6 +277,56 @@ _Even if this version is increased, the API remains backward compatible.
 It just help backends development to identify if new features are
 present in a gateway._
 
+#### Set configuration data item
+
+Only processed if CONFIGURATION_DATA_V1 feature flag is set on the gateway.
+
+- **Request:**
+
+    > **topic:** gw-request/set_configuration_data_item/*\<gw-id\>/\<sink-id\>*
+    >
+    > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].SetConfigurationDataItemReq
+
+- **Response:**
+
+    > **topics:** gw-response/set_configuration_data_item/*\<gw-id\>/\<sink-id\>*
+    >
+    > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].SetConfigurationDataItemResp
+    >
+    > **possible errors:**
+    > - INVALID_ROLE: Node is not a sink.
+    > - SINK_OUT_OF_MEMORY: Payload is too large or maximum number of items is reached.
+    > - INVALID_DEST_ENDPOINT: Endpoint is too large (it should be a 16 bit unsigned integer).
+    > - INVALID_DATA_PAYLOAD: Payload is rejected for this endpoint by the sink.
+    > - INVALID_SINK_ID: Invalid sink id in the request header.
+
+:warning:
+
+_Successfully setting an item must be treated as a configuration change on the
+sink, meaning that the gateway must report the new complete configuration data
+content by generating a new [StatusEvent][message_StatusEvent] message._
+
+#### Get configuration data item
+
+Only processed if CONFIGURATION_DATA_V1 feature flag is set on the gateway.
+
+- **Request:**
+
+    > **topic:** gw-request/get_configuration_data_item/*\<gw-id\>/\<sink-id\>*
+    >
+    > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].GetConfigurationDataItemReq
+
+- **Response:**
+
+    > **topics:** gw-response/get_configuration_data_item/*\<gw-id\>/\<sink-id\>*
+    >
+    > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].GetConfigurationDataItemResp
+    >
+    > **possible errors:**
+    > - INVALID_DEST_ENDPOINT: Endpoint is too large (it should be a 16 bit unsigned integer).
+    > - INVALID_PARAM: No item found with the given endpoint.
+    > - INVALID_SINK_ID: Invalid sink id in the request header.
+
 ### Data module
 
 ---
@@ -518,6 +568,9 @@ definition)
 
     gw-request/otap_set_target_scratchpad/<gw-id>/<sink-id>
 
+    gw-request/set_configuration_data_item/<gw-id>/<sink-id>
+
+    gw-request/get_configuration_data_item/<gw-id>/<sink-id>
 ```
 
 *Response* from a gateway to a backend:
@@ -538,6 +591,10 @@ definition)
     gw-response/otap_process_scratchpad/<gw-id>/<sink-id>
 
     gw-response/otap_set_target_scratchpad/<gw-id>/<sink-id>
+
+    gw-response/set_configuration_data_item/<gw-id>/<sink-id>
+
+    gw-response/get_configuration_data_item/<gw-id>/<sink-id>
 ```
 
 *Asynchronous* event from a gateway:
@@ -590,5 +647,14 @@ definition)
 [message_SetScratchpadTargetAndActionReq]: https://github.com/wirepas/backend-apis/blob/77d83cc91ccfede5e457a488f0611f1fed342585/gateway_to_backend/protocol_buffers_files/otap_message.proto#L48-L52
 
 [message_SetScratchpadTargetAndActionResp]: https://github.com/wirepas/backend-apis/blob/77d83cc91ccfede5e457a488f0611f1fed342585/gateway_to_backend/protocol_buffers_files/otap_message.proto#L54-L56
+
+<!-- TODO update links and take them into use once they are available in the master branch -->
+<!-- [message_SetConfigurationDataItemReq]: -->
+<!---->
+<!-- [message_SetConfigurationDataItemResp]: -->
+<!---->
+<!-- [message_GetConfigurationDataItemReq]: -->
+<!---->
+<!-- [message_GetConfigurationDataItemResp]: -->
 
 [protobuf_homepage]: https://developers.google.com/protocol-buffers

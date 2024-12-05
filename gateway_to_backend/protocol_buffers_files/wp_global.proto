@@ -104,3 +104,13 @@ message TargetScratchpadAndAction {
        uint32 raw = 5; // Raw parameter for the action (between 0 and 255)
     }
 }
+
+enum GatewayFeature {
+    UNKNOWN = 0;
+    // Support for uploading a scratchpad in chunks
+    SCRATCHPAD_CHUNK_V1 = 1;
+    // Configuration Data Distribution API, allows modifying of the
+    // configuration data content.
+    CONFIGURATION_DATA_V1 = 2;
+}
+

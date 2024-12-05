@@ -39,6 +39,11 @@ message NetworkKeys {
     required bytes authentication = 2;
 }
 
+message ConfigurationDataItem {
+    required uint32 endpoint = 1;
+    required bytes payload = 2;
+}
+
 message SinkReadConfig {
     // Local id to uniquely identify a sink on gateway
     required string sink_id = 1;
@@ -72,6 +77,9 @@ message SinkReadConfig {
     optional ScratchpadInfo processed_scratchpad = 21;
     optional uint32 firmware_area_id = 22;
     optional TargetScratchpadAndAction target_and_action = 23; // Unset if sink doesn't support it
+
+    // Only present if CDD_API feature flag is set
+    repeated ConfigurationDataItem configuration_data_content = 24;
 }
 
 message SinkNewConfig {
@@ -118,6 +126,8 @@ message GatewayInfo {
     // it must be sent as chunk. If not set, it means that
     // scratchpad can be sent in a single request
     optional uint32 max_scratchpad_size = 5;
+
+    repeated GatewayFeature gw_features = 6;
 }
 
 /*
@@ -146,6 +156,8 @@ message GatewayInfo {
 
     // See GatewayInfo for details of this field
     optional uint32 max_scratchpad_size = 7;
+
+    repeated GatewayFeature gw_features = 8;
 }
 
 message GetConfigsReq {
@@ -179,4 +191,27 @@ message GetGwInfoResp {
     required ResponseHeader header = 1;
 
     required GatewayInfo info = 2;
+}
+
+message SetConfigurationDataItemReq {
+    required RequestHeader header = 1;
+
+    // 0-length payloads are used to clear an entry
+    required ConfigurationDataItem configuration_data_item = 2;
+}
+
+message SetConfigurationDataItemResp {
+    required ResponseHeader header = 1;
+}
+
+message GetConfigurationDataItemReq {
+    required RequestHeader header = 1;
+
+    required uint32 endpoint = 2;
+}
+
+message GetConfigurationDataItemResp {
+    required ResponseHeader header = 1;
+
+    optional ConfigurationDataItem configuration_data_item = 2;
 }
