@@ -112,5 +112,7 @@ enum GatewayFeature {
     // Configuration Data Distribution API, allows modifying of the
     // configuration data content.
     CONFIGURATION_DATA_V1 = 2;
+    // Support for setting key management parameters of the sink
+    SINK_KEY_MANAGEMENT_V1 = 3;
 }
 

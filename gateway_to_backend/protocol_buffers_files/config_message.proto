@@ -39,6 +39,12 @@ message NetworkKeys {
     required bytes authentication = 2;
 }
 
+message SecurityKeys {
+    required bytes cipher = 1;
+    required bytes authentication = 2;
+    required uint32 sequence = 3;
+}
+
 message ConfigurationDataItem {
     required uint32 endpoint = 1;
     required bytes payload = 2;
@@ -55,6 +61,7 @@ message SinkReadConfig {
     optional uint32 network_channel = 5;
     optional AppConfigData app_config = 6;
     optional uint32 channel_map = 7;
+    // Indicates if network keys are set
     optional bool are_keys_set = 8;
     optional AccessCycleRange current_ac_range = 9;
 
@@ -94,11 +101,17 @@ message SinkNewConfig {
     optional AppConfigData app_config = 6;
 
     optional uint32 channel_map = 7;
+    // Sets the network keys using the legacy API
     optional NetworkKeys keys = 8;
     optional AccessCycleRange current_ac_range = 9;
 
     // State of sink
     optional OnOffState sink_state = 10;
+
+    // Key management parameters for the sink.
+    // Only processed if SINK_KEY_MANAGEMENT_V1 feature flag is set.
+    optional SecurityKeys network_keys = 11;
+    optional SecurityKeys management_keys = 12;
 }
 
 message GatewayInfo {
