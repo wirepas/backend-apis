@@ -114,5 +114,8 @@ enum GatewayFeature {
     CONFIGURATION_DATA_V1 = 2;
     // Support for setting key management parameters of the sink
     SINK_KEY_MANAGEMENT_V1 = 3;
+    // Gateway has a virtualnode. This concept is present in some usecases
+    // where the gateway code run the same logic as a normal mesh node
+    VIRTUAL_NODE_V1 = 4;
 }
 
