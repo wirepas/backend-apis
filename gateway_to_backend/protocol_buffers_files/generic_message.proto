@@ -29,6 +29,7 @@ message WirepasMessage {
     optional SetConfigurationDataItemResp set_configuration_data_item_resp = 20;
     optional GetConfigurationDataItemReq get_configuration_data_item_req = 21;
     optional GetConfigurationDataItemResp get_configuration_data_item_resp = 22;
+    optional ScratchpadChunk scratchpad_chunk = 23;
 }
 
 message CustomerMessage {

@@ -1,40 +1,5 @@
 # API between a Gateway and Wirepas Backends
 
-<!--- Version: v1.1A
-API Version {#api-version .ListParagraph}
-===========
-
-+-----------------------+-----------------------+-----------------------+
-| **Version**           | **WP-RM-128 version** | **Description**       |
-+=======================+=======================+=======================+
-| **1**                 | This document (v1.1A) | Changes:              |
-|                       |                       |                       |
-|                       |                       | -   *is\_fast\_transm |
-|                       |                       | ission*               |
-|                       |                       |     field from        |
-|                       |                       |     [SendPacketReq](# |
-|                       |                       | protocol-buffers-form |
-|                       |                       | at-3)                 |
-|                       |                       |     structure is      |
-|                       |                       |     renamed           |
-|                       |                       |     *is\_unack\_csma\ |
-|                       |                       | _ca*                  |
-|                       |                       |     to reflect        |
-|                       |                       |     official feature  |
-|                       |                       |     name.             |
-|                       |                       |                       |
-|                       |                       | -   New [gateway info |
-|                       |                       |     services](#get-ga |
-|                       |                       | teway-info)           |
-|                       |                       |     added in API.     |
-+-----------------------+-----------------------+-----------------------+
-| **0**                 | v1.0A                 | Initial released      |
-|                       |                       | version               |
-+-----------------------+-----------------------+-----------------------+
---->
-
-<!-- MarkdownTOC levels="1,2,3" autolink="true"  -->
-
 - [Introduction](#introduction)
 - [Overview of gateway features](#overview-of-gateway-features)
 - [Unique identifier](#unique-identifier)
@@ -410,6 +375,49 @@ _Consequently, it is highly recommended to keep this field._
     > **topics:** gw-response/otap_load_scratchpad/*\<gw-id\>/\<sink-id\>*
     >
     > **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].[UploadScratchpadResp][message_UploadScratchpadResp]
+    >
+    > **possible errors:**
+    > - SCRATCHPAD_IMAGE_NOT_FOUND: no image found on the broker for the referenced `image_id`.
+    > - SCRATCHPAD_IMAGE_INCOMPLETE: image was found but some of its chunks never arrived from the broker.
+
+:warning:
+
+_This response must be sent only once the operation is fully completed
+(scratchpad stored locally, whether received inline, in chunks, or fetched by
+reference), never as an acknowledgment that the request was merely received._
+
+`scratchpad` and `chunk_info` can be replaced by an `image_id` referencing an
+image previously published on the
+[scratchpad image store](#scratchpad-image-store). This field must only be
+set for gateways advertising the `SCRATCHPAD_BY_REFERENCE_V1` feature: a
+gateway that doesn't support it ignores `image_id`, sees no `scratchpad` set,
+and **clears its stored scratchpad** instead of fetching the referenced
+image.
+
+#### Scratchpad image store
+
+To avoid uploading the same scratchpad content once per sink, a
+scratchpad can instead be published once on the broker as a set of retained
+messages, then referenced by its `image_id` in the
+[upload request](#upload-local-scratchpad) sent to each gateway. Every
+gateway fetches the chunks it needs from the broker at its own pace, once
+told to.
+
+> **topic:** scratchpad-image/*\<image-id\>*/*\<chunk-id\>*
+>
+> **content:** [GenericMessage][message_GenericMessage].[WirepasMessage][message_WirepasMessage].ScratchpadChunk
+>
+> retained
+
+Chunk id 0 must always be published for a given image and carries the
+optional `image_name`. Any client can discover the images currently
+available on the broker by subscribing to *scratchpad-image/+/0*.
+
+Multiple images can coexist on the broker at the same time, for instance to
+target different sets of gateways. Clearing an image (publishing an empty
+retained payload on each of its chunk topics) is the responsibility of
+whichever backend published it; this API doesn't define an ownership or
+expiry mechanism for it.
 
 #### Process local scratchpad
 
@@ -605,6 +613,13 @@ definition)
     gw-event/received_data/<gw-id>/<sink-id>/<net_id>/<src_ep>/<dst_ep>
 ```
 
+*Retained resource* published by a backend, not targeting any specific
+gateway:
+
+```mqtt
+    scratchpad-image/<image-id>/<chunk-id>
+```
+
 
 [message_StatusEvent]: https://github.com/wirepas/backend-apis/blob/85a6ffd5168f42ac18561e25cc2cf334cd8ded17/gateway_to_backend/protocol_buffers_files/config_message.proto#L136
 
@@ -637,6 +652,8 @@ definition)
 [message_ProcessScratchpadReq]: https://github.com/wirepas/backend-apis/blob/85a6ffd5168f42ac18561e25cc2cf334cd8ded17/gateway_to_backend/protocol_buffers_files/otap_message.proto#L48
 
 [message_ProcessScratchpadResp]: https://github.com/wirepas/backend-apis/blob/85a6ffd5168f42ac18561e25cc2cf334cd8ded17/gateway_to_backend/protocol_buffers_files/otap_message.proto#L52
+
+<!-- [message_ScratchpadChunk]: -->
 
 [message_GenericMessage]: https://github.com/wirepas/backend-apis/blob/85a6ffd5168f42ac18561e25cc2cf334cd8ded17/gateway_to_backend/protocol_buffers_files/generic_message.proto#L40
 
