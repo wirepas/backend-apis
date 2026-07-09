@@ -95,6 +95,14 @@ message ScratchpadInfo {
     required uint32 seq = 3;
 }
 
+message ChunkInfo {
+    // Full size of the scratchpad this chunk belongs to
+    required uint32 scratchpad_total_size = 1;
+    // Offset in bytes of the chunk in the full scratchpad
+    // NB: Chunk must be sent/stored in order
+    required uint32 start_offset = 2;
+}
+
 message TargetScratchpadAndAction {
     required ScratchpadAction action = 1; // What is the action to perform with the current scratchpad
     optional uint32 target_sequence = 2; // Between 1 and 254 (if missing using local scratchpad sequence if present)
@@ -117,5 +125,9 @@ enum GatewayFeature {
     // Gateway has a virtualnode. This concept is present in some usecases
     // where the gateway code run the same logic as a normal mesh node
     VIRTUAL_NODE_V1 = 4;
+    // Support for uploading a scratchpad by reference: gateway fetches the
+    // chunks itself from the retained scratchpad-image/<id>/<chunk-id> topics
+    // instead of receiving them inline in UploadScratchpadReq
+    SCRATCHPAD_BY_REFERENCE_V1 = 5;
 }
 

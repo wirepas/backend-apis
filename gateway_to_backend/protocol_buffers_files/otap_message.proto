@@ -24,13 +24,6 @@ message GetScratchpadStatusResp {
 }
 
 message UploadScratchpadReq {
-    message ChunkInfo {
-        // Full size of the scratchpad this chunk belongs to
-        required uint32 scratchpad_total_size = 1;
-        // Offset in bytes of the chunk in the full scratchpad
-        // NB: Chunk must be sent in order
-        required uint32 start_offset = 2;
-    }
     required RequestHeader header = 1;
 
     required uint32 seq = 2;
@@ -39,9 +32,24 @@ message UploadScratchpadReq {
 
     // If ChunkInfo is present, then above scratchpad is a chunk
     optional ChunkInfo chunk_info = 4;
+
+    // Id of the scratchpad-image/<image_id>/<chunk-id> retained topics to fetch
+    // the scratchpad from, instead of receiving it inline through the scratchpad
+    // and chunk_info fields above.
+    //
+    // MUST ONLY be set if the target gateway advertised the
+    // SCRATCHPAD_BY_REFERENCE_V1 feature: a gateway that doesn't support it will
+    // ignore this field, see it has no scratchpad set, and clear its stored
+    // scratchpad instead of fetching the referenced one.
+    // See SCRATCHPAD_IMAGE_NOT_FOUND and SCRATCHPAD_IMAGE_INCOMPLETE in
+    // ErrorCode for the errors specific to this field.
+    optional uint32 image_id = 5;
 }
 
 message UploadScratchpadResp {
+    // Final result of the operation: must be sent only once the scratchpad
+    // has been fully received and stored locally (inline, chunked, or
+    // fetched by reference), not as an acknowledgment of the request itself.
     required ResponseHeader header = 1;
 }
 
@@ -61,4 +69,20 @@ message SetScratchpadTargetAndActionReq {
 
 message SetScratchpadTargetAndActionResp {
     required ResponseHeader header = 1;
+}
+
+// Payload of the retained scratchpad-image/<image_id>/<chunk-id> topics used
+// to store a scratchpad image on the broker for gateways to fetch by reference
+// from UploadScratchpadReq. Not a request: has no header, as no response is
+// expected on those topics.
+message ScratchpadChunk {
+    required uint32 image_id = 1;
+
+    // Human readable name for the image, set on chunk-id 0 only
+    optional string image_name = 2;
+
+    optional bytes scratchpad = 3;
+
+    // If ChunkInfo is present, then above scratchpad is a chunk
+    optional ChunkInfo chunk_info = 4;
 }
