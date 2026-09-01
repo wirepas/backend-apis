@@ -117,5 +117,8 @@ enum GatewayFeature {
     // Gateway has a virtualnode. This concept is present in some usecases
     // where the gateway code run the same logic as a normal mesh node
     VIRTUAL_NODE_V1 = 4;
+    // The gateway-status version field contains the gateway's version and the
+    // underlying software version in the following way: gw_ver@underlying_fw_ver
+    FULL_VERSION_IN_STATUS_V1 = 5;
 }
 
