@@ -76,6 +76,8 @@ enum ScratchpadAction {
     PROPAGATE_AND_PROCESS_WITH_DELAY = 4;
     // Otap propagation works as before with sequence comparison and processing through remote API
     LEGACY_OTAP = 5;
+    // Diagnostics-only mode
+    INVENTORY_MODE = 6;
 }
 
 enum ProcessingDelay {
